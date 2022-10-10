@@ -1,0 +1,886 @@
+fileFormatVersion: 2
+guid: 00915fa669a85c24881e8b086915d9fd
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 168
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: akame-attack5_2
+      rect:
+        serializedVersion: 2
+        x: 1229
+        y: 2061
+        width: 331
+        height: 229
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96a9d4134ea8bbd4b8f92931c4bf3618
+      internalID: -1495894094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_1
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 2056
+        width: 178
+        height: 216
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf5b90531de97ad4d9cef60f9e85a955
+      internalID: -161235715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_3
+      rect:
+        serializedVersion: 2
+        x: 1652
+        y: 2060
+        width: 363
+        height: 202
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a9a3394dda7af547aac17e13179bb2d
+      internalID: 1250829776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_4
+      rect:
+        serializedVersion: 2
+        x: 2253
+        y: 2060
+        width: 296
+        height: 207
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66c3108fee0589c44904d8ea271d4e11
+      internalID: 1773350966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_5
+      rect:
+        serializedVersion: 2
+        x: 2857
+        y: 2060
+        width: 195
+        height: 206
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88404f70de9f18a468f941a60053016e
+      internalID: -1474774501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_0
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 2059
+        width: 191
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b8a4f8f448d23d4dad40d082cf17d6f
+      internalID: -1135661231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_7
+      rect:
+        serializedVersion: 2
+        x: 697
+        y: 1559
+        width: 320
+        height: 303
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7a81d571b547a244956a7b0e8eaab0e
+      internalID: 186415522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_6
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 1562
+        width: 177
+        height: 259
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a39a88c3990ffc745b2442af4bf228cb
+      internalID: -1808412890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_8
+      rect:
+        serializedVersion: 2
+        x: 1253
+        y: 1558
+        width: 207
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4c76e40ea73ed54093d2eaa0e18905b
+      internalID: -453957915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_9
+      rect:
+        serializedVersion: 2
+        x: 1807
+        y: 1557
+        width: 192
+        height: 216
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2f30ec9c7dfe034f80976fc857763db
+      internalID: -1810433939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_10
+      rect:
+        serializedVersion: 2
+        x: 2312
+        y: 1550
+        width: 216
+        height: 222
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1e7b8db8605f6c43afa0d97aa1176d3
+      internalID: -1947514085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_11
+      rect:
+        serializedVersion: 2
+        x: 2868
+        y: 1558
+        width: 184
+        height: 186
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e42464c188b35554a986755f9bb1fe0a
+      internalID: -805294731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_12
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 1053
+        width: 226
+        height: 216
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cdbc31fe60abe24a88d5b15590e3f6b
+      internalID: -521937148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_13
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 1052
+        width: 390
+        height: 275
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f9b42cdab09cae41b301fa374cf83e1
+      internalID: 1585699621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_14
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 1053
+        width: 307
+        height: 310
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9f0e2614ae53e74c98bd8f466d4552d
+      internalID: -1774742776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_15
+      rect:
+        serializedVersion: 2
+        x: 1743
+        y: 1052
+        width: 276
+        height: 269
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd2b504d87e0f2c489a5208bc72779f4
+      internalID: 596517968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_16
+      rect:
+        serializedVersion: 2
+        x: 2317
+        y: 1053
+        width: 179
+        height: 194
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e5bf8b995bef2d48adb781aeb19fbac
+      internalID: 1934257181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_17
+      rect:
+        serializedVersion: 2
+        x: 2863
+        y: 1053
+        width: 187
+        height: 197
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb8f4d400a4cdac4da25b55d3fd2c87c
+      internalID: 2120458593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_23
+      rect:
+        serializedVersion: 2
+        x: 2868
+        y: 550
+        width: 184
+        height: 215
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ff4288a09a3e9e4cb363aa16d94b76a
+      internalID: 1215279917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_18
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 551
+        width: 174
+        height: 202
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43256e446be29fb4db2d39a4ee257597
+      internalID: 159087877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_19
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 551
+        width: 174
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6929068db2b4fe243a6425b8e2849c00
+      internalID: -1474022716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_20
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 551
+        width: 171
+        height: 204
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 283a094f6fb22814aa1c5b53c7a54a94
+      internalID: -732603230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_21
+      rect:
+        serializedVersion: 2
+        x: 1743
+        y: 551
+        width: 180
+        height: 205
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 915aa917f7afe13488785c2adab183e4
+      internalID: 1125347871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_22
+      rect:
+        serializedVersion: 2
+        x: 2317
+        y: 551
+        width: 341
+        height: 175
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1efb37cc153ba924f9c474f4b47d0d55
+      internalID: -1871416516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_24
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 49
+        width: 341
+        height: 173
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab2c3af75d022e34d8485b78de9bff91
+      internalID: -802439405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_25
+      rect:
+        serializedVersion: 2
+        x: 664
+        y: 49
+        width: 339
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f63e204a6096e149b63839ce37ecf59
+      internalID: 1669454375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_26
+      rect:
+        serializedVersion: 2
+        x: 1215
+        y: 49
+        width: 344
+        height: 174
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f691b28c52f6e19499f737c345668875
+      internalID: 1348344639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_27
+      rect:
+        serializedVersion: 2
+        x: 1749
+        y: 51
+        width: 179
+        height: 208
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91f3f7cfb2877ea45962ff62c186da07
+      internalID: -791819461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_28
+      rect:
+        serializedVersion: 2
+        x: 2218
+        y: 39
+        width: 301
+        height: 216
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a291b3a909268ab4eb53ce366b4af491
+      internalID: -1197755246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      akame-attack5_46: -2035324695
+      akame-attack5_26: 1348344639
+      akame-attack5_45: -382119988
+      akame-attack5_121: -2105167593
+      akame-attack5_96: 1416080754
+      akame-attack5_132: 25200919
+      akame-attack5_27: -791819461
+      akame-attack5_18: 159087877
+      akame-attack5_25: 1669454375
+      akame-attack5_95: -1633882928
+      akame-attack5_4: -1808412890
+      akame-attack5_35: -759019159
+      akame-attack5_94: -1976318264
+      akame-attack5_112: -955409104
+      akame-attack5_8: -1810433939
+      akame-attack5_88: -530829553
+      akame-attack5_93: 2126961753
+      akame-attack5_24: -802439405
+      akame-attack5_9: -521937148
+      akame-attack5_52: 988507938
+      akame-attack5_47: 1497760919
+      akame-attack5_28: -1197755246
+      akame-attack5_115: 437147376
+      akame-attack5_3: 1773350966
+      akame-attack5_20: -732603230
+      akame-attack5_123: -903803079
+      akame-attack5_111: -1950642476
+      akame-attack5_129: -1895893248
+      akame-attack5_40: -1580391672
+      akame-attack5_100: 832128359
+      akame-attack5_133: 1315471128
+      akame-attack5_31: 1242283766
+      akame-attack5_0: -161235715
+      akame-attack5_29: 1802419641
+      akame-attack5_136: 1543686958
+      akame-attack5_125: -1124146787
+      akame-attack5_62: -861640367
+      akame-attack5_12: 1585699621
+      akame-attack5_59: 1306442722
+      akame-attack5_86: 2122655457
+      akame-attack5_69: -1826835180
+      akame-attack5_117: -1369432371
+      akame-attack5_21: 1125347871
+      akame-attack5_118: 2080413978
+      akame-attack5_84: 185339629
+      akame-attack5_82: 633238434
+      akame-attack5_68: 294480124
+      akame-attack5_58: 1047988802
+      akame-attack5_19: -1474022716
+      akame-attack5_90: -755828433
+      akame-attack5_79: -1093926999
+      akame-attack5_109: 1830899015
+      akame-attack5_74: 535069863
+      akame-attack5_137: 1138365789
+      akame-attack5_32: 316152933
+      akame-attack5_81: 1297564738
+      akame-attack5_10: -1947514085
+      akame-attack5_48: 465767095
+      akame-attack5_89: 1677534596
+      akame-attack5_83: 1517076305
+      akame-attack5_22: -1871416516
+      akame-attack5_55: 1311418237
+      akame-attack5_1: -1495894094
+      akame-attack5_87: 1175636373
+      akame-attack5_80: 1247375746
+      akame-attack5_108: 416643420
+      akame-attack5_13: 1585699621
+      akame-attack5_131: 1392051314
+      akame-attack5_135: 645176938
+      akame-attack5_78: 2030613817
+      akame-attack5_42: 987931046
+      akame-attack5_11: -805294731
+      akame-attack5_61: -1420605661
+      akame-attack5_116: 1305311162
+      akame-attack5_56: 1675876641
+      akame-attack5_41: -657814983
+      akame-attack5_50: -778529817
+      akame-attack5_16: 1934257181
+      akame-attack5_64: -1409626638
+      akame-attack5_138: 742377050
+      akame-attack5_107: 1163057155
+      akame-attack5_110: -2055950716
+      akame-attack5_134: -1094092880
+      akame-attack5_6: 186415522
+      akame-attack5_57: -1422781630
+      akame-attack5_17: 2120458593
+      akame-attack5_60: -881034213
+      akame-attack5_23: 1215279917
+      akame-attack5_114: 1530798678
+      akame-attack5_122: -1325484131
+      akame-attack5_15: 596517968
+      akame-attack5_63: -1904595460
+      akame-attack5_49: 1413660625
+      akame-attack5_53: -294833330
+      akame-attack5_92: 1186131286
+      akame-attack5_85: 1731266491
+      akame-attack5_30: 1162265193
+      akame-attack5_14: -1774742776
+      akame-attack5_2: 1250829776
+      akame-attack5_65: 2129467942
+      akame-attack5_7: -453957915
+      akame-attack5_119: 1267906757
+      akame-attack5_139: 1934257181
+      akame-attack5_105: -1090104101
+      akame-attack5_97: -1837338278
+      akame-attack5_70: -1029260744
+      akame-attack5_120: -21632890
+      akame-attack5_91: 325635815
+      akame-attack5_44: 1311780605
+      akame-attack5_104: -1699582
+      akame-attack5_66: 94957206
+      akame-attack5_67: 853909079
+      akame-attack5_51: 23817308
+      akame-attack5_33: -1474774501
+      akame-attack5_5: -1621431786
+      akame-attack5_130: 1000632485
+      akame-attack5_113: -601413173
+      akame-attack5_54: -1135661231
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

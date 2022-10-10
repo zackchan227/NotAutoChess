@@ -861,11 +861,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 2
-  cloudProjectId: 
+  cloudProjectId: 6b355bdf-8beb-4260-ad8f-e64ffe2321d3
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: NotAutoChess
+  organizationId: a-dev
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

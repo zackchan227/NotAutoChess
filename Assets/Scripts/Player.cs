@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Event;
+using Coffee.UIExtensions;
 
 public class Player : MonoBehaviour
 {
@@ -12,11 +13,12 @@ public class Player : MonoBehaviour
     [SerializeField] private Sprite[] _attacks2;
     [SerializeField] private Sprite[] _attacks3;
     [SerializeField] private Sprite[] _attacks4;
+    [SerializeField] private Sprite[] _attacks5;
     [SerializeField] float _animTime = 0.5f;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip[] _clips;
     [SerializeField] private byte _moveSpeed = 0;
-    private AudioClip _attackEffect, _hitEffect;
+    private AudioClip _attackSound, _hitSound;
     private SpriteRenderer _currentSprite;
     private Tile currentStanding;
     private bool isAuto = false;
@@ -29,7 +31,9 @@ public class Player : MonoBehaviour
     private List<Vector2> _moveableTile = new List<Vector2>();
     private byte _killStreak = 0;
     private List<Sprite> _currentAnim = new List<Sprite>();
-    private ParticleSystem _onClickParticleEffect, _bloodParticleEffect;
+    private ParticleSystem _onClickWrongParticleEffect, _onClickRightParticleEffect, _hitEffect;
+    private UIParticle _onClickEffect;
+    private Transform _canvas;
 
     void Awake()
     {
@@ -38,6 +42,9 @@ public class Player : MonoBehaviour
         _parentTransform = this.transform.parent;
         _moveSpeed = 5;
         _currentAnim.AddRange(_idles);
+        _canvas = GameObject.Find("Canvas").transform;
+        _onClickEffect = Instantiate(Resources.Load<UIParticle>("Prefabs/Particle/ClickEffect"), _canvas);
+        _hitEffect = Instantiate(Resources.Load<ParticleSystem>("Prefabs/Particle/BloodSplash"));
     }
 
     // Start is called before the first frame update
@@ -49,7 +56,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.Instance.isPausing) return;
+        if (GameManager.Instance.isPausing) return;
         _timer += Time.deltaTime;
         if (_timer > _animTime)
         {
@@ -57,7 +64,7 @@ public class Player : MonoBehaviour
             doAnimation();
             _timer = 0;
         }
-        if(Input.touchCount < 2) onClickMove();
+        if (Input.touchCount < 2) onClickMove();
     }
 
     private void randomMove()
@@ -177,30 +184,28 @@ public class Player : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                //Converting Mouse Pos to 2D (vector2) World Pos
 
+
+                //Converting Mouse Pos to 2D (vector2) World Pos
                 RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
                 if (hit)
                 {
-                    if(_onClickParticleEffect == null)
-                    {
-                        _onClickParticleEffect = Instantiate(Resources.Load<ParticleSystem>("Prefabs/Particle/ClickParticleEffect"), hit.transform.position, Quaternion.identity);
-                    }
-
-                    if(_onClickParticleEffect != null) 
-                    {
-                        _onClickParticleEffect.transform.position = hit.transform.position;
-                        _onClickParticleEffect.Play();
-                    }
-                    
-                    //_onClickParticleEffect.gameObject.SetActive(true);
+                    //_onClickEffect.gameObject.SetActive(true);
                     //StartCoroutine(disableClickEffect());
 
+                    _hitTile = null;
                     _hitTile = hit.transform.gameObject.GetComponent<Tile>();
-                    if (_hitTile.transform.position == _parentTransform.position) return;
+
                     if (_hitTile != null)
                     {
+                        if (_hitTile.transform.position == _parentTransform.position)
+                        {
+                            _onClickEffect.transform.position = Input.mousePosition;
+                            _onClickEffect.Play();
+                            return;
+                        }
+
                         if (checkMoveable(hit.transform.position))
                         {
                             currentStanding = GridManager.Instance.GetTileAtPosition(_parentTransform.position);
@@ -230,28 +235,55 @@ public class Player : MonoBehaviour
                                     GameManager.Instance.ChangeState(GameManager.GameState.AttackerTurn);
                                 }
                             }
+                            if (_onClickRightParticleEffect == null)
+                            {
+                                _onClickRightParticleEffect = Instantiate(Resources.Load<ParticleSystem>("Prefabs/Particle/ClickCorrectEffect"), hit.transform.position, Quaternion.identity);
+                            }
+                            else
+                            {
+                                _onClickRightParticleEffect.transform.position = hit.transform.position;
+                            }
+                            _onClickRightParticleEffect.Play();
                             this.PostEvent(EventID.OnPlayerMove);
                         }
+                        else
+                        {
+                            if (_onClickWrongParticleEffect == null)
+                            {
+                                _onClickWrongParticleEffect = Instantiate(Resources.Load<ParticleSystem>("Prefabs/Particle/ClickXEffect"), hit.transform.position, Quaternion.identity);
+                            }
+                            else
+                            {
+                                _onClickWrongParticleEffect.transform.position = hit.transform.position;  
+                            }
+                            _onClickWrongParticleEffect.Play();
+                        }
                     }
+                }
+                else
+                {
+                    _onClickEffect.transform.position = Input.mousePosition;
+                    _onClickEffect.Play();
                 }
             }
         }
     }
 
-    IEnumerator disableClickEffect()
-    {
-        while(!_onClickParticleEffect.isStopped) 
-        {
-            yield return null;
-        }
-        _onClickParticleEffect.gameObject.SetActive(false);    
-    }
+    // IEnumerator disableClickEffect()
+    // {
+    //     while(!_onClickEffect.isStopped) 
+    //     {
+    //         yield return null;
+    //     }
+    //     _onClickEffect.gameObject.SetActive(false);    
+    // }
 
     private void checkKillStreak()
     {
         _currentAnim.Clear();
-        _hitEffect = _clips[0];
-        _attackEffect = _clips[1];
+        _hitSound = _clips[0];
+        _attackSound = _clips[1];
+        _hitEffect = Resources.Load<ParticleSystem>("Prefabs/Particle/BloodSplash");;
         switch (_killStreak)
         {
             case 1:
@@ -261,15 +293,16 @@ public class Player : MonoBehaviour
                 _currentAnim.AddRange(_attacks2);
                 break;
             case 3:
-                _hitEffect = _clips[2];
-                _attackEffect = null;
+                _hitSound = _clips[2];
+                _attackSound = null;
+                _hitEffect = Resources.Load<ParticleSystem>("Prefabs/Particle/Hit1");
                 _currentAnim.AddRange(_attacks3);
                 break;
             case 4:
                 _currentAnim.AddRange(_attacks4);
                 break;
             case 5:
-                _currentAnim.AddRange(_attacks4);
+                _currentAnim.AddRange(_attacks5);
                 break;
             default:
                 _currentAnim.AddRange(_attacks3);
@@ -288,37 +321,36 @@ public class Player : MonoBehaviour
     {
         if (isAttacking)
         {
-            if(_attackEffect != null)
+            if (_attackSound != null)
             {
-                if (_currentFrame == 0) 
+                if (_currentFrame == 0)
                 {
-                    audioSource.PlayOneShot(_attackEffect);
+                    audioSource.PlayOneShot(_attackSound);
                 }
             }
 
-            if (_currentFrame == 2)
+            if (_killStreak != 3)
             {
-                if (_bloodParticleEffect == null)
+                if (_currentFrame == 2)
                 {
-                    _bloodParticleEffect = Instantiate(Resources.Load<ParticleSystem>("Prefabs/Particle/BloodSplash"), _hitTile.transform.position, Quaternion.identity);
-                }
-
-                if (_bloodParticleEffect != null)
-                {
-                    _bloodParticleEffect.transform.position = _hitTile.transform.position;
-                    _bloodParticleEffect.Play();
+                    if (_hitEffect != null)
+                    {
+                        _hitEffect.transform.position = _hitTile.transform.position;
+                        _hitEffect.Play();
+                    }
                 }
             }
 
-            if(_hitEffect != null)
+
+            if (_hitSound != null)
             {
-                if (_currentFrame == _currentAnim.Count - 3) 
+                if (_currentFrame == _currentAnim.Count - 3)
                 {
-                    audioSource.PlayOneShot(_hitEffect);
+                    audioSource.PlayOneShot(_hitSound);
                 }
             }
 
-            
+
             if (_currentFrame >= _currentAnim.Count - 1)
             {
                 isAttacking = false;

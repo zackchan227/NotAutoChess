@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(GameManager.Instance.isLost) Destroy(this);
+        if(GameManager.Instance.isPausing) return;
         if(_player.position.x > _trans.position.x)
         {
             _sprite.flipX = true;

@@ -35,11 +35,11 @@ SpriteAtlas:
       m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
       serializedVersion: 2
-      padding: 4
+      padding: 8
       blockOffset: 1
       allowAlphaSplitting: 0
-      enableRotation: 1
-      enableTightPacking: 1
+      enableRotation: 0
+      enableTightPacking: 0
       enableAlphaDilation: 0
     secondaryTextureSettings: {}
     variantMultiplier: 1
@@ -47,7 +47,6 @@ SpriteAtlas:
     - {fileID: 102900000, guid: afb3dc6dfd6f0044885ca42a0ad27101, type: 3}
     - {fileID: 102900000, guid: 94386d1fb45a37d49bf8511310dfb12d, type: 3}
     - {fileID: 102900000, guid: 9888c53c61fc0a043b648f39a085ab71, type: 3}
-    - {fileID: 2800000, guid: c9aec9b12df23a842b5f59f119a9294c, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -64,7 +63,6 @@ SpriteAtlas:
   - {fileID: 1874541492, guid: 012ee450ae5809b42bae6ec89bb0803e, type: 3}
   - {fileID: -1106899313, guid: 012ee450ae5809b42bae6ec89bb0803e, type: 3}
   - {fileID: 21300000, guid: 8d538fc043af8694897059f680b391c0, type: 3}
-  - {fileID: 21300000, guid: c9aec9b12df23a842b5f59f119a9294c, type: 3}
   - {fileID: 96464312, guid: 77380713464c81442a29034254f0d41e, type: 3}
   - {fileID: 303206681, guid: 77380713464c81442a29034254f0d41e, type: 3}
   - {fileID: -1770352626, guid: 77380713464c81442a29034254f0d41e, type: 3}
@@ -95,6 +93,51 @@ SpriteAtlas:
   - {fileID: 1982626595, guid: f2e82bf46c130d24ab3faae0c66f6d46, type: 3}
   - {fileID: -1037836522, guid: f2e82bf46c130d24ab3faae0c66f6d46, type: 3}
   - {fileID: -665133993, guid: f2e82bf46c130d24ab3faae0c66f6d46, type: 3}
+  - {fileID: 710169736, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: 422173708, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: -161634990, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: -1013116736, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: -458588667, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: 1205583583, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: 250784896, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: -748464632, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: -974856970, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: 1638385507, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: 767321121, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: -500470476, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: 1892967698, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: -1829090086, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: 1017804273, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: -542811844, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: -1774742776, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: 596517968, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: 1934257181, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: 2120458593, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: -1947514085, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: -805294731, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: -521937148, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: 1585699621, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: 159087877, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: -1474022716, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: -1810433939, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: -453957915, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: -1474774501, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: 1773350966, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: 186415522, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: -1808412890, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: -161235715, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: -1135661231, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: 1250829776, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: -1495894094, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: -1197755246, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: 1669454375, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: -802439405, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: -791819461, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: 1348344639, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: 1125347871, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: -732603230, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: 1215279917, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
+  - {fileID: -1871416516, guid: 00915fa669a85c24881e8b086915d9fd, type: 3}
   - {fileID: 292536755, guid: 6f2656892dc72d24d8f30618f6f1b3b1, type: 3}
   - {fileID: -1767851284, guid: 6f2656892dc72d24d8f30618f6f1b3b1, type: 3}
   - {fileID: -1736066531, guid: 6f2656892dc72d24d8f30618f6f1b3b1, type: 3}
@@ -129,7 +172,6 @@ SpriteAtlas:
   - akame-attack1_7
   - akame-attack1_6
   - bgAnim4
-  - spark
   - akame-attack3_10
   - akame-attack3_11
   - akame-attack3_7
@@ -160,6 +202,51 @@ SpriteAtlas:
   - akame-attack4_8
   - akame-attack4_9
   - akame-attack4_10
+  - akame-idle4_6
+  - akame-idle4_7
+  - akame-idle4_4
+  - akame-idle4_5
+  - akame-idle4_2
+  - akame-idle4_3
+  - akame-idle4_0
+  - akame-idle4_1
+  - akame-idle4_8
+  - akame-idle4_9
+  - akame-idle4_15
+  - akame-idle4_14
+  - akame-idle4_11
+  - akame-idle4_10
+  - akame-idle4_13
+  - akame-idle4_12
+  - akame-attack5_14
+  - akame-attack5_15
+  - akame-attack5_16
+  - akame-attack5_17
+  - akame-attack5_10
+  - akame-attack5_11
+  - akame-attack5_12
+  - akame-attack5_13
+  - akame-attack5_18
+  - akame-attack5_19
+  - akame-attack5_9
+  - akame-attack5_8
+  - akame-attack5_5
+  - akame-attack5_4
+  - akame-attack5_7
+  - akame-attack5_6
+  - akame-attack5_1
+  - akame-attack5_0
+  - akame-attack5_3
+  - akame-attack5_2
+  - akame-attack5_28
+  - akame-attack5_25
+  - akame-attack5_24
+  - akame-attack5_27
+  - akame-attack5_26
+  - akame-attack5_21
+  - akame-attack5_20
+  - akame-attack5_23
+  - akame-attack5_22
   - samurai-idle-sheet_1
   - samurai-idle-sheet_0
   - samurai-idle-sheet_3
