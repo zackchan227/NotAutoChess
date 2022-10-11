@@ -41,6 +41,14 @@ MonoBehaviour:
     m_Address: BackGround
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 9e89d0beff4657b43a97d04e5d188075
+    m_Address: SoundsManager
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d4824bcf59ba72f42a4776d620407a73
+    m_Address: DialogChangePlayerName
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f392afdf223780d47bc9b394c870036c, type: 2}
   m_SchemaSet:

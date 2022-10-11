@@ -47,7 +47,7 @@ public class Toast : MonoBehaviour
     void Update()
     {
         if(!runAnim) return;
-        timer += Time.deltaTime;
+        timer += Time.unscaledDeltaTime;
         switch(currentAnim)
         {
             case ANIMATE.TRANSPARENT:
@@ -95,6 +95,31 @@ public class Toast : MonoBehaviour
         runAnim = true;
     }
 
+    public void showToast(string message, float timeSecond, ANIMATE anim)
+    {
+        resetAnim();
+        animTime = timeSecond;
+        countdown = animTime;
+        txtMessage.text = message;
+        switch(currentAnim)
+        {
+            case ANIMATE.TRANSPARENT:
+                currentAnim = anim;
+                break;
+            case ANIMATE.GO_UP_THEN_DISAPPEAR:
+                currentAnim = anim;
+                break;
+            case ANIMATE.CHANGE_TEXT:
+                currentAnim = anim;
+                break;
+            default:
+                currentAnim = anim;
+                break;
+        }
+        this.gameObject.SetActive(true);
+        runAnim = true;
+    }
+
     public void showToast(short returnCode, string message, float timeSecond)
     {
         resetAnim();
@@ -109,10 +134,10 @@ public class Toast : MonoBehaviour
     private void runTransparentAnim()
     {
         tempColor = txtMessage.color;
-        tempColor.a = Mathf.Lerp(tempColor.a, 0, Time.deltaTime);
+        tempColor.a = Mathf.Lerp(tempColor.a, 0, Time.unscaledDeltaTime);
         txtMessage.color = tempColor;
         tempColor = imgBG.color;
-        tempColor.a = Mathf.Lerp(tempColor.a, 0, Time.deltaTime);
+        tempColor.a = Mathf.Lerp(tempColor.a, 0, Time.unscaledDeltaTime);
         imgBG.color = tempColor;   
     }
 
@@ -132,12 +157,12 @@ public class Toast : MonoBehaviour
     private void runGoUpThenDisappearAnim()
     {
         tempColor = txtMessage.color;
-        tempColor.a = Mathf.Lerp(tempColor.a, 0, Time.deltaTime);
+        tempColor.a = Mathf.Lerp(tempColor.a, 0, Time.unscaledDeltaTime);
         txtMessage.color = tempColor;
         tempColor = imgBG.color;
-        tempColor.a = Mathf.Lerp(tempColor.a, 0, Time.deltaTime);
+        tempColor.a = Mathf.Lerp(tempColor.a, 0, Time.unscaledDeltaTime);
         imgBG.color = tempColor;  
-        this.gameObject.GetComponent<RectTransform>().localPosition = new Vector2(originPos.x,Mathf.Lerp(this.gameObject.GetComponent<RectTransform>().localPosition.y, this.gameObject.GetComponent<RectTransform>().localPosition.y + 50, Time.deltaTime / animTime));
+        this.gameObject.GetComponent<RectTransform>().localPosition = new Vector2(originPos.x,Mathf.Lerp(this.gameObject.GetComponent<RectTransform>().localPosition.y, this.gameObject.GetComponent<RectTransform>().localPosition.y + 50, Time.unscaledDeltaTime / animTime));
     }
 
     private void stopGoUpThenDisappearAnim()

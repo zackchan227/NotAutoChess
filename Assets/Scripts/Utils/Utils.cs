@@ -99,5 +99,11 @@ public static class Utils
         TimeSpan span = TimeSpan.FromSeconds(seconds);
         return string.Format("{0:00}:{1:00}:{2:00}",
             (int)span.TotalHours, span.Minutes, span.Seconds);
-    }    
+    }
+
+	public static bool checkLengthString(byte min, byte max, string str)
+	{
+		if(str.Length < min || str.Length > max) return false;
+		return true;
+	}
 }

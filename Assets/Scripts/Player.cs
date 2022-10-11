@@ -34,6 +34,11 @@ public class Player : MonoBehaviour
     private ParticleSystem _onClickWrongParticleEffect, _onClickRightParticleEffect, _hitEffect;
     private UIParticle _onClickEffect;
     private Transform _canvas;
+    public AudioSource AudioSource 
+    {
+        get { return audioSource;}
+        set { audioSource = value;}
+    }
 
     void Awake()
     {

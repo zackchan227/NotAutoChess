@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     public Button btPause;
     public float gameSpeed = 1.0f;
     public bool _isPlaying = false;
-    [SerializeField] Transform backgroundTransform;
+    //[SerializeField] Transform backgroundTransform;
     [SerializeField] Toggle tgSwitchDimension;
     [SerializeField] Button btRestart;
     [SerializeField] Button btSettings;
@@ -93,6 +93,7 @@ public class GameManager : MonoBehaviour
         ChangeState(GameState.SpawnAttacker);
         ChangeState(GameState.SpawnDefender);
         ChangeState(GameState.AttackerTurn);
+        Application.targetFrameRate = 20;
     }
 
     // Update is called once per frame
@@ -145,8 +146,13 @@ public class GameManager : MonoBehaviour
             if(response.success)
             {
                 Debug.Log("Guest Login Success");
-                PlayerPrefs.SetString("PlayerID",response.player_id.ToString());
-                PlayerPrefs.SetString("PlayerName", SystemInfo.deviceName);
+                //PlayerPrefs.SetString("PlayerID",response.player_id.ToString());
+                string playerName = PlayerPrefs.GetString("PlayerName");
+                if(string.IsNullOrEmpty(playerName))
+                {
+                    PlayerPrefs.SetString("PlayerName", SystemInfo.deviceName);
+                }
+                playerName = PlayerPrefs.GetString("PlayerName");
                 isDone = true;
             }
             else 
@@ -229,7 +235,7 @@ public class GameManager : MonoBehaviour
         if (value)
         {
             StartCoroutine(GridManager.Instance.ConvertToIsometricTileWithDestroy());
-            backgroundTransform.position = new Vector2(0, 0.5f);
+            //backgroundTransform.position = new Vector2(0, 0.5f);
             Camera.main.transform.position = new Vector3(0, 0.5f, -10);
             _isReadyToSwitchIsometric = false;
             _maxZoom = 16.0f;
@@ -237,7 +243,7 @@ public class GameManager : MonoBehaviour
         else
         {
             StartCoroutine(GridManager.Instance.ConvertToNormalTileWithDestroy());
-            backgroundTransform.position = new Vector2(-0.5f, 0.5f);
+            //backgroundTransform.position = new Vector2(-0.5f, 0.5f);
             Camera.main.transform.position = new Vector3(-0.5f, 0.5f, -10);
             _isReadyToSwitchIsometric = true;
             _maxZoom = 9.0f;

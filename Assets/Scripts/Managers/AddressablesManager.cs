@@ -20,8 +20,11 @@ public class AddressablesManager : MonoBehaviour
     [SerializeField] AssetReference settingsDialog;
     [SerializeField] AssetReference toastDialog;
     [SerializeField] AssetReference background;
+    [SerializeField] AssetReference soundsManager;
     [SerializeField] Material defaultMaterial;
+    
     Transform _canvas;
+    Transform _managers;
 
 
     void Awake()
@@ -33,6 +36,7 @@ public class AddressablesManager : MonoBehaviour
     void Start()
     {
         if(_canvas == null) _canvas = GameObject.Find("Canvas").transform;
+        if(_managers == null) _managers = GameObject.Find("Managers").transform;
         Addressables.InitializeAsync().Completed += AddressablesManager_Completed;
     }
 
@@ -61,6 +65,12 @@ public class AddressablesManager : MonoBehaviour
             //go.Result.transform.SetParent(_canvas);
             //go.Result.SetActive(false);
             go.Result.GetComponent<SpriteRenderer>().material = defaultMaterial;
+        };
+
+        soundsManager.InstantiateAsync(_managers).Completed += (go) =>
+        {
+            //go.Result.transform.SetParent(_canvas);
+            //go.Result.SetActive(false);
         };
     }
 

@@ -8,6 +8,7 @@
     <type fullname="PooledScrollList.Controller.PooledScrollRectController" preserve="all" />
     <type fullname="PooledScrollList.View.PooledElement" preserve="all" />
     <type fullname="SettingsView" preserve="all" />
+    <type fullname="SoundsManager" preserve="all" />
     <type fullname="SpriteAnimation" preserve="all" />
     <type fullname="SpriteScaler" preserve="all" />
     <type fullname="Toast" preserve="all" />

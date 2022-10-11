@@ -10,8 +10,18 @@ public class SettingsView : MonoBehaviour
     [SerializeField] Button btRank;
     [SerializeField] Button btChangePlayerName;
     [SerializeField] Button btSave;
+    [SerializeField] Button btSaveChangePlayerName;
     [SerializeField] TMP_Text tmpPlayerName;
+    [SerializeField] TMP_Text tmpFPS;
+    [SerializeField] Slider sliderMusic;
+    [SerializeField] Slider sliderSound;
+    [SerializeField] Slider sliderFPS;
+    [SerializeField] GameObject dialogChangePlayerName;
+    [SerializeField] TMP_InputField ipChangePlayerName;
+    [SerializeField] Button btCloseDialogChangePlayerName;
+
     string playerName;
+    const string comingSoon = "Coming Soon !!!";
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +29,8 @@ public class SettingsView : MonoBehaviour
         if(string.IsNullOrEmpty(playerName)) playerName = SystemInfo.deviceName;
         if(playerName.Length > 12) playerName = playerName.Substring(0,12);
         tmpPlayerName.text = playerName;
+        sliderFPS.minValue = 5;
+        sliderFPS.maxValue = QualitySettings.vSyncCount/Screen.currentResolution.refreshRate;
     }
 
     // Update is called once per frame
@@ -31,16 +43,20 @@ public class SettingsView : MonoBehaviour
     {
         btRank.onClick.AddListener(OnClickButtonRank);
         btClose.onClick.AddListener(OnClickButtonClose);
-        // btChangePlayerName.onClick.AddListener(OnClickButtonChangePlayerName);
-        // btSave.onClick.AddListener(OnClickButtonSave);
+        btChangePlayerName.onClick.AddListener(OnClickButtonChangePlayerName);
+        btSave.onClick.AddListener(OnClickButtonSave);
+        sliderMusic.onValueChanged.AddListener(delegate {OnMusicValueChange();});
+        sliderSound.onValueChanged.AddListener(delegate {OnSoundValueChange();});
+        sliderFPS.onValueChanged.AddListener(delegate {OnFPSValueChange();});
     }
 
     private void OnDisable()
     {
         btRank.onClick.RemoveAllListeners();
         btClose.onClick.RemoveAllListeners();
-        // btChangePlayerName.onClick.RemoveAllListeners();
-        // btSave.onClick.RemoveAllListeners();
+        btChangePlayerName.onClick.RemoveAllListeners();
+        btSave.onClick.RemoveAllListeners();
+        sliderSound.onValueChanged.RemoveAllListeners();
     }
 
     private void OnClickButtonClose()
@@ -55,12 +71,56 @@ public class SettingsView : MonoBehaviour
 
     private void OnClickButtonChangePlayerName()
     {
-       
+        btCloseDialogChangePlayerName.onClick.AddListener(OnClickButtonCloseDialogChangePlayerName);
+        btSaveChangePlayerName.onClick.AddListener(OnClickButtonSaveChangePlayerName);
+        dialogChangePlayerName.SetActive(true);
+    }
+
+    private void OnClickButtonSaveChangePlayerName()
+    {
+        if(Utils.checkLengthString(1, 14, ipChangePlayerName.text))
+        {
+            PlayerPrefs.SetString("PlayerName", ipChangePlayerName.text);
+            tmpPlayerName.text = ipChangePlayerName.text;
+            Toast.Instance.showToast("Success Change Name", 2.0f, Toast.ANIMATE.TRANSPARENT);
+            CloseDialogChangePlayerName();
+        }
+        else
+        {
+            Toast.Instance.showToast("Player name must be from 1 to 14 characters", 2.0f, Toast.ANIMATE.TRANSPARENT);
+            ipChangePlayerName.text = "";
+        }
+    }
+
+    private void CloseDialogChangePlayerName()
+    {
+        btSaveChangePlayerName.onClick.RemoveAllListeners();
+        dialogChangePlayerName.SetActive(false);
+    }
+
+    private void OnClickButtonCloseDialogChangePlayerName()
+    {
+        CloseDialogChangePlayerName();
     }
 
     private void OnClickButtonSave()
     {
-       
+       Toast.Instance.showToast(0, comingSoon, 2.0f, Toast.ANIMATE.GO_UP_THEN_DISAPPEAR);
     }
 
+    private void OnMusicValueChange()
+    {
+        SoundsManager.Instance.AudioSource.volume = sliderMusic.value;
+    }
+
+    private void OnSoundValueChange()
+    {
+        Player.Instance.AudioSource.volume = sliderSound.value;
+    }
+
+    private void OnFPSValueChange()
+    {
+        Application.targetFrameRate = (int)sliderFPS.value;
+        tmpFPS.text = "FPS " + Application.targetFrameRate.ToString();
+    }
 }

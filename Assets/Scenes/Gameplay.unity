@@ -895,7 +895,6 @@ MonoBehaviour:
   btPause: {fileID: 0}
   gameSpeed: 1
   _isPlaying: 0
-  backgroundTransform: {fileID: 0}
   tgSwitchDimension: {fileID: 871867739}
   btRestart: {fileID: 1453929903}
   btSettings: {fileID: 1694412970}
@@ -1805,6 +1804,11 @@ MonoBehaviour:
     m_EditorAssetChanged: 0
   background:
     m_AssetGUID: 76f4accf6668ced4fb741a34805142a2
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  soundsManager:
+    m_AssetGUID: 9e89d0beff4657b43a97d04e5d188075
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
