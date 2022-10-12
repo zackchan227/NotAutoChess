@@ -30,7 +30,8 @@ public class SettingsView : MonoBehaviour
         if(playerName.Length > 12) playerName = playerName.Substring(0,12);
         tmpPlayerName.text = playerName;
         sliderFPS.minValue = 5;
-        sliderFPS.maxValue = QualitySettings.vSyncCount/Screen.currentResolution.refreshRate;
+        sliderFPS.maxValue = 120;
+        sliderFPS.value = Application.targetFrameRate;
     }
 
     // Update is called once per frame
@@ -82,12 +83,16 @@ public class SettingsView : MonoBehaviour
         {
             PlayerPrefs.SetString("PlayerName", ipChangePlayerName.text);
             tmpPlayerName.text = ipChangePlayerName.text;
+            #if !UNITY_WEBGL
             Toast.Instance.showToast("Success Change Name", 2.0f, Toast.ANIMATE.TRANSPARENT);
+            #endif
             CloseDialogChangePlayerName();
         }
         else
         {
+            #if !UNITY_WEBGL
             Toast.Instance.showToast("Player name must be from 1 to 14 characters", 2.0f, Toast.ANIMATE.TRANSPARENT);
+            #endif
             ipChangePlayerName.text = "";
         }
     }

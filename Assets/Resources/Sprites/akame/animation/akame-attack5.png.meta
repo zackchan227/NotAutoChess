@@ -501,48 +501,6 @@ TextureImporter:
       name: akame-attack5_17
       rect:
         serializedVersion: 2
-        x: 2863
-        y: 1053
-        width: 187
-        height: 197
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fb8f4d400a4cdac4da25b55d3fd2c87c
-      internalID: 2120458593
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: akame-attack5_23
-      rect:
-        serializedVersion: 2
-        x: 2868
-        y: 550
-        width: 184
-        height: 215
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3ff4288a09a3e9e4cb363aa16d94b76a
-      internalID: 1215279917
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: akame-attack5_18
-      rect:
-        serializedVersion: 2
         x: 96
         y: 551
         width: 174
@@ -561,7 +519,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: akame-attack5_19
+      name: akame-attack5_18
       rect:
         serializedVersion: 2
         x: 648
@@ -582,7 +540,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: akame-attack5_20
+      name: akame-attack5_19
       rect:
         serializedVersion: 2
         x: 1200
@@ -603,7 +561,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: akame-attack5_21
+      name: akame-attack5_20
       rect:
         serializedVersion: 2
         x: 1743
@@ -624,7 +582,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: akame-attack5_22
+      name: akame-attack5_21
       rect:
         serializedVersion: 2
         x: 2317
@@ -645,7 +603,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: akame-attack5_24
+      name: akame-attack5_22
       rect:
         serializedVersion: 2
         x: 114
@@ -666,7 +624,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: akame-attack5_25
+      name: akame-attack5_23
       rect:
         serializedVersion: 2
         x: 664
@@ -687,11 +645,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: akame-attack5_26
+      name: akame-attack5_24
       rect:
         serializedVersion: 2
         x: 1215
-        y: 49
+        y: 52
         width: 344
         height: 174
       alignment: 0
@@ -708,7 +666,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: akame-attack5_27
+      name: akame-attack5_25
       rect:
         serializedVersion: 2
         x: 1749
@@ -729,7 +687,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: akame-attack5_28
+      name: akame-attack5_26
       rect:
         serializedVersion: 2
         x: 2218
@@ -749,6 +707,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: akame-attack5_27
+      rect:
+        serializedVersion: 2
+        x: 2849
+        y: 1048
+        width: 215
+        height: 213
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06cc20425dc008c45b94a41e5020b4f8
+      internalID: 908178865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: akame-attack5_28
+      rect:
+        serializedVersion: 2
+        x: 2832
+        y: 536
+        width: 241
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02277f5d5016f414b814aa698debebb0
+      internalID: -222672198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -761,15 +761,15 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       akame-attack5_46: -2035324695
-      akame-attack5_26: 1348344639
+      akame-attack5_26: -1197755246
       akame-attack5_45: -382119988
       akame-attack5_121: -2105167593
       akame-attack5_96: 1416080754
       akame-attack5_132: 25200919
-      akame-attack5_27: -791819461
-      akame-attack5_18: 159087877
-      akame-attack5_25: 1669454375
+      akame-attack5_27: 908178865
+      akame-attack5_18: -1474022716
       akame-attack5_95: -1633882928
+      akame-attack5_25: -791819461
       akame-attack5_4: -1808412890
       akame-attack5_35: -759019159
       akame-attack5_94: -1976318264
@@ -777,15 +777,15 @@ TextureImporter:
       akame-attack5_8: -1810433939
       akame-attack5_88: -530829553
       akame-attack5_93: 2126961753
-      akame-attack5_24: -802439405
+      akame-attack5_24: 1348344639
       akame-attack5_9: -521937148
-      akame-attack5_52: 988507938
       akame-attack5_47: 1497760919
-      akame-attack5_28: -1197755246
+      akame-attack5_52: 988507938
       akame-attack5_115: 437147376
+      akame-attack5_28: -222672198
       akame-attack5_3: 1773350966
-      akame-attack5_20: -732603230
       akame-attack5_123: -903803079
+      akame-attack5_20: 1125347871
       akame-attack5_111: -1950642476
       akame-attack5_129: -1895893248
       akame-attack5_40: -1580391672
@@ -802,13 +802,13 @@ TextureImporter:
       akame-attack5_86: 2122655457
       akame-attack5_69: -1826835180
       akame-attack5_117: -1369432371
-      akame-attack5_21: 1125347871
+      akame-attack5_21: -1871416516
       akame-attack5_118: 2080413978
       akame-attack5_84: 185339629
       akame-attack5_82: 633238434
       akame-attack5_68: 294480124
       akame-attack5_58: 1047988802
-      akame-attack5_19: -1474022716
+      akame-attack5_19: -732603230
       akame-attack5_90: -755828433
       akame-attack5_79: -1093926999
       akame-attack5_109: 1830899015
@@ -820,8 +820,8 @@ TextureImporter:
       akame-attack5_48: 465767095
       akame-attack5_89: 1677534596
       akame-attack5_83: 1517076305
-      akame-attack5_22: -1871416516
       akame-attack5_55: 1311418237
+      akame-attack5_22: -802439405
       akame-attack5_1: -1495894094
       akame-attack5_87: 1175636373
       akame-attack5_80: 1247375746
@@ -845,9 +845,9 @@ TextureImporter:
       akame-attack5_134: -1094092880
       akame-attack5_6: 186415522
       akame-attack5_57: -1422781630
-      akame-attack5_17: 2120458593
       akame-attack5_60: -881034213
-      akame-attack5_23: 1215279917
+      akame-attack5_17: 159087877
+      akame-attack5_23: 1669454375
       akame-attack5_114: 1530798678
       akame-attack5_122: -1325484131
       akame-attack5_15: 596517968

@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip[] _clips;
     [SerializeField] private byte _moveSpeed = 0;
+    [SerializeField] ParticleSystem _runEffect;
     private AudioClip _attackSound, _hitSound;
     private SpriteRenderer _currentSprite;
     private Tile currentStanding;
@@ -288,7 +289,7 @@ public class Player : MonoBehaviour
         _currentAnim.Clear();
         _hitSound = _clips[0];
         _attackSound = _clips[1];
-        _hitEffect = Resources.Load<ParticleSystem>("Prefabs/Particle/BloodSplash");;
+        //_hitEffect = Resources.Load<ParticleSystem>("Prefabs/Particle/BloodSplash");;
         switch (_killStreak)
         {
             case 1:
@@ -300,7 +301,7 @@ public class Player : MonoBehaviour
             case 3:
                 _hitSound = _clips[2];
                 _attackSound = null;
-                _hitEffect = Resources.Load<ParticleSystem>("Prefabs/Particle/Hit1");
+                //_hitEffect = null;
                 _currentAnim.AddRange(_attacks3);
                 break;
             case 4:
@@ -318,8 +319,16 @@ public class Player : MonoBehaviour
     private void checkIsMoving()
     {
         _currentAnim.Clear();
-        if (isMoving) _currentAnim.AddRange(_runs);
-        else _currentAnim.AddRange(_idles);
+        if (isMoving) 
+        {
+            _currentAnim.AddRange(_runs);
+            _runEffect.Play();
+        }
+        else 
+        {
+            _runEffect.Stop();
+            _currentAnim.AddRange(_idles);
+        }
     }
 
     private void checkWhileAttacking()
@@ -328,9 +337,56 @@ public class Player : MonoBehaviour
         {
             if (_attackSound != null)
             {
-                if (_currentFrame == 0)
+                if(_killStreak != 5)
                 {
-                    audioSource.PlayOneShot(_attackSound);
+                    if (_currentFrame == 0)
+                    {
+                        audioSource.PlayOneShot(_attackSound);
+                    }
+                }
+                else
+                {
+                    if(_currentFrame == 1) 
+                    {
+                        audioSource.PlayOneShot(_attackSound);
+                    }
+
+                    if(_currentFrame == 2)
+                    {
+                        if (_hitEffect != null)
+                        {
+                            _hitEffect.transform.position = _hitTile.transform.position;
+                            _hitEffect.Play();
+                        }
+                    }
+                    if(_currentFrame == 6) audioSource.PlayOneShot(_attackSound);
+
+                    if(_currentFrame == 7)
+                    {
+                        if (_hitEffect != null)
+                        {
+                            _hitEffect.transform.position = _hitTile.transform.position;
+                            _hitEffect.Play();
+                        }
+                    }
+                    if(_currentFrame == 12) audioSource.PlayOneShot(_attackSound);
+                    if(_currentFrame == 13)
+                    {
+                        if (_hitEffect != null)
+                        {
+                            _hitEffect.transform.position = _hitTile.transform.position;
+                            _hitEffect.Play();
+                        }
+                    }
+                    if(_currentFrame == 20) audioSource.PlayOneShot(_attackSound);
+                    if(_currentFrame == 21)
+                    {
+                        if (_hitEffect != null)
+                        {
+                            _hitEffect.transform.position = _hitTile.transform.position;
+                            _hitEffect.Play();
+                        }
+                    }
                 }
             }
 
@@ -338,6 +394,7 @@ public class Player : MonoBehaviour
             {
                 if (_currentFrame == 2)
                 {
+                    if(_hitEffect == null) _hitEffect = Instantiate(Resources.Load<ParticleSystem>("Prefabs/Particle/BloodSplash"));
                     if (_hitEffect != null)
                     {
                         _hitEffect.transform.position = _hitTile.transform.position;

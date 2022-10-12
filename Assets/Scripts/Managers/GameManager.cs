@@ -35,10 +35,11 @@ public class GameManager : MonoBehaviour
     public bool _isPlaying = false;
     //[SerializeField] Transform backgroundTransform;
     [SerializeField] Toggle tgSwitchDimension;
+    [SerializeField] Toggle tgSound;
     [SerializeField] Button btRestart;
     [SerializeField] Button btSettings;
     [SerializeField] TMP_Text tmpFPS;
-
+    [SerializeField] GameConfig gameConfig;
     public bool _isReadyToSwitchIsometric = false;
 
     float[] gameSpeeds = { 1.0f, 1.5f, 2.0f, 3.0f, 5.0f };
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
     float pollingTime = 1.0f;
     public byte _enemyCount = 0;
     public int _score = 0;
+    public bool isSoundsOn = true;
 
     void Awake()
     {
@@ -60,8 +62,8 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         tgSwitchDimension.onValueChanged.AddListener(OnValueChangedToggleSwitchDimension);
+        tgSound.onValueChanged.AddListener(OnValueChangedToggleSound);
         btRestart.onClick.AddListener(OnClickButtonRestart);
-        // btChangeSpeed.onClick.AddListener(OnClickButtonChangeSpeed);
         btSettings.onClick.AddListener(OnClickButtonSettings);
     }
 
@@ -93,7 +95,10 @@ public class GameManager : MonoBehaviour
         ChangeState(GameState.SpawnAttacker);
         ChangeState(GameState.SpawnDefender);
         ChangeState(GameState.AttackerTurn);
-        Application.targetFrameRate = 20;
+        Application.targetFrameRate = 30;
+        int isOn = PlayerPrefs.GetInt("IsSoundsOn");
+        if(isOn == 0) isSoundsOn = false;
+        else isSoundsOn = true;
     }
 
     // Update is called once per frame
@@ -129,9 +134,11 @@ public class GameManager : MonoBehaviour
 
         
 
-        if (_enemyCount == 10)
+        if (_enemyCount == gameConfig.enemyCount)
         {
+            #if !UNITY_WEBGL
             Toast.Instance.showToast(0, "YOU LOST", 5.0f, Toast.ANIMATE.TRANSPARENT);
+            #endif
             isLost = true;
             btRestart.gameObject.SetActive(true);
             //btRestart.GetComponentInChildren<TMP_Text>().gameObject.SetActive(Time.unscaledTime % .5 < .2);
@@ -257,13 +264,31 @@ public class GameManager : MonoBehaviour
         switchDimension(value);
     }
 
+    private void OnValueChangedToggleSound(bool value)
+    {
+        SoundsCheck(value);
+    }
+
+    public void SoundsCheck(bool value)
+    {
+        string tmpText = value ? "ON" :  "OFF";
+        tgSound.GetComponentInChildren<TMP_Text>().text = tmpText;
+        Player.Instance.AudioSource.mute = !value;
+        SoundsManager.Instance.AudioSource.mute = !value;
+        PlayerPrefs.SetInt("IsSoundsOn", value ? 1 : 0);
+    }
+
     private void OnClickButtonRestart()
     {
         StartCoroutine(SubmitScore());
         _isPlaying = true;
+        #if !UNITY_WEBGL
         Toast.Instance.showToast(0, "6", 6.0f, Toast.ANIMATE.CHANGE_TEXT);
         StartCoroutine(WaitToRestart(5.0f));
-        //SceneManager.LoadScene(0);
+        #else
+        SceneManager.LoadScene(0);
+        #endif
+        
     }
 
     IEnumerator WaitToRestart(float seconds)

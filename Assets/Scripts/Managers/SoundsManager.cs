@@ -10,11 +10,12 @@ public class SoundsManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        AudioSource = this.GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        AudioSource = this.GetComponent<AudioSource>();
+        
     }
 }

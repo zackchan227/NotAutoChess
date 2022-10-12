@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 168
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -144,19 +144,19 @@ TextureImporter:
       name: doge_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 256
-        width: 256
-        height: 256
+        x: 63
+        y: 319
+        width: 130
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6b1be6c25f4a64b4daf27c4c483329c0
-      internalID: 1073073790
+      spriteID: 9b8bc1dc77f79be4a9470abeb3f8ea07
+      internalID: 1620161547
       vertices: []
       indices: 
       edges: []
@@ -165,19 +165,19 @@ TextureImporter:
       name: doge_1
       rect:
         serializedVersion: 2
-        x: 256
-        y: 256
-        width: 256
-        height: 256
+        x: 318
+        y: 319
+        width: 131
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 473826a38575a384abbd3ecaf72d3a1c
-      internalID: -1882247999
+      spriteID: c1e46cbb350750c4d8a38c7c894be96a
+      internalID: -1063395138
       vertices: []
       indices: 
       edges: []
@@ -186,19 +186,19 @@ TextureImporter:
       name: doge_2
       rect:
         serializedVersion: 2
-        x: 512
-        y: 256
-        width: 256
-        height: 256
+        x: 574
+        y: 319
+        width: 132
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6410ea70fed4cc54a84e22e6d8866860
-      internalID: 1154565302
+      spriteID: 3595a21b855aa1c4291262b3be054601
+      internalID: -899796458
       vertices: []
       indices: 
       edges: []
@@ -207,19 +207,19 @@ TextureImporter:
       name: doge_3
       rect:
         serializedVersion: 2
-        x: 768
-        y: 256
-        width: 256
-        height: 256
+        x: 830
+        y: 319
+        width: 132
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 418155de704735f42b2afb5ed8c06f7f
-      internalID: -402163428
+      spriteID: e030b810f7e0e3f46b3cda1c891de870
+      internalID: 1429098303
       vertices: []
       indices: 
       edges: []
@@ -228,19 +228,19 @@ TextureImporter:
       name: doge_4
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 256
-        width: 256
-        height: 256
+        x: 1087
+        y: 319
+        width: 135
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f17c4bf3df52d54daf472b466f3bdd4
-      internalID: 1257890222
+      spriteID: 705fdf9b737b0b440b2c8194328437b6
+      internalID: 599543039
       vertices: []
       indices: 
       edges: []
@@ -249,19 +249,19 @@ TextureImporter:
       name: doge_5
       rect:
         serializedVersion: 2
-        x: 1280
-        y: 256
-        width: 256
-        height: 256
+        x: 1343
+        y: 319
+        width: 143
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d17501d89e39552408da47d3bb07d3a6
-      internalID: -482502229
+      spriteID: 8ef5cb7c43c6cac4995ed041dae24d83
+      internalID: 1141423740
       vertices: []
       indices: 
       edges: []
@@ -270,19 +270,19 @@ TextureImporter:
       name: doge_6
       rect:
         serializedVersion: 2
-        x: 1536
-        y: 256
-        width: 256
-        height: 256
+        x: 1598
+        y: 319
+        width: 135
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2214590c20cb9ea498bf6638702d1019
-      internalID: -1827406054
+      spriteID: a473de6b6ca31004aa0f4874330dce1a
+      internalID: 661455413
       vertices: []
       indices: 
       edges: []
@@ -291,19 +291,19 @@ TextureImporter:
       name: doge_7
       rect:
         serializedVersion: 2
-        x: 1792
-        y: 256
-        width: 256
-        height: 256
+        x: 1854
+        y: 319
+        width: 132
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d3dd90add8fb6541a461f6883331d4b
-      internalID: -1993012907
+      spriteID: fccac2b4ebfc99b41a2da926feb4af28
+      internalID: -914178633
       vertices: []
       indices: 
       edges: []
@@ -312,19 +312,19 @@ TextureImporter:
       name: doge_8
       rect:
         serializedVersion: 2
-        x: 2048
-        y: 256
-        width: 256
-        height: 256
+        x: 2110
+        y: 319
+        width: 136
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71952df3c6ea457409484ac8700d39ce
-      internalID: 15929096
+      spriteID: 8a534e3a54a50614fb1e22d878921ea0
+      internalID: 1762376665
       vertices: []
       indices: 
       edges: []
@@ -333,19 +333,19 @@ TextureImporter:
       name: doge_9
       rect:
         serializedVersion: 2
-        x: 2304
-        y: 256
-        width: 256
-        height: 256
+        x: 2367
+        y: 319
+        width: 143
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42bb5e10309e3b94b8a6aa0ac07abf2d
-      internalID: -296043924
+      spriteID: cea72a8dc8b1c0244a3958bd2b38a9b2
+      internalID: 1946282678
       vertices: []
       indices: 
       edges: []
@@ -354,19 +354,19 @@ TextureImporter:
       name: doge_10
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 256
-        height: 256
+        x: 2623
+        y: 319
+        width: 139
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be8fa67981ab8364f8fff28c5ef64e08
-      internalID: 1302453457
+      spriteID: e6785776b3ee86049a695d4adbc1c622
+      internalID: 2018113757
       vertices: []
       indices: 
       edges: []
@@ -375,19 +375,19 @@ TextureImporter:
       name: doge_11
       rect:
         serializedVersion: 2
-        x: 256
-        y: 0
-        width: 256
-        height: 256
+        x: 63
+        y: 63
+        width: 134
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62119cf3c8ebf9a4d907b271cbbbd2ce
-      internalID: -1570508793
+      spriteID: f21cec715ab5e1b4d92e0d3bccce2baf
+      internalID: 1468592571
       vertices: []
       indices: 
       edges: []
@@ -396,19 +396,19 @@ TextureImporter:
       name: doge_12
       rect:
         serializedVersion: 2
-        x: 512
-        y: 0
-        width: 256
-        height: 256
+        x: 318
+        y: 63
+        width: 131
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04c73c26819c7a34a8f6ebea2232cce0
-      internalID: 1522392936
+      spriteID: 1eeb1bfd13a01a049b1ff05dcbe105be
+      internalID: -851649107
       vertices: []
       indices: 
       edges: []
@@ -417,19 +417,19 @@ TextureImporter:
       name: doge_13
       rect:
         serializedVersion: 2
-        x: 768
-        y: 0
-        width: 256
-        height: 256
+        x: 574
+        y: 63
+        width: 136
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 80a3029d57f165c49aef39284c6b1d57
-      internalID: -1211366956
+      spriteID: 5600bb2bc5b4a2c4f86666fa376c3e4e
+      internalID: 2096011949
       vertices: []
       indices: 
       edges: []
@@ -438,19 +438,19 @@ TextureImporter:
       name: doge_14
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 256
-        height: 256
+        x: 830
+        y: 63
+        width: 144
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 47aa04d15594d5040b6f5405154bad3a
-      internalID: 364286392
+      spriteID: e9a3af222832ae949b05c79f5a0320cf
+      internalID: 219894924
       vertices: []
       indices: 
       edges: []
@@ -459,19 +459,19 @@ TextureImporter:
       name: doge_15
       rect:
         serializedVersion: 2
-        x: 1280
-        y: 0
-        width: 256
-        height: 256
+        x: 1087
+        y: 63
+        width: 139
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 274f7f322e45f2147b940a762cd98b79
-      internalID: 1912008433
+      spriteID: d67752ccab0ba4d459bb2652d8513986
+      internalID: 644929687
       vertices: []
       indices: 
       edges: []
@@ -480,19 +480,19 @@ TextureImporter:
       name: doge_16
       rect:
         serializedVersion: 2
-        x: 1536
-        y: 0
-        width: 256
-        height: 256
+        x: 1343
+        y: 63
+        width: 134
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f0a91b56070b24e44a8ae8dafd85545f
-      internalID: -1071531704
+      spriteID: 39d1b486c340c9340af2a01d8bf5468e
+      internalID: 1325136539
       vertices: []
       indices: 
       edges: []
@@ -501,19 +501,19 @@ TextureImporter:
       name: doge_17
       rect:
         serializedVersion: 2
-        x: 1792
-        y: 0
-        width: 256
-        height: 256
+        x: 1598
+        y: 63
+        width: 131
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eda6678e42fcde74a84e5ec76f06122d
-      internalID: -377304762
+      spriteID: 6fea8bd24a0504444a44a094eba16721
+      internalID: -1956763264
       vertices: []
       indices: 
       edges: []
@@ -522,19 +522,19 @@ TextureImporter:
       name: doge_18
       rect:
         serializedVersion: 2
-        x: 2048
-        y: 0
-        width: 256
-        height: 256
+        x: 1854
+        y: 63
+        width: 132
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6abf55a717f20f7409a080ac076f9a4f
-      internalID: -1069275561
+      spriteID: b93766b3379e26a4382767f7dc0ca816
+      internalID: -251416322
       vertices: []
       indices: 
       edges: []
@@ -543,19 +543,19 @@ TextureImporter:
       name: doge_19
       rect:
         serializedVersion: 2
-        x: 2304
-        y: 0
-        width: 256
-        height: 256
+        x: 2110
+        y: 63
+        width: 132
+        height: 118
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 695ae628ce53c9c448d57bf141e3ef83
-      internalID: -752378910
+      spriteID: 08e8eb9a5a6c8f149b63324f82d3c76c
+      internalID: -806520112
       vertices: []
       indices: 
       edges: []
@@ -564,19 +564,19 @@ TextureImporter:
       name: doge_20
       rect:
         serializedVersion: 2
-        x: 2560
-        y: 256
-        width: 256
-        height: 256
+        x: 2367
+        y: 63
+        width: 131
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ea18d1754d56f448b55e17d092bc13a
-      internalID: 1140273659
+      spriteID: 80405def1786a914bb7f5b573f375876
+      internalID: -29475947
       vertices: []
       indices: 
       edges: []
@@ -585,19 +585,19 @@ TextureImporter:
       name: doge_21
       rect:
         serializedVersion: 2
-        x: 2560
-        y: 0
-        width: 256
-        height: 256
+        x: 2623
+        y: 63
+        width: 130
+        height: 130
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc2d6169884b6534ab3a4379f773a424
-      internalID: 371250969
+      spriteID: 1ad66be392530d84ea1b1fbb743002fb
+      internalID: 838112533
       vertices: []
       indices: 
       edges: []
@@ -613,28 +613,28 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      doge_6: -1827406054
-      doge_18: -1069275561
-      doge_1: -1882247999
-      doge_11: -1570508793
-      doge_9: -296043924
-      doge_10: 1302453457
-      doge_2: 1154565302
-      doge_3: -402163428
-      doge_17: -377304762
-      doge_8: 15929096
-      doge_19: -752378910
-      doge_13: -1211366956
-      doge_21: 371250969
-      doge_4: 1257890222
-      doge_5: -482502229
-      doge_14: 364286392
-      doge_16: -1071531704
-      doge_0: 1073073790
-      doge_15: 1912008433
-      doge_20: 1140273659
-      doge_12: 1522392936
-      doge_7: -1993012907
+      doge_6: 661455413
+      doge_18: -251416322
+      doge_1: -1063395138
+      doge_11: 1468592571
+      doge_9: 1946282678
+      doge_10: 2018113757
+      doge_2: -899796458
+      doge_3: 1429098303
+      doge_17: -1956763264
+      doge_8: 1762376665
+      doge_19: -806520112
+      doge_13: 2096011949
+      doge_21: 838112533
+      doge_4: 599543039
+      doge_5: 1141423740
+      doge_14: 219894924
+      doge_16: 1325136539
+      doge_0: 1620161547
+      doge_15: 644929687
+      doge_20: -29475947
+      doge_12: -851649107
+      doge_7: -914178633
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

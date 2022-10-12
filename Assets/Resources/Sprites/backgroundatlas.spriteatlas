@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: backgroundatlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 4096
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 7a42264a1a2810a46be96b8e03f62e5b, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 6204ccb0f0ba6894285caf7b8b15a9ad, type: 3}
+  - {fileID: 21300000, guid: 8d538fc043af8694897059f680b391c0, type: 3}
+  - {fileID: 21300000, guid: 6c29a9f0a6b2f4f4ba4b1d771ce41429, type: 3}
+  - {fileID: 21300000, guid: b4848c415f03aa149bfb1bba590e9e69, type: 3}
+  - {fileID: 21300000, guid: abc9bed1e9faf754d8e32ba66f5e950c, type: 3}
+  - {fileID: 21300000, guid: 8c9abeb2bcc31da49a384fa97b447de5, type: 3}
+  - {fileID: 21300000, guid: 42205483c02056243b7228f330158c31, type: 3}
+  - {fileID: 21300000, guid: 8dcb6fa4c2ab48c44a5756a73a6aeac3, type: 3}
+  - {fileID: 21300000, guid: 8d259f5526121cb49b5b8726f808bea9, type: 3}
+  - {fileID: 21300000, guid: 2496a126d786d224d979b92063b89375, type: 3}
+  - {fileID: 21300000, guid: 2cc91156eb6597c4c8baf3599dcc31b4, type: 3}
+  - {fileID: 21300000, guid: 6a8d4b1778961294f82d2560503eaaeb, type: 3}
+  - {fileID: 21300000, guid: e1401e49cb281f24d829be18183d2e1a, type: 3}
+  - {fileID: 21300000, guid: 366051f9db5058345bc715bccf7a0b35, type: 3}
+  - {fileID: 21300000, guid: 4528a8da93e54af4ca0a4e7129ba55b8, type: 3}
+  - {fileID: 21300000, guid: 13b78b1b7bcb6b94ab3081bb67795fed, type: 3}
+  - {fileID: 21300000, guid: 52bca34bff376974bb351a71646ad28f, type: 3}
+  - {fileID: 21300000, guid: 89680b5d58d175b4c91e703e9d43947e, type: 3}
+  - {fileID: 21300000, guid: c387bc1e95b42b248a55f874f7a78fca, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - menu_9
+  - bgAnim4
+  - menu_0
+  - akame-namecard
+  - menu_11
+  - menu_8
+  - menu_2
+  - bgAnim2
+  - menu_4
+  - menu_7
+  - menu_1
+  - menu_5
+  - menu_3
+  - menu_10
+  - progress_wheel
+  - menu_6
+  - bgAnim1
+  - bgAnim3
+  - leaderboard
+  m_RenderDataMap: {}
+  m_Tag: backgroundatlas
+  m_IsVariant: 0

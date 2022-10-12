@@ -49,6 +49,18 @@ MonoBehaviour:
     m_Address: DialogChangePlayerName
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: d902fdd12f9960a4d878221f4d26ad64
+    m_Address: Assets/Scenes/Gameplay.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: db4c6e437562b164d987ef34f5c30995
+    m_Address: Assets/Scenes/MainMenu.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 88df4069f91e7e4488eef6b4534b8e71
+    m_Address: GameConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: f392afdf223780d47bc9b394c870036c, type: 2}
   m_SchemaSet:
