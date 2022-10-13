@@ -6,6 +6,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
+using System;
 
 public class SceneLoader : MonoBehaviour
 {
@@ -13,8 +14,9 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private List<AssetReference> _references = new List<AssetReference>();
     [SerializeField] private Slider downloadProgress;
     [SerializeField] private TMPro.TMP_Text tmpProgress;
+    [SerializeField] private TMPro.TMP_Text tmpTotalDownloaded;
     private AsyncOperationHandle<SceneInstance> handle;
-    public GameObject camera;
+    public GameObject _camera;
     long DownloadSize = 0;
 
     void Awake()
@@ -40,9 +42,11 @@ public class SceneLoader : MonoBehaviour
         {
             var status = downloadScene.GetDownloadStatus();
             float progress = status.Percent;
+            double downloadedMB = Math.Round((float)status.DownloadedBytes/1024/1024, 2);
+            double totalMB = Math.Round((float)status.TotalBytes/1024/1024,2);
             downloadProgress.value = (int)(progress * 100);
             tmpProgress.text = downloadProgress.value.ToString() + "%";
-            Debug.Log(downloadProgress.value);
+            tmpTotalDownloaded.text = downloadedMB + "MB/" + totalMB + "MB";
             yield return null;
         }
 
@@ -56,7 +60,7 @@ public class SceneLoader : MonoBehaviour
         if(_handle.Status == AsyncOperationStatus.Succeeded)
         {
             Debug.Log(_handle.Result.Scene.name + " successfully loaded.");
-            camera.SetActive(false);
+            _camera.SetActive(false);
             downloadProgress.gameObject.SetActive(false);
             handle = _handle;
             //StartCoroutine(UnloadScene());
@@ -70,7 +74,7 @@ public class SceneLoader : MonoBehaviour
         {
             if(op.Status == AsyncOperationStatus.Succeeded)
             {
-                camera.SetActive(true);
+                _camera.SetActive(true);
                 downloadProgress.gameObject.SetActive(true);
                 Debug.Log("Successfully unloaded the scene");
             }

@@ -51,11 +51,13 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 48abb810856660a48835f19e9b9a3745, type: 3}
+  - {fileID: 21300000, guid: b8f7d550a4ee54949a0f07f6e678ba74, type: 3}
   - {fileID: 21300000, guid: 553bc9e1da4e7684eb7a1ffdfd097c13, type: 3}
   - {fileID: 21300000, guid: 0f3b4de19de5ccb4886664b69f8d698d, type: 3}
   - {fileID: 21300000, guid: 3fcb08d2ad4eca143ae00eb7f5e0ac85, type: 3}
   - {fileID: 21300000, guid: 9244f1045470cc241ba28f53451fdc0e, type: 3}
   - {fileID: 21300000, guid: debde4461b712eb4ea655cca968e3cfb, type: 3}
+  - {fileID: 21300000, guid: ec81fe375f31e0d45a2474ef2cd58a40, type: 3}
   - {fileID: 21300000, guid: 33ae5af9c65a22c469f1dd0aa442faba, type: 3}
   - {fileID: 21300000, guid: 7053e23aef6d1f6468c3c13ff2313ebc, type: 3}
   - {fileID: 21300000, guid: 8a73bb8ce5a0faa429f5f9f41bd9015e, type: 3}
@@ -64,11 +66,13 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 3574ed8f1da790541979996f81e931ae, type: 3}
   m_PackedSpriteNamesToIndex:
   - R_Arrow3
+  - R_ThickLine
   - R_SoundOff
   - R_Cog
   - R_Arrow4
   - R_SoundOn
   - R_Pause
+  - R_SquareFrame
   - R_Cross
   - icon_leaderboard
   - R_Hand

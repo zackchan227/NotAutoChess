@@ -51,7 +51,5 @@ public class DialogManager : MonoBehaviour
         yield return handle;
         if (handle.Result != null)
             Instantiate(handle.Result, _canvas.transform);
-        Debug.Log(handle.Result.name);
-        //,,.
     }
 }

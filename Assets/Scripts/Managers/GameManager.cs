@@ -134,11 +134,9 @@ public class GameManager : MonoBehaviour
 
         
 
-        if (_enemyCount == gameConfig.enemyCount)
+        if (_enemyCount >= gameConfig.enemyCount)
         {
-            #if !UNITY_WEBGL
             Toast.Instance.showToast(0, "YOU LOST", 5.0f, Toast.ANIMATE.TRANSPARENT);
-            #endif
             isLost = true;
             btRestart.gameObject.SetActive(true);
             //btRestart.GetComponentInChildren<TMP_Text>().gameObject.SetActive(Time.unscaledTime % .5 < .2);

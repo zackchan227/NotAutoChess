@@ -14,11 +14,12 @@ public class Player : MonoBehaviour
     [SerializeField] private Sprite[] _attacks3;
     [SerializeField] private Sprite[] _attacks4;
     [SerializeField] private Sprite[] _attacks5;
-    [SerializeField] float _animTime = 0.5f;
-    [SerializeField] AudioSource audioSource;
-    [SerializeField] AudioClip[] _clips;
-    [SerializeField] private byte _moveSpeed = 0;
-    [SerializeField] ParticleSystem _runEffect;
+    [SerializeField] private float _animTime = 0.5f;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip[] _clips;
+    [SerializeField] private byte _moveSpeed = 5;
+    [SerializeField] private ParticleSystem _runEffect, _onClickWrongParticleEffectPrefab, _onClickRightParticleEffectPrefab, _hitEffectPrefab, _bloodSplashEffectPrefab;
+    [SerializeField] private UIParticle _onClickEffectPrefab;
     private AudioClip _attackSound, _hitSound;
     private SpriteRenderer _currentSprite;
     private Tile currentStanding;
@@ -32,13 +33,14 @@ public class Player : MonoBehaviour
     private List<Vector2> _moveableTile = new List<Vector2>();
     private byte _killStreak = 0;
     private List<Sprite> _currentAnim = new List<Sprite>();
-    private ParticleSystem _onClickWrongParticleEffect, _onClickRightParticleEffect, _hitEffect;
-    private UIParticle _onClickEffect;
-    private Transform _canvas;
-    public AudioSource AudioSource 
+    ParticleSystem _onClickWrongParticleEffect, _onClickRightParticleEffect, _hitEffect;
+    UIParticle _onClickEffect;
+
+    private Transform _canvas, _gameScreen;
+    public AudioSource AudioSource
     {
-        get { return audioSource;}
-        set { audioSource = value;}
+        get { return audioSource; }
+        set { audioSource = value; }
     }
 
     void Awake()
@@ -46,11 +48,14 @@ public class Player : MonoBehaviour
         Instance = this;
         _currentSprite = this.GetComponent<SpriteRenderer>();
         _parentTransform = this.transform.parent;
-        _moveSpeed = 5;
         _currentAnim.AddRange(_idles);
         _canvas = GameObject.Find("Canvas").transform;
-        _onClickEffect = Instantiate(Resources.Load<UIParticle>("Prefabs/Particle/ClickEffect"), _canvas);
-        _hitEffect = Instantiate(Resources.Load<ParticleSystem>("Prefabs/Particle/BloodSplash"));
+        _gameScreen = GameObject.Find("GameScreen").transform;
+        _onClickEffect = Instantiate(_onClickEffectPrefab, _canvas);
+        _bloodSplashEffectPrefab.name = "BloodFX";
+        _hitEffectPrefab.name = "HitFX";
+        ParticleSystem.Instantiate(_bloodSplashEffectPrefab, _gameScreen);
+        ParticleSystem.Instantiate(_hitEffectPrefab, _gameScreen);
     }
 
     // Start is called before the first frame update
@@ -148,8 +153,8 @@ public class Player : MonoBehaviour
         _parentTransform.position = new Vector3(target.x, target.y, target.y - 0.01f);
         isMoving = false;
         checkIsMoving();
-        isAttacking = true;
         checkKillStreak();
+        isAttacking = true;
         _currentFrame = 0;
     }
 
@@ -260,7 +265,7 @@ public class Player : MonoBehaviour
                             }
                             else
                             {
-                                _onClickWrongParticleEffect.transform.position = hit.transform.position;  
+                                _onClickWrongParticleEffect.transform.position = hit.transform.position;
                             }
                             _onClickWrongParticleEffect.Play();
                         }
@@ -288,8 +293,8 @@ public class Player : MonoBehaviour
     {
         _currentAnim.Clear();
         _hitSound = _clips[0];
-        _attackSound = _clips[1];
-        //_hitEffect = Resources.Load<ParticleSystem>("Prefabs/Particle/BloodSplash");;
+        _hitEffect = _gameScreen.Find("BloodFX(Clone)").GetComponent<ParticleSystem>();
+        if (_attackSound == null) _attackSound = _clips[1];
         switch (_killStreak)
         {
             case 1:
@@ -301,7 +306,7 @@ public class Player : MonoBehaviour
             case 3:
                 _hitSound = _clips[2];
                 _attackSound = null;
-                //_hitEffect = null;
+                _hitEffect = _gameScreen.Find("HitFX(Clone)").GetComponent<ParticleSystem>();
                 _currentAnim.AddRange(_attacks3);
                 break;
             case 4:
@@ -311,7 +316,7 @@ public class Player : MonoBehaviour
                 _currentAnim.AddRange(_attacks5);
                 break;
             default:
-                _currentAnim.AddRange(_attacks3);
+                _currentAnim.AddRange(_attacks5);
                 break;
         }
     }
@@ -319,12 +324,12 @@ public class Player : MonoBehaviour
     private void checkIsMoving()
     {
         _currentAnim.Clear();
-        if (isMoving) 
+        if (isMoving)
         {
             _currentAnim.AddRange(_runs);
             _runEffect.Play();
         }
-        else 
+        else
         {
             _runEffect.Stop();
             _currentAnim.AddRange(_idles);
@@ -335,67 +340,85 @@ public class Player : MonoBehaviour
     {
         if (isAttacking)
         {
-            if (_attackSound != null)
+            if (_killStreak != 5)
             {
-                if(_killStreak != 5)
+                if(_killStreak != 3)
+                {
+                    if (_currentFrame == 2)
+                    {
+                        if (_hitEffect != null)
+                        {
+                            _hitEffect.transform.position = _hitTile.transform.position;
+                            _hitEffect.Play();
+                        }
+                    }
+                }
+                else
                 {
                     if (_currentFrame == 0)
                     {
-                        audioSource.PlayOneShot(_attackSound);
-                    }
-                }
-                else
-                {
-                    if(_currentFrame == 1) 
-                    {
-                        audioSource.PlayOneShot(_attackSound);
-                    }
-
-                    if(_currentFrame == 2)
-                    {
-                        if (_hitEffect != null)
-                        {
-                            _hitEffect.transform.position = _hitTile.transform.position;
-                            _hitEffect.Play();
-                        }
-                    }
-                    if(_currentFrame == 6) audioSource.PlayOneShot(_attackSound);
-
-                    if(_currentFrame == 7)
-                    {
-                        if (_hitEffect != null)
-                        {
-                            _hitEffect.transform.position = _hitTile.transform.position;
-                            _hitEffect.Play();
-                        }
-                    }
-                    if(_currentFrame == 12) audioSource.PlayOneShot(_attackSound);
-                    if(_currentFrame == 13)
-                    {
-                        if (_hitEffect != null)
-                        {
-                            _hitEffect.transform.position = _hitTile.transform.position;
-                            _hitEffect.Play();
-                        }
-                    }
-                    if(_currentFrame == 20) audioSource.PlayOneShot(_attackSound);
-                    if(_currentFrame == 21)
-                    {
-                        if (_hitEffect != null)
-                        {
-                            _hitEffect.transform.position = _hitTile.transform.position;
-                            _hitEffect.Play();
-                        }
+                        if(_attackSound != null) audioSource.PlayOneShot(_attackSound);
                     }
                 }
             }
-
-            if (_killStreak != 3)
+            else
             {
-                if (_currentFrame == 2)
+                // sound FX and blood splash FX when _killStreak = 5
+                switch (_currentFrame)
                 {
-                    if(_hitEffect == null) _hitEffect = Instantiate(Resources.Load<ParticleSystem>("Prefabs/Particle/BloodSplash"));
-                    if (_hitEffect != null)
+                    case 1:
+                    case 6:
+                    case 12:
+                    case 20:
+                        audioSource.PlayOneShot(_attackSound);
+                        break;
+                    case 2:
+                    case 7:
+                    case 13:
+                    case 21:
+                        _hitEffect.transform.position = _hitTile.transform.position;
+                        _hitEffect.Play();
+                        break;
+                    default:
+                        break;
+                }
+                // if (_currentFrame == 1)
+                // {
+                //     audioSource.PlayOneShot(_attackSound);
+                // }
+                // if (_currentFrame == 2)
+                // {
+                //     _hitEffect.transform.position = _hitTile.transform.position;
+                //     _hitEffect.Play();
+                // }
+                // if (_currentFrame == 6) audioSource.PlayOneShot(_attackSound);
+
+                // if (_currentFrame == 7)
+                // {
+                //     _hitEffect.transform.position = _hitTile.transform.position;
+                //     _hitEffect.Play();
+                // }
+                // if (_currentFrame == 12) audioSource.PlayOneShot(_attackSound);
+                // if (_currentFrame == 13)
+                // {
+                //     _hitEffect.transform.position = _hitTile.transform.position;
+                //     _hitEffect.Play();
+                // }
+                // if (_currentFrame == 20) audioSource.PlayOneShot(_attackSound);
+                // if (_currentFrame == 21)
+                // {
+                //     _hitEffect.transform.position = _hitTile.transform.position;
+                //     _hitEffect.Play();
+                // }
+            }
+
+            // last hit sound FX
+            if (_hitSound != null)
+            {
+                if (_currentFrame == _currentAnim.Count - 3)
+                {
+                    audioSource.PlayOneShot(_hitSound);
+                    if(_killStreak == 3)
                     {
                         _hitEffect.transform.position = _hitTile.transform.position;
                         _hitEffect.Play();
@@ -404,20 +427,10 @@ public class Player : MonoBehaviour
             }
 
 
-            if (_hitSound != null)
-            {
-                if (_currentFrame == _currentAnim.Count - 3)
-                {
-                    audioSource.PlayOneShot(_hitSound);
-                }
-            }
-
-
+            // kill target
             if (_currentFrame >= _currentAnim.Count - 1)
             {
                 isAttacking = false;
-                //_currentFrame = 0;
-                //_parentTransform.position = _hitTile.transform.position;
                 UnitManager.Instance.RemoveEnemy(_hitTile.StandingUnit);
                 Destroy(_hitTile.StandingUnit);
                 this.PostEvent(EventID.OnPlayerKill);

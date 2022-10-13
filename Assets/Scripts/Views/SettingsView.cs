@@ -74,6 +74,7 @@ public class SettingsView : MonoBehaviour
     {
         btCloseDialogChangePlayerName.onClick.AddListener(OnClickButtonCloseDialogChangePlayerName);
         btSaveChangePlayerName.onClick.AddListener(OnClickButtonSaveChangePlayerName);
+        ipChangePlayerName.text = "";
         dialogChangePlayerName.SetActive(true);
     }
 
@@ -83,16 +84,12 @@ public class SettingsView : MonoBehaviour
         {
             PlayerPrefs.SetString("PlayerName", ipChangePlayerName.text);
             tmpPlayerName.text = ipChangePlayerName.text;
-            #if !UNITY_WEBGL
             Toast.Instance.showToast("Success Change Name", 2.0f, Toast.ANIMATE.TRANSPARENT);
-            #endif
             CloseDialogChangePlayerName();
         }
         else
         {
-            #if !UNITY_WEBGL
             Toast.Instance.showToast("Player name must be from 1 to 14 characters", 2.0f, Toast.ANIMATE.TRANSPARENT);
-            #endif
             ipChangePlayerName.text = "";
         }
     }
@@ -110,7 +107,9 @@ public class SettingsView : MonoBehaviour
 
     private void OnClickButtonSave()
     {
+       #if !UNITY_WEBGL
        Toast.Instance.showToast(0, comingSoon, 2.0f, Toast.ANIMATE.GO_UP_THEN_DISAPPEAR);
+       #endif
     }
 
     private void OnMusicValueChange()
