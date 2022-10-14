@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using LootLocker.Requests;
 
 public class SettingsView : MonoBehaviour
 {
@@ -82,16 +83,35 @@ public class SettingsView : MonoBehaviour
     {
         if(Utils.checkLengthString(1, 14, ipChangePlayerName.text))
         {
-            PlayerPrefs.SetString("PlayerName", ipChangePlayerName.text);
-            tmpPlayerName.text = ipChangePlayerName.text;
-            Toast.Instance.showToast("Success Change Name", 2.0f, Toast.ANIMATE.TRANSPARENT);
-            CloseDialogChangePlayerName();
+            StartCoroutine(SetPlayerName());
         }
         else
         {
-            Toast.Instance.showToast("Player name must be from 1 to 14 characters", 2.0f, Toast.ANIMATE.TRANSPARENT);
+            Toast.Instance.showToast("Player name must be from 1 to 14 characters", 5.0f, Toast.ANIMATE.GO_UP_THEN_DISAPPEAR);
             ipChangePlayerName.text = "";
         }
+    }
+
+    IEnumerator SetPlayerName()
+    {
+        bool isDone = false;
+        LootLockerSDKManager.SetPlayerName(playerName, (response) =>
+        {
+            if (response.success)
+            {
+                PlayerPrefs.SetString("PlayerName", ipChangePlayerName.text);
+                tmpPlayerName.text = ipChangePlayerName.text;
+                Toast.Instance.showToast("Success Change Name", 5.0f, Toast.ANIMATE.TRANSPARENT);
+                CloseDialogChangePlayerName();
+                isDone = true;
+            }
+            else
+            {
+                Toast.Instance.showToast(response.Error, 5.0f, Toast.ANIMATE.GO_UP_THEN_DISAPPEAR);
+                isDone = true;
+            }
+        });
+        yield return new WaitUntil(() => isDone);
     }
 
     private void CloseDialogChangePlayerName()

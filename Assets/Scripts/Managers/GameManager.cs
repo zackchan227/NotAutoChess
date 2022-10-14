@@ -51,7 +51,8 @@ public class GameManager : MonoBehaviour
     int frameCount;
     float pollingTime = 1.0f;
     public byte _enemyCount = 0;
-    public int _score = 0;
+    public ulong _moveCount, _killCount, _playCount;
+    public ulong _score = 0;
     public bool isSoundsOn = true;
 
     void Awake()
@@ -119,7 +120,6 @@ public class GameManager : MonoBehaviour
        
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _isPlaying = true;
             SceneManager.LoadScene(0);
         }
 
@@ -136,8 +136,9 @@ public class GameManager : MonoBehaviour
 
         if (_enemyCount >= gameConfig.enemyCount)
         {
-            Toast.Instance.showToast(0, "YOU LOST", 5.0f, Toast.ANIMATE.TRANSPARENT);
+            Toast.Instance.showToast("MISSION FAILED", 5.0f, Toast.ANIMATE.TRANSPARENT);
             isLost = true;
+            StartCoroutine(SubmitScore());
             btRestart.gameObject.SetActive(true);
             //btRestart.GetComponentInChildren<TMP_Text>().gameObject.SetActive(Time.unscaledTime % .5 < .2);
         }
@@ -173,39 +174,23 @@ public class GameManager : MonoBehaviour
     IEnumerator SubmitScore()
     {
         bool isDone = false;
-        string playerName = SetPlayerName();
-        LootLockerSDKManager.SubmitScore(playerName, _score, 7528, DateTime.Now.ToString("dd MMMM yyyy HH:mm:ss"), (response) =>
+        string playerName = PlayerPrefs.GetString("PlayerName");
+        string metaData = _moveCount.ToString() + "," + _killCount.ToString() + "," + _playCount + "," + DateTime.Now.ToString("dd MMMM yyyy HH:mm:ss");
+        LootLockerSDKManager.SubmitScore(playerName, (int)_score, 7528, metaData, (response) =>
         {
             if (response.statusCode == 200)
             {
-                Debug.Log("Player " + playerName + " success submits score: " + _score);
+                //Toast.Instance.showToast("Success Submit Score: " + response.text, 5.0f, Toast.ANIMATE.TRANSPARENT);
                 isDone = true;
             }
             else
             {
-                Debug.Log("Player " + playerName + " submits score failed: " + response.Error);
+                Toast.Instance.showToast("Submit Score Failed: " + response.Error, 5.0f, Toast.ANIMATE.TRANSPARENT);
                 isDone = true;
             }
         });
         yield return new WaitUntil(() => isDone);
     }    
-
-    private string SetPlayerName()
-    {
-        string playerName = PlayerPrefs.GetString("PlayerName");
-        LootLockerSDKManager.SetPlayerName(playerName, (response) => 
-        {
-            if(response.success)
-            {
-                
-            }
-            else
-            {
-                playerName = "Another " + UnityEngine.Random.Range(1, 6969); 
-            }
-        });
-        return playerName;
-    }
 
     public void ChangeState(GameState newState)
     {
@@ -278,15 +263,7 @@ public class GameManager : MonoBehaviour
 
     private void OnClickButtonRestart()
     {
-        StartCoroutine(SubmitScore());
-        _isPlaying = true;
-        #if !UNITY_WEBGL
-        Toast.Instance.showToast(0, "6", 6.0f, Toast.ANIMATE.CHANGE_TEXT);
-        StartCoroutine(WaitToRestart(5.0f));
-        #else
-        SceneManager.LoadScene(0);
-        #endif
-        
+        SceneManager.LoadScene(0);      
     }
 
     IEnumerator WaitToRestart(float seconds)

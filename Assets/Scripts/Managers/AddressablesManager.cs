@@ -53,27 +53,14 @@ public class AddressablesManager : MonoBehaviour
             //go.Result.SetActive(false);
             go.Result.GetComponent<SpriteRenderer>().material = defaultMaterial;
         };
-        // leaderboardDialog.InstantiateAsync(_canvas).Completed += (go) =>
-        // {
-        //     //go.Result.transform.SetParent(_canvas);
-        //     go.Result.SetActive(false);
-        // };
-
-        // settingsDialog.InstantiateAsync(_canvas).Completed += (go) =>
-        // {
-        //    //go.Result.transform.SetParent(_canvas);
-        //    go.Result.SetActive(false);
-        // };
 
         toastDialog.InstantiateAsync(_canvas).Completed += (go) =>
         {
             //go.Result.transform.SetParent(_canvas);
             //go.Result.SetActive(false);
+            //go.Result.GetComponent<SpriteRenderer>().material = defaultMaterial;
+            go.Result.GetComponent<Canvas>().overrideSorting = true;
         };
-
-
-
-
     }
 
     private void OnLoadDone(AsyncOperationHandle<GameObject> obj)

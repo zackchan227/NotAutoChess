@@ -15,58 +15,37 @@ public class Toast : MonoBehaviour
     private static Toast toast;
     public static Toast Instance => toast;
 
-    private Text txtMessage;
-    private TMP_Text tmpMessage;
-    private Image imgBG;
+    [SerializeField] private TMP_Text tmpMessage;
+    [SerializeField] private Image imgBG, imgFrame;
     bool runAnim = false;
     Color tempColor;
-    float timer = 0f;
-    float animTime;
+    float animTime, timer = 0f, countdown = 0f;
     ANIMATE currentAnim;
     Vector2 originPos;
-    float countdown = 0f;
 
     void Awake()
     {
-        if(toast == null)
+        if (toast == null)
         {
-           toast = this;
+            toast = this;
         }
-        //DontDestroyOnLoad(this);
     }
 
     void Start()
     {
-        txtMessage = GetComponentInChildren<Text>();
-        tmpMessage = GetComponent<TMP_Text>();
-        imgBG = GetComponent<Image>();
         originPos = gameObject.GetComponent<RectTransform>().localPosition;
         gameObject.SetActive(false);
     }
 
     void Update()
     {
-        if(!runAnim) return;
+        if (!runAnim) return;
         timer += Time.unscaledDeltaTime;
-        switch(currentAnim)
+        if (timer < animTime)
         {
-            case ANIMATE.TRANSPARENT:
-                if (timer < animTime) runTransparentAnim();
-                else resetAnim();
-                break;
-            case ANIMATE.GO_UP_THEN_DISAPPEAR:
-                if (timer < animTime) runGoUpThenDisappearAnim();
-                else resetAnim();
-                break;
-            case ANIMATE.CHANGE_TEXT:
-                if (timer < animTime) runChangeTextAnim();
-                else resetAnim();
-                break;
-            default:
-                if (timer < animTime) runTransparentAnim();
-                else resetAnim();
-                break;
+            checkAndRunAnim();
         }
+        else resetAnim();
     }
 
     public void showToast(short returnCode, string message, float timeSecond, ANIMATE anim)
@@ -74,23 +53,9 @@ public class Toast : MonoBehaviour
         resetAnim();
         animTime = timeSecond;
         countdown = animTime;
-        if(returnCode  == 0) txtMessage.text = message;
-        else txtMessage.text = "[" + returnCode + "] : " + message;
-        switch(currentAnim)
-        {
-            case ANIMATE.TRANSPARENT:
-                currentAnim = anim;
-                break;
-            case ANIMATE.GO_UP_THEN_DISAPPEAR:
-                currentAnim = anim;
-                break;
-            case ANIMATE.CHANGE_TEXT:
-                currentAnim = anim;
-                break;
-            default:
-                currentAnim = anim;
-                break;
-        }
+        if (returnCode == 0) tmpMessage.text = message;
+        else tmpMessage.text = "[" + returnCode + "] : " + message;
+        currentAnim = anim;
         this.gameObject.SetActive(true);
         runAnim = true;
     }
@@ -100,101 +65,108 @@ public class Toast : MonoBehaviour
         resetAnim();
         animTime = timeSecond;
         countdown = animTime;
-        txtMessage.text = message;
-        switch(currentAnim)
-        {
-            case ANIMATE.TRANSPARENT:
-                currentAnim = anim;
-                break;
-            case ANIMATE.GO_UP_THEN_DISAPPEAR:
-                currentAnim = anim;
-                break;
-            case ANIMATE.CHANGE_TEXT:
-                currentAnim = anim;
-                break;
-            default:
-                currentAnim = anim;
-                break;
-        }
+        tmpMessage.text = message;
+        currentAnim = anim;
         this.gameObject.SetActive(true);
         runAnim = true;
     }
 
-    public void showToast(short returnCode, string message, float timeSecond)
+    public void showToastChangeText(string message, float timeSecond)
     {
         resetAnim();
         animTime = timeSecond;
-        if(returnCode  == 0) txtMessage.text = message;
-        else txtMessage.text = "[" + returnCode + "] : " + message;
-        currentAnim = ANIMATE.TRANSPARENT;
+        countdown = animTime;
+        tmpMessage.text = message;
+        currentAnim = ANIMATE.CHANGE_TEXT;
         this.gameObject.SetActive(true);
         runAnim = true;
+    }
+
+    private void Transparent()
+    {
+        tempColor = tmpMessage.color;
+        tempColor.a = Mathf.Lerp(tempColor.a, 0, Time.unscaledDeltaTime/animTime);
+        tmpMessage.color = tempColor;
+        tempColor = imgBG.color;
+        tempColor.a = Mathf.Lerp(tempColor.a, 0, Time.unscaledDeltaTime/animTime);
+        imgBG.color = tempColor;
+        tempColor = imgFrame.color;
+        tempColor.a = Mathf.Lerp(tempColor.a, 0, Time.unscaledDeltaTime/animTime);
+        imgFrame.color = tempColor;
+    }
+
+    private void Opaque()
+    {
+        tempColor = tmpMessage.color;
+        tempColor.a = 1;
+        tmpMessage.color = tempColor;
+        tempColor = imgBG.color;
+        tempColor.a = 1;
+        imgBG.color = tempColor;
+        tempColor = imgFrame.color;
+        tempColor.a = 1;
+        imgFrame.color = tempColor;
+    }
+
+    private void MoveUp()
+    {
+        this.gameObject.GetComponent<RectTransform>().localPosition = new Vector2(originPos.x,
+                    Mathf.Lerp(this.gameObject.GetComponent<RectTransform>().localPosition.y,
+                                this.gameObject.GetComponent<RectTransform>().localPosition.y + 50,
+                                Time.unscaledDeltaTime / animTime));
+    }
+
+    private void ResetPosition()
+    {
+        this.gameObject.GetComponent<RectTransform>().localPosition = originPos;
+    }
+
+    private void StopAnim()
+    {
+        timer = 0f;
+        this.gameObject.SetActive(false);
+        runAnim = false;
     }
 
     private void runTransparentAnim()
     {
-        tempColor = txtMessage.color;
-        tempColor.a = Mathf.Lerp(tempColor.a, 0, Time.unscaledDeltaTime);
-        txtMessage.color = tempColor;
-        tempColor = imgBG.color;
-        tempColor.a = Mathf.Lerp(tempColor.a, 0, Time.unscaledDeltaTime);
-        imgBG.color = tempColor;   
-    }
-
-    private void stopTransparentAnim()
-    {
-        tempColor = txtMessage.color;
-        tempColor.a = 1;
-        txtMessage.color = tempColor;
-        tempColor = imgBG.color;
-        tempColor.a = 1;
-        imgBG.color = tempColor;
-        timer = 0f;
-        this.gameObject.SetActive(false);
-        runAnim = false;
+        Transparent();
     }
 
     private void runGoUpThenDisappearAnim()
     {
-        tempColor = txtMessage.color;
-        tempColor.a = Mathf.Lerp(tempColor.a, 0, Time.unscaledDeltaTime);
-        txtMessage.color = tempColor;
-        tempColor = imgBG.color;
-        tempColor.a = Mathf.Lerp(tempColor.a, 0, Time.unscaledDeltaTime);
-        imgBG.color = tempColor;  
-        this.gameObject.GetComponent<RectTransform>().localPosition = new Vector2(originPos.x,Mathf.Lerp(this.gameObject.GetComponent<RectTransform>().localPosition.y, this.gameObject.GetComponent<RectTransform>().localPosition.y + 50, Time.unscaledDeltaTime / animTime));
-    }
-
-    private void stopGoUpThenDisappearAnim()
-    {
-        tempColor = txtMessage.color;
-        tempColor.a = 1;
-        txtMessage.color = tempColor;
-        tempColor = imgBG.color;
-        tempColor.a = 1;
-        imgBG.color = tempColor;
-        this.gameObject.GetComponent<RectTransform>().localPosition = originPos;
-        timer = 0f;
-        this.gameObject.SetActive(false);
-        runAnim = false;
+        Transparent();
+        MoveUp();
     }
 
     private void runChangeTextAnim()
     {
-        txtMessage.text = ((int)(countdown - timer)).ToString();
+        tmpMessage.text = ((int)(countdown - timer)).ToString();
     }
 
     private void resetAnim()
     {
-        tempColor = txtMessage.color;
-        tempColor.a = 1;
-        txtMessage.color = tempColor;
-        tempColor = imgBG.color;
-        tempColor.a = 1;
-        imgBG.color = tempColor;
-        this.gameObject.GetComponent<RectTransform>().localPosition = originPos;
-        timer = 0f;
-        this.gameObject.SetActive(false);
-        runAnim = false;
+        Opaque();
+        ResetPosition();
+        StopAnim();
+    }
+
+    private void checkAndRunAnim()
+    {
+        switch (currentAnim)
+        {
+            case ANIMATE.TRANSPARENT:
+                runTransparentAnim();
+                break;
+            case ANIMATE.GO_UP_THEN_DISAPPEAR:
+                runGoUpThenDisappearAnim();
+                break;
+            case ANIMATE.CHANGE_TEXT:
+                runChangeTextAnim();
+                break;
+            default:
+                runTransparentAnim();
+                break;
+        }
     }
 }
