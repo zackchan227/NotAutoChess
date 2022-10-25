@@ -43,6 +43,7 @@ MonoBehaviour:
   m_GroupAssets:
   - {fileID: 11400000, guid: b13c8303db44abd4aaaaa0879243350e, type: 2}
   - {fileID: 11400000, guid: 52b09ced4555e18499bc22435eae92ca, type: 2}
+  - {fileID: 11400000, guid: a688c51b69308bd48ae198ec1a295db9, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -64,6 +65,14 @@ MonoBehaviour:
         m_Value: ServerData/[BuildTarget]
       - m_Id: 2d0b6580f3453e4459fcfaddb648f8f4
         m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+      - m_Id: 679527fe6496dc04dad5288cdaf8c46a
+        m_Value: 6b355bdf-8beb-4260-ad8f-e64ffe2321d3
+      - m_Id: 0fa3e21642c24804090c3dbed72663c4
+        m_Value: 8694cad9-d476-4bf0-90a3-f4febf62703d
+      - m_Id: 6d41e408294d41d47a409e39d9d42c2d
+        m_Value: 8694cad9-d476-4bf0-90a3-f4febf62703d
+      - m_Id: cc9bd983e37271a4290451e9ff8040ed
+        m_Value: F:/Unity/Nothing/Chess/Assets
     - m_InheritedParent: 
       m_Id: 63e5da3515c750f47b640205bd489b90
       m_ProfileName: Development
@@ -77,7 +86,15 @@ MonoBehaviour:
       - m_Id: fdbb5348813ae334daa7d44c801a242f
         m_Value: ServerData/[BuildTarget]
       - m_Id: 2d0b6580f3453e4459fcfaddb648f8f4
-        m_Value: https://6b355bdf-8beb-4260-ad8f-e64ffe2321d3.client-api.unity3dusercontent.com/client_api/v1/environments/production/buckets/8694cad9-d476-4bf0-90a3-f4febf62703d/release_by_badge/Production/entry_by_path/content/?path=[BuildTarget]
+        m_Value: https://[ProjectID].client-api.unity3dusercontent.com/client_api/v1/environments/production/buckets/[BucketWebGL]/release_by_badge/Production/entry_by_path/content/?path=[BuildTarget]
+      - m_Id: 679527fe6496dc04dad5288cdaf8c46a
+        m_Value: 6b355bdf-8beb-4260-ad8f-e64ffe2321d3
+      - m_Id: 0fa3e21642c24804090c3dbed72663c4
+        m_Value: 8694cad9-d476-4bf0-90a3-f4febf62703d
+      - m_Id: 6d41e408294d41d47a409e39d9d42c2d
+        m_Value: 59093e46-ce87-4557-b318-034e6b668ed4
+      - m_Id: cc9bd983e37271a4290451e9ff8040ed
+        m_Value: '[Bucket[BuildTarget]]'
     m_ProfileEntryNames:
     - m_Id: 5e03d452c0d8a2a40b46926b61fca741
       m_Name: BuildTarget
@@ -93,6 +110,18 @@ MonoBehaviour:
       m_InlineUsage: 0
     - m_Id: 2d0b6580f3453e4459fcfaddb648f8f4
       m_Name: Remote.LoadPath
+      m_InlineUsage: 0
+    - m_Id: 679527fe6496dc04dad5288cdaf8c46a
+      m_Name: ProjectID
+      m_InlineUsage: 0
+    - m_Id: 0fa3e21642c24804090c3dbed72663c4
+      m_Name: BucketAndroid
+      m_InlineUsage: 0
+    - m_Id: 6d41e408294d41d47a409e39d9d42c2d
+      m_Name: BucketWebGL
+      m_InlineUsage: 0
+    - m_Id: cc9bd983e37271a4290451e9ff8040ed
+      m_Name: BucketID
       m_InlineUsage: 0
     m_ProfileVersion: 1
   m_LabelTable:

@@ -19,5 +19,15 @@ public enum EventID
     Unkown = 404
 }
 
+public enum MoveType
+{
+    Pawn = 0,
+    Knight,
+    Bishop,
+    Rook,
+    Queen,
+    King = 5
+}
+
 
 

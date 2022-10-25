@@ -9,6 +9,7 @@ using UnityEngine.UI;
 using System.Diagnostics;
 using Debug = UnityEngine.Debug;
 using System;
+using System.Text;
 
 public static class Utils
 {
@@ -86,6 +87,9 @@ public static class Utils
 			if (! condition) throw new UnityException(string.Format(format, args));
 		}
 
+	/// <summary>
+	/// Format Date
+	/// </summary>
     public static string formatDateTime(float time)
     {
         string second = Math.Round(time,0).ToString();
@@ -94,6 +98,9 @@ public static class Utils
         return hour + ":" + minute + ":" + second;
     }
 
+	/// <summary>
+	/// Format time Hours:Minutes:Seconds (00:00:00)
+	/// </summary>
     public static string formatTimer(double seconds)
     {
         TimeSpan span = TimeSpan.FromSeconds(seconds);
@@ -101,9 +108,25 @@ public static class Utils
             (int)span.TotalHours, span.Minutes, span.Seconds);
     }
 
+	/// <summary>
+	/// Check string length with min, max param
+	/// </summary>
 	public static bool checkLengthString(byte min, byte max, string str)
 	{
 		if(str.Length < min || str.Length > max) return false;
 		return true;
+	}
+
+	/// <summary>
+	/// Replace a string char at index with another char
+	/// </summary>
+	/// <param name="text">string to be replaced</param>
+	/// <param name="index">position of the char to be replaced</param>
+	/// <param name="c">replacement char</param>
+	public static string ReplaceAtIndex(string text, int index, char c)
+	{
+		var stringBuilder = new StringBuilder(text);
+		stringBuilder[index] = c;
+		return stringBuilder.ToString();
 	}
 }

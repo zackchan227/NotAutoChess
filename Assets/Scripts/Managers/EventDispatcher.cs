@@ -128,7 +128,7 @@ namespace Event
             EventDispatcher.Instance.PostEvent(eventID, param);
         }
 
-        /// Post event with no param (param = null)
+        /// Post event without param (param = null)
         public static void PostEvent(this MonoBehaviour sender, EventID eventID)
         {
             EventDispatcher.Instance.PostEvent(eventID, null);

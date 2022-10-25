@@ -19,15 +19,7 @@ public class GameManager : MonoBehaviour
         DefenderTurn = 4
     }
 
-    public enum MoveType
-    {
-        Pawn = 0,
-        Knight,
-        Bishop,
-        Rook,
-        Queen,
-        King = 5
-    }
+ 
 
     public Button btChangeSpeed;
     public Button btPause;
@@ -39,7 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Button btRestart;
     [SerializeField] Button btSettings;
     [SerializeField] TMP_Text tmpFPS;
-    [SerializeField] GameConfig gameConfig;
+    [SerializeField] public GameConfig gameConfig;
     public bool _isReadyToSwitchIsometric = false;
 
     float[] gameSpeeds = { 1.0f, 1.5f, 2.0f, 3.0f, 5.0f };
@@ -58,6 +50,11 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        TMP_Text[] texts = FindObjectsOfType<TMP_Text>();
+        foreach(TMP_Text txt in texts)
+        {
+            txt.font = gameConfig.fontTMP;
+        }
     }
 
     private void OnEnable()
@@ -97,7 +94,7 @@ public class GameManager : MonoBehaviour
         ChangeState(GameState.SpawnDefender);
         ChangeState(GameState.AttackerTurn);
         Application.targetFrameRate = 30;
-        int isOn = PlayerPrefs.GetInt("IsSoundsOn");
+        int isOn = PlayerPrefs.GetInt("IsSoundsOn",1);
         if(isOn == 0) isSoundsOn = false;
         else isSoundsOn = true;
     }
@@ -176,6 +173,7 @@ public class GameManager : MonoBehaviour
         bool isDone = false;
         string playerName = PlayerPrefs.GetString("PlayerName");
         string metaData = _moveCount.ToString() + "," + _killCount.ToString() + "," + _playCount + "," + DateTime.Now.ToString("dd MMMM yyyy HH:mm:ss");
+        NetworkManager.Instance.SaveScore(metaData);
         LootLockerSDKManager.SubmitScore(playerName, (int)_score, 7528, metaData, (response) =>
         {
             if (response.statusCode == 200)

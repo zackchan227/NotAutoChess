@@ -21,6 +21,7 @@ public class AddressablesManager : MonoBehaviour
     [SerializeField] AssetReference toastDialog;
     [SerializeField] AssetReference background;
     [SerializeField] AssetReference soundsManager;
+    [SerializeField] AssetReference popup;
     [SerializeField] Material defaultMaterial;
 
     Transform _canvas;
@@ -42,23 +43,25 @@ public class AddressablesManager : MonoBehaviour
 
     private void AddressablesManager_Completed(AsyncOperationHandle<IResourceLocator> obj)
     {
+        background.InstantiateAsync(Camera.main.transform).Completed += (go) =>
+        {
+            //go.Result.GetComponent<SpriteRenderer>().material = defaultMaterial;
+        };
+
         soundsManager.InstantiateAsync(_managers).Completed += (go) =>
         {
             GameManager.Instance.SoundsCheck(GameManager.Instance.isSoundsOn);
         };
 
-        background.InstantiateAsync(Camera.main.transform).Completed += (go) =>
-        {
-            //go.Result.transform.SetParent(_canvas);
-            //go.Result.SetActive(false);
-            go.Result.GetComponent<SpriteRenderer>().material = defaultMaterial;
-        };
-
         toastDialog.InstantiateAsync(_canvas).Completed += (go) =>
         {
-            //go.Result.transform.SetParent(_canvas);
-            //go.Result.SetActive(false);
-            //go.Result.GetComponent<SpriteRenderer>().material = defaultMaterial;
+            // order sorting layer : make this object display in front of lower sorting layer
+            go.Result.GetComponent<Canvas>().overrideSorting = true;
+        };
+
+        popup.InstantiateAsync(_canvas).Completed += (go) =>
+        {
+            // order sorting layer : make this object display in front of lower sorting layer
             go.Result.GetComponent<Canvas>().overrideSorting = true;
         };
     }

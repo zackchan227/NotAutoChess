@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class SpriteAnimation : MonoBehaviour
 {
-
     [SerializeField] Sprite[] _sprites;
     [SerializeField] float _animTime = 0.5f;
     private SpriteRenderer _currentSprite;

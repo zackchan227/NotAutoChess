@@ -340,7 +340,7 @@ public class Player : MonoBehaviour
     {
         if (isAttacking)
         {
-            if (_killStreak != 5)
+            if (_killStreak < 5)
             {
                 if(_killStreak != 3)
                 {

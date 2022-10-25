@@ -24,7 +24,7 @@ public class TextManager : MonoBehaviour
         this.AddListener(EventID.OnPlayerMove, (param) => UpdatePlayerMoveCount());
         this.AddListener(EventID.OnPlayerKill, (param) => UpdatePlayerKillCount());
         this.AddListener(EventID.OnScoreCount, (param) => UpdateScore((byte)param));
-        Invoke("CountTimer", 1.0f);
+        InvokeRepeating("CountTimer", 1.0f, 1.0f);
     }
 
     void OnEnable()
@@ -55,20 +55,20 @@ public class TextManager : MonoBehaviour
         get => _enemyCount;
         set => _enemyCount = value;
     }
-    private int _killCount = 0;
-    public int KillCount
+    private ulong _killCount = 0;
+    public ulong KillCount
     {
         get => _killCount;
         set => _killCount = value;
     }
-    private int _moveCount = 0;
-    public int MoveCount
+    private ulong _moveCount = 0;
+    public ulong MoveCount
     {
         get => _moveCount;
         set => _moveCount = value;
     }
-    private int _scoreCount = 0;
-    public int ScoreCount
+    private ulong _scoreCount = 0;
+    public ulong ScoreCount
     {
         get => _scoreCount;
         set => _scoreCount = value;
@@ -107,12 +107,14 @@ public class TextManager : MonoBehaviour
 	private void UpdatePlayerMoveCount()
 	{
 		_moveCount++;
+         GameManager.Instance._moveCount = _moveCount;
 		tmpMoveCount.text = MOVE_TEXT_PREFIX + _moveCount;
 	}
 
     private void UpdatePlayerKillCount()
 	{
 		_killCount++;
+        GameManager.Instance._killCount = _killCount;
 		//tmpKillCount.text = MOVE_TEXT_PREFIX + _killCount;
 	}
 
@@ -136,7 +138,7 @@ public class TextManager : MonoBehaviour
         _currentTimeFromStart++;
         if(GameManager.Instance.isPausing) WaitUntilUnpause();
         this.PostEvent(EventID.OnTimeCount);
-        Invoke("CountTimer", 1.0f);
+        //Invoke("CountTimer", 1.0f);
     }
 
     IEnumerator WaitUntilUnpause()

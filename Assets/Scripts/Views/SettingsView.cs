@@ -95,22 +95,31 @@ public class SettingsView : MonoBehaviour
     IEnumerator SetPlayerName()
     {
         bool isDone = false;
-        LootLockerSDKManager.SetPlayerName(playerName, (response) =>
+        if(!LootLockerSDKManager.CheckInitialized())
         {
-            if (response.success)
+            Toast.Instance.showToast("Change Player Name Failed" + ":" + " " + "No Internet", 5.0f, Toast.ANIMATE.GO_UP_THEN_DISAPPEAR);
+            CloseDialogChangePlayerName();
+            isDone = true;
+        }
+        else
+        {
+            LootLockerSDKManager.SetPlayerName(playerName, (response) =>
             {
-                PlayerPrefs.SetString("PlayerName", ipChangePlayerName.text);
-                tmpPlayerName.text = ipChangePlayerName.text;
-                Toast.Instance.showToast("Success Change Name", 5.0f, Toast.ANIMATE.TRANSPARENT);
-                CloseDialogChangePlayerName();
-                isDone = true;
-            }
-            else
-            {
-                Toast.Instance.showToast(response.Error, 5.0f, Toast.ANIMATE.GO_UP_THEN_DISAPPEAR);
-                isDone = true;
-            }
-        });
+                if (response.success)
+                {
+                    PlayerPrefs.SetString("PlayerName", ipChangePlayerName.text);
+                    tmpPlayerName.text = ipChangePlayerName.text;
+                    Toast.Instance.showToast("Success Change Name", 5.0f, Toast.ANIMATE.TRANSPARENT);
+                    CloseDialogChangePlayerName();
+                    isDone = true;
+                }
+                else
+                {
+                    Toast.Instance.showToast(response.Error, 5.0f, Toast.ANIMATE.GO_UP_THEN_DISAPPEAR);
+                    isDone = true;
+                }
+            });
+        }  
         yield return new WaitUntil(() => isDone);
     }
 
@@ -127,9 +136,7 @@ public class SettingsView : MonoBehaviour
 
     private void OnClickButtonSave()
     {
-       #if !UNITY_WEBGL
        Toast.Instance.showToast(0, comingSoon, 2.0f, Toast.ANIMATE.GO_UP_THEN_DISAPPEAR);
-       #endif
     }
 
     private void OnMusicValueChange()

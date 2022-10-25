@@ -46,6 +46,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AudioSource: {fileID: 0}
+  _musics:
+  - {fileID: 8300000, guid: f03e671ac3c1c0448a7075325ba61a18, type: 3}
+  _lyricsPath: Assets/Resources/Soundtracks/Lyrics/
+  _particleText: {fileID: 9025660922098761659, guid: ad0d7ec649e03ea4d8c9a0531f7f2ac5, type: 3}
 --- !u!82 &7558624634638963150
 AudioSource:
   m_ObjectHideFlags: 0
@@ -56,8 +60,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e13f3e609a566b0498f58e60ad587c6e, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1

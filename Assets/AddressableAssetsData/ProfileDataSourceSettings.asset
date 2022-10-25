@@ -25,3 +25,9 @@ MonoBehaviour:
       m_Value: ServerData/[BuildTarget]
     - m_Suffix: LoadPath
       m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+  - m_GroupTypePrefix: Customize
+    m_Variables:
+    - m_Suffix: BuildPath
+      m_Value: ServerData/[BuildTarget]
+    - m_Suffix: LoadPath
+      m_Value: https://[ProjectID].client-api.unity3dusercontent.com/client_api/v1/environments/production/buckets/[Bucket[BuildTarget]]/release_by_badge/Production/entry_by_path/content/?path=[BuildTarget]

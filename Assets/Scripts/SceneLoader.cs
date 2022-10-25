@@ -17,7 +17,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private TMPro.TMP_Text tmpTotalDownloaded;
     private AsyncOperationHandle<SceneInstance> handle;
     public GameObject _camera;
-    long DownloadSize = 0;
+    //long DownloadSize = 0;
 
     void Awake()
     {

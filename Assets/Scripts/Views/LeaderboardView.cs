@@ -106,39 +106,39 @@ public class LeaderboardView : PooledDataProvider
         else
         {
             LootLockerSDKManager.GetScoreList(leaderboardID, 1000, 0, (response) =>
-        {
-            if (response.statusCode == 200)
             {
-                _listView.StopProgressWheel();
-                Debug.Log("Successful Receive Leaderboard Datas");
-                for (int i = 0; i < response.items.Length; i++)
+                if (response.statusCode == 200)
                 {
-                    string playerName = response.items[i].player.name;
-                    if (string.IsNullOrEmpty(playerName))
+                    _listView.StopProgressWheel();
+                    Debug.Log("Successful Receive Leaderboard Datas");
+                    for (int i = 0; i < response.items.Length; i++)
                     {
-                        count++;
-                        playerName = "Anonymous " + count;
+                        string playerName = response.items[i].player.name;
+                        if (string.IsNullOrEmpty(playerName))
+                        {
+                            count++;
+                            playerName = "Anonymous " + count;
+                        }
+                        LeaderboardData data;
+                        string[] splitDatas = response.items[i].metadata.Split(',');
+                        if(splitDatas.Length == 0)
+                        {
+                            data = new LeaderboardData(response.items[i].rank, playerName, response.items[i].score, response.items[i].metadata);
+                        }
+                        else data = new LeaderboardData(response.items[i].rank, playerName, response.items[i].score, splitDatas[splitDatas.Length-1]);
+                        _listDatas.Add(data);
                     }
-                    LeaderboardData data;
-                    string[] splitDatas = response.items[i].metadata.Split(',');
-                    if(splitDatas.Length == 0)
-                    {
-                        data = new LeaderboardData(response.items[i].rank, playerName, response.items[i].score, response.items[i].metadata);
-                    }
-                    else data = new LeaderboardData(response.items[i].rank, playerName, response.items[i].score, splitDatas[splitDatas.Length-1]);
-                    _listDatas.Add(data);
+                    isDone = true;
+                    ScrollRectController.Initialize(GetData());
+                    _listView._content.gameObject.SetActive(true);
                 }
-                isDone = true;
-                ScrollRectController.Initialize(GetData());
-                _listView._content.gameObject.SetActive(true);
-            }
-            else
-            {
-                Debug.Log("failed: " + response.Error);
-                Toast.Instance.showToast("Loading Leaderboard Failed: " + response.Error, 5.0f, Toast.ANIMATE.TRANSPARENT);
-                isDone = true;
-            }
-        });
+                else
+                {
+                    Debug.Log("failed: " + response.Error);
+                    Toast.Instance.showToast("Loading Leaderboard Failed: " + response.Error, 5.0f, Toast.ANIMATE.TRANSPARENT);
+                    isDone = true;
+                }
+            });
         }
         yield return new WaitUntil(() => isDone);
     }
