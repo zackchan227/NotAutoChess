@@ -47,9 +47,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioSource: {fileID: 0}
   _musics:
-  - {fileID: 8300000, guid: f03e671ac3c1c0448a7075325ba61a18, type: 3}
+  - {fileID: 8300000, guid: 8d9e0c21663a483469ec781d1ebe0343, type: 3}
   _lyricsPath: Assets/Resources/Soundtracks/Lyrics/
   _particleText: {fileID: 9025660922098761659, guid: ad0d7ec649e03ea4d8c9a0531f7f2ac5, type: 3}
+  _textLyrics:
+  - {fileID: 4900000, guid: b2a4e5b72b662594daa775a5309fc4b4, type: 3}
 --- !u!82 &7558624634638963150
 AudioSource:
   m_ObjectHideFlags: 0

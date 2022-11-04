@@ -27,12 +27,16 @@ public class GameManager : MonoBehaviour
     public bool _isPlaying = false;
     //[SerializeField] Transform backgroundTransform;
     [SerializeField] Toggle tgSwitchDimension;
+    [SerializeField] TMP_Dropdown ddMusic;
     [SerializeField] Toggle tgSound;
     [SerializeField] Button btRestart;
     [SerializeField] Button btSettings;
     [SerializeField] TMP_Text tmpFPS;
     [SerializeField] public GameConfig gameConfig;
+    [SerializeField] public GameObject containerDownload;
+    [SerializeField] TMP_Text tmpMoveType;
     public bool _isReadyToSwitchIsometric = false;
+    public MoveType _currentMoveType;
 
     float[] gameSpeeds = { 1.0f, 1.5f, 2.0f, 3.0f, 5.0f };
     string[] gameSpeedsTxt = { "x1", "x1.5", "x2", "x3", "x5" };
@@ -63,6 +67,7 @@ public class GameManager : MonoBehaviour
         tgSound.onValueChanged.AddListener(OnValueChangedToggleSound);
         btRestart.onClick.AddListener(OnClickButtonRestart);
         btSettings.onClick.AddListener(OnClickButtonSettings);
+        //ddMusic.onValueChanged.AddListener(delegate {OnValueChangedDropdownMusic(ddMusic);});
     }
 
     private void OnDisable()
@@ -71,6 +76,7 @@ public class GameManager : MonoBehaviour
         btRestart.onClick.RemoveAllListeners();
         // btChangeSpeed.onClick.RemoveAllListeners();
         btSettings.onClick.RemoveAllListeners();
+        //ddMusic.onValueChanged.RemoveAllListeners();
     }
 
     // Start is called before the first frame update
@@ -173,7 +179,7 @@ public class GameManager : MonoBehaviour
         bool isDone = false;
         string playerName = PlayerPrefs.GetString("PlayerName");
         string metaData = _moveCount.ToString() + "," + _killCount.ToString() + "," + _playCount + "," + DateTime.Now.ToString("dd MMMM yyyy HH:mm:ss");
-        NetworkManager.Instance.SaveScore(metaData);
+        //NetworkManager.Instance.SaveScore(metaData);
         LootLockerSDKManager.SubmitScore(playerName, (int)_score, 7528, metaData, (response) =>
         {
             if (response.statusCode == 200)
@@ -206,9 +212,12 @@ public class GameManager : MonoBehaviour
                 UnitManager.Instance.SpawnDefenderRandomPos();
                 break;
             case GameState.AttackerTurn:
-                // MoveType randomMoveType = (MoveType)UnityEngine.Random.Range(0, Enum.GetNames(typeof(MoveType)).Length);
+                MoveType randomMoveType = (MoveType)UnityEngine.Random.Range(0, Enum.GetNames(typeof(MoveType)).Length);
+                _currentMoveType = randomMoveType;
+                //_currentMoveType = MoveType.Pawn;
+                tmpMoveType.text = getMoveTypeName(_currentMoveType);
                 // Player.Instance.Move(0, GridManager.Instance.GetPlayerMoveableTiles(!_isReadyToSwitchIsometric, Player.Instance._parentTransform.position, randomMoveType));
-                Player.Instance.Move(0, GridManager.Instance.GetPlayerMoveableTiles(!_isReadyToSwitchIsometric, Player.Instance._parentTransform.position, MoveType.Knight));
+                Player.Instance.Move(0, GridManager.Instance.GetPlayerMoveableTiles(!_isReadyToSwitchIsometric, Player.Instance._parentTransform.position, _currentMoveType));
                 break;
             case GameState.DefenderTurn:
                 break;
@@ -248,6 +257,11 @@ public class GameManager : MonoBehaviour
     private void OnValueChangedToggleSound(bool value)
     {
         SoundsCheck(value);
+    }
+
+    public void OnValueChangedDropdownMusic(TMP_Dropdown change)
+    {
+        SoundsManager.Instance.LoadMusic(change.name.ToLower());
     }
 
     public void SoundsCheck(bool value)
@@ -318,5 +332,34 @@ public class GameManager : MonoBehaviour
             btPause.GetComponentInChildren<Text>().text = "Pause";
             isPausing = false;
         }
+    }
+
+    private string getMoveTypeName(MoveType type)
+    {
+        string result = "";
+        switch (type)
+        {
+            case MoveType.Pawn:
+                result = "Pawn";
+                break;
+            case MoveType.Bishop:
+                result = "Bishop";
+                break;
+            case MoveType.Rook:
+                result = "Rook";
+                break;
+            case MoveType.Knight:
+                result = "Knight";
+                break;
+            case MoveType.King:
+                result = "King";
+                break;
+            case MoveType.Queen:
+                result = "Queen";
+                break;
+            default:
+                break;
+        }
+        return result;
     }
 }

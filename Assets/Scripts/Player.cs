@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
         _hitEffectPrefab.name = "HitFX";
         ParticleSystem.Instantiate(_bloodSplashEffectPrefab, _gameScreen);
         ParticleSystem.Instantiate(_hitEffectPrefab, _gameScreen);
+        _moveSpeed = GameManager.Instance.gameConfig.playerMoveSpeed;
     }
 
     // Start is called before the first frame update
@@ -132,15 +133,12 @@ public class Player : MonoBehaviour
         _hitTile.SetUnit(this.gameObject);
         resetMoveableHighlight();
         GameManager.Instance.ChangeState(GameManager.GameState.AttackerTurn);
+        //Player.Instance.Move(0,GridManager.Instance.GetPlayerMoveableTiles(!GameManager.Instance._isReadyToSwitchIsometric, Player.Instance._parentTransform.position, GameManager.Instance._currentMoveType));
     }
 
     IEnumerator moveToTarget(Vector3 target)
     {
-        if (_parentTransform.position.x <= target.x)
-        {
-            _currentSprite.flipX = false;
-        }
-        else _currentSprite.flipX = true;
+        checkFlipX(target);
         isMoving = true;
         checkIsMoving();
         //Vector3 velocity = Vector3.zero;
@@ -150,12 +148,27 @@ public class Player : MonoBehaviour
             _parentTransform.position = Vector3.MoveTowards(_parentTransform.position, target, Time.deltaTime * _moveSpeed);
             yield return null;
         }
+        
         _parentTransform.position = new Vector3(target.x, target.y, target.y - 0.01f);
         isMoving = false;
+        checkFlipX(_hitTile.transform.position);
         checkIsMoving();
         checkKillStreak();
+        
         isAttacking = true;
         _currentFrame = 0;
+    }
+
+    private void checkFlipX(Vector3 target)
+    {
+        if (_parentTransform.position.x < target.x)
+        {
+            _currentSprite.flipX = false;
+        }
+        else if (_parentTransform.position.x > target.x) 
+        {
+            _currentSprite.flipX = true;
+        }
     }
 
     private void resetMoveableHighlight()
@@ -226,13 +239,24 @@ public class Player : MonoBehaviour
                                 if (_hitTile.StandingUnit != null)
                                 {
                                     _killStreak++;
-                                    if (_parentTransform.position.x <= _hitTile.transform.position.x + 0.75f)
+                                    if (_parentTransform.position.x < _hitTile.transform.position.x)
                                     {
                                         StartCoroutine(moveToTarget(new Vector3(_hitTile.transform.position.x - 0.75f, _hitTile.transform.position.y, _hitTile.transform.position.y - 0.01f)));
                                     }
-                                    else
+                                    else if (_parentTransform.position.x > _hitTile.transform.position.x)
                                     {
                                         StartCoroutine(moveToTarget(new Vector3(_hitTile.transform.position.x + 0.75f, _hitTile.transform.position.y, _hitTile.transform.position.y - 0.01f)));
+                                    }
+                                    else
+                                    {
+                                        if(_parentTransform.position.x < 0)
+                                        {
+                                            StartCoroutine(moveToTarget(new Vector3(_hitTile.transform.position.x + 0.75f, _hitTile.transform.position.y, _hitTile.transform.position.y - 0.01f)));
+                                        }
+                                        else
+                                        {
+                                            StartCoroutine(moveToTarget(new Vector3(_hitTile.transform.position.x - 0.75f, _hitTile.transform.position.y, _hitTile.transform.position.y - 0.01f)));
+                                        }
                                     }
                                 }
                                 else
@@ -243,7 +267,7 @@ public class Player : MonoBehaviour
                                     _hitTile.SetUnit(this.gameObject);
                                     GameManager.Instance.ChangeState(GameManager.GameState.SpawnDefender);
                                     resetMoveableHighlight();
-                                    GameManager.Instance.ChangeState(GameManager.GameState.AttackerTurn);
+                                    //GameManager.Instance.ChangeState(GameManager.GameState.AttackerTurn);
                                 }
                             }
                             if (_onClickRightParticleEffect == null)

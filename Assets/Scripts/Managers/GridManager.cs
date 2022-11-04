@@ -43,7 +43,7 @@ public class GridManager : MonoBehaviour
         int i = -1, j;
         _tiles = new Dictionary<Vector2, Tile>();
         _isometricTiles = new Dictionary<Vector2, Tile>();
-        for (int x = _width / 2 - 1; x >=  -_width / 2; x--)
+        for (int x = _width / 2 - 1; x >= -_width / 2; x--)
         {
             i++;
             j = 0;
@@ -56,13 +56,13 @@ public class GridManager : MonoBehaviour
                 // float isometricPosY = x * 0.25f * isometricTransform.localScale.x + y * 0.25f * isometricTransform.localScale.y;
                 float isometricPosX = x * 0.5f * 1.0f + y * (-0.5f) * 1.0f;
                 float isometricPosY = x * 0.25f * 1.0f + y * 0.25f * 1.0f;
-                Vector3 isometricVector3 = new Vector3(isometricPosX,isometricPosY,depth);
+                Vector3 isometricVector3 = new Vector3(isometricPosX, isometricPosY, depth);
                 Tile spawnedTile = Instantiate(_isometricBlockPrefab, isometricVector3, Quaternion.identity, parentTile);
                 spawnedTile.name = $"Tile {i} {j}";
 
                 bool isOffset = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0);
                 spawnedTile.Init(isOffset);
-                if(!_isometricTiles.ContainsKey(isometricVector3)) 
+                if (!_isometricTiles.ContainsKey(isometricVector3))
                 {
                     _isometricTiles[isometricVector3] = spawnedTile;
                 }
@@ -95,10 +95,10 @@ public class GridManager : MonoBehaviour
         // }
         _tiles = _isometricTiles;
         //Camera.main.transform.position = new Vector3(-0.5f,-0.25f,-10);
-        if(_normalTiles.Keys.Count > 0) 
+        if (_normalTiles.Keys.Count > 0)
         {
             UnitManager.Instance.AdjustUnitsPosition(_normalTiles, _isometricTiles);
-            GameManager.Instance.ChangeState(GameManager.GameState.AttackerTurn);
+           Player.Instance.Move(0,GridManager.Instance.GetPlayerMoveableTiles(!GameManager.Instance._isReadyToSwitchIsometric, Player.Instance._parentTransform.position, GameManager.Instance._currentMoveType));
         }
     }
 
@@ -116,13 +116,13 @@ public class GridManager : MonoBehaviour
                 j++;
                 float isometricPosX = x * 0.5f * isometricTransform.localScale.x + y * (-0.5f) * isometricTransform.localScale.y;
                 float isometricPosY = x * 0.25f * isometricTransform.localScale.x + y * 0.25f * isometricTransform.localScale.y;
-                Vector2 isometricVector2 = new Vector2(isometricPosX,isometricPosY);
+                Vector2 isometricVector2 = new Vector2(isometricPosX, isometricPosY);
                 Tile spawnedTile = Instantiate(_isometricTilePrefab, isometricVector2, Quaternion.identity, parentTile);
                 spawnedTile.name = $"Tile {i} {j}";
 
                 bool isOffset = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0);
                 spawnedTile.Init(isOffset);
-                if(!_isometricTiles.ContainsKey(isometricVector2)) 
+                if (!_isometricTiles.ContainsKey(isometricVector2))
                 {
                     _isometricTiles[isometricVector2] = spawnedTile;
                 }
@@ -130,10 +130,10 @@ public class GridManager : MonoBehaviour
         }
         _tiles = _isometricTiles;
         //Camera.main.transform.position = new Vector3(-0.5f,-0.25f,-10);
-        if(_normalTiles.Keys.Count > 0) 
+        if (_normalTiles.Keys.Count > 0)
         {
             UnitManager.Instance.AdjustUnitsPosition(_normalTiles, _isometricTiles);
-            GameManager.Instance.ChangeState(GameManager.GameState.AttackerTurn);
+            Player.Instance.Move(0,GridManager.Instance.GetPlayerMoveableTiles(!GameManager.Instance._isReadyToSwitchIsometric, Player.Instance._parentTransform.position, GameManager.Instance._currentMoveType));
         }
     }
 
@@ -149,29 +149,29 @@ public class GridManager : MonoBehaviour
             for (int y = -_height / 2; y < _height / 2; y++)
             {
                 j++;
-                Vector2 normalVector2 = new Vector2(x,y);
+                Vector2 normalVector2 = new Vector2(x, y);
                 Tile spawnedTile = Instantiate(_tilePrefab, normalVector2, Quaternion.identity, parentTile);
                 spawnedTile.name = $"Tile {i} {j}";
 
                 bool isOffset = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0);
                 spawnedTile.Init(isOffset);
-                if(!_normalTiles.ContainsKey(normalVector2)) 
+                if (!_normalTiles.ContainsKey(normalVector2))
                 {
                     _normalTiles[normalVector2] = spawnedTile;
                 }
             }
         }
-         _tiles = _normalTiles;
-        if(_isometricTiles.Keys.Count > 0) 
+        _tiles = _normalTiles;
+        if (_isometricTiles.Keys.Count > 0)
         {
             UnitManager.Instance.AdjustUnitsPosition(_isometricTiles, _normalTiles);
-            GameManager.Instance.ChangeState(GameManager.GameState.AttackerTurn);
+            Player.Instance.Move(0,GridManager.Instance.GetPlayerMoveableTiles(!GameManager.Instance._isReadyToSwitchIsometric, Player.Instance._parentTransform.position, GameManager.Instance._currentMoveType));
         }
     }
 
     public bool DestroyAllCurrentGrid()
     {
-        for(int i = 0; i < _tiles.Keys.Count; i++)
+        for (int i = 0; i < _tiles.Keys.Count; i++)
         {
             Destroy(_tiles[_tiles.ElementAt(i).Key].gameObject);
         }
@@ -211,9 +211,9 @@ public class GridManager : MonoBehaviour
     public List<Vector2> GetFreeTiles()
     {
         List<Vector2> results = new List<Vector2>();
-        foreach(Vector2 v in _tiles.Keys)
+        foreach (Vector2 v in _tiles.Keys)
         {
-            if(GetTileAtPosition(v).StandingUnit == null)
+            if (GetTileAtPosition(v).StandingUnit == null)
             {
                 results.Add(v);
             }
@@ -236,13 +236,13 @@ public class GridManager : MonoBehaviour
 
     public void ConvertToNormalTileWithoutDestroy()
     {
-        foreach(Vector2 v in _tiles.Keys)
+        foreach (Vector2 v in _tiles.Keys)
         {
-            float normalPosX = v.x/0.5f/isometricTransform.localScale.x - v.y/(-0.5f)/isometricTransform.localScale.y;
-            float normalPosY = v.x/0.25f/isometricTransform.localScale.x - v.y/0.25f/isometricTransform.localScale.y;
+            float normalPosX = v.x / 0.5f / isometricTransform.localScale.x - v.y / (-0.5f) / isometricTransform.localScale.y;
+            float normalPosY = v.x / 0.25f / isometricTransform.localScale.x - v.y / 0.25f / isometricTransform.localScale.y;
             Vector2 normalVector2 = new Vector2(normalPosX, normalPosY);
             Tile spawnedTile = _tiles[v];
-            
+
             _tiles[normalVector2] = spawnedTile;
         }
     }
@@ -256,185 +256,139 @@ public class GridManager : MonoBehaviour
     private List<Vector2> getKnightMoveableNormalTiles(Vector2 playerPos)
     {
         List<Vector2> results = new List<Vector2>();
-        results.Add(new Vector2(playerPos.x-(2*normalTransform.localScale.x),playerPos.y-(1*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(1*normalTransform.localScale.x),playerPos.y-(2*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(1*normalTransform.localScale.x),playerPos.y+(2*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(2*normalTransform.localScale.x),playerPos.y+(1*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(1*normalTransform.localScale.x),playerPos.y-(2*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(2*normalTransform.localScale.x),playerPos.y-(1*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(1*normalTransform.localScale.x),playerPos.y+(2*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(2*normalTransform.localScale.x),playerPos.y+(1*normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (2 * normalTransform.localScale.x), playerPos.y - (1 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (1 * normalTransform.localScale.x), playerPos.y - (2 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (1 * normalTransform.localScale.x), playerPos.y + (2 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (2 * normalTransform.localScale.x), playerPos.y + (1 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (1 * normalTransform.localScale.x), playerPos.y - (2 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (2 * normalTransform.localScale.x), playerPos.y - (1 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (1 * normalTransform.localScale.x), playerPos.y + (2 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (2 * normalTransform.localScale.x), playerPos.y + (1 * normalTransform.localScale.y)));
         return results;
     }
 
     private List<Vector2> getKnightMoveableIsometricTiles(Vector2 playerPos)
     {
-        List<Vector2> results = new List<Vector2>();  
-        results.Add(new Vector2(playerPos.x+(0.5f*isometricTransform.localScale.x), playerPos.y-(0.75f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(1.5f*isometricTransform.localScale.x),playerPos.y-(0.25f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(1.5f*isometricTransform.localScale.x),playerPos.y+(0.25f*isometricTransform.localScale.y))); 
-        results.Add(new Vector2(playerPos.x+(0.5f*isometricTransform.localScale.x),playerPos.y+(0.75f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(0.5f*isometricTransform.localScale.x),playerPos.y+(0.75f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(1.5f*isometricTransform.localScale.x),playerPos.y+(0.25f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(1.5f*isometricTransform.localScale.x),playerPos.y-(0.25f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(0.5f*isometricTransform.localScale.x),playerPos.y-(0.75f*isometricTransform.localScale.y)));
+        List<Vector2> results = new List<Vector2>();
+        results.Add(new Vector2(playerPos.x + (0.5f * isometricTransform.localScale.x), playerPos.y - (0.75f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (1.5f * isometricTransform.localScale.x), playerPos.y - (0.25f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (1.5f * isometricTransform.localScale.x), playerPos.y + (0.25f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (0.5f * isometricTransform.localScale.x), playerPos.y + (0.75f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (0.5f * isometricTransform.localScale.x), playerPos.y + (0.75f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (1.5f * isometricTransform.localScale.x), playerPos.y + (0.25f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (1.5f * isometricTransform.localScale.x), playerPos.y - (0.25f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (0.5f * isometricTransform.localScale.x), playerPos.y - (0.75f * isometricTransform.localScale.y)));
         return results;
     }
 
     private List<Vector2> getKnightMoveableTiles(bool isIsometric, Vector2 playerPos)
     {
-        if(isIsometric) return getKnightMoveableIsometricTiles(playerPos);
+        if (isIsometric) return getKnightMoveableIsometricTiles(playerPos);
         else return getKnightMoveableNormalTiles(playerPos);
     }
 
     private List<Vector2> getPawnMoveableNormalTiles(Vector2 playerPos)
     {
         List<Vector2> results = new List<Vector2>();
-        results.Add(new Vector2(playerPos.x-(2*normalTransform.localScale.x),playerPos.y-(1*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(1*normalTransform.localScale.x),playerPos.y-(2*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(1*normalTransform.localScale.x),playerPos.y+(2*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(2*normalTransform.localScale.x),playerPos.y+(1*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(1*normalTransform.localScale.x),playerPos.y-(2*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(2*normalTransform.localScale.x),playerPos.y-(1*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(1*normalTransform.localScale.x),playerPos.y+(2*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(2*normalTransform.localScale.x),playerPos.y+(1*normalTransform.localScale.y)));
+        Tile _t = GridManager.Instance.GetTileAtPosition(new Vector2(playerPos.x + (1 * normalTransform.localScale.x), playerPos.y + (1 * normalTransform.localScale.y)));
+        if(_t != null && _t.StandingUnit)
+        {
+            results.Add(new Vector2(playerPos.x + (1 * normalTransform.localScale.x), playerPos.y + (1 * normalTransform.localScale.y)));
+        }
+        
+        _t = GridManager.Instance.GetTileAtPosition(new Vector2(playerPos.x - (1 * normalTransform.localScale.x), playerPos.y + (1 * normalTransform.localScale.y)));
+        if(_t != null && _t.StandingUnit)
+        {
+            results.Add(new Vector2(playerPos.x - (1 * normalTransform.localScale.x), playerPos.y + (1 * normalTransform.localScale.y)));
+        }
+       
+        results.Add(new Vector2(playerPos.x, playerPos.y + (1 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y + (2 * normalTransform.localScale.y)));
+
+        _t = GridManager.Instance.GetTileAtPosition(new Vector2(playerPos.x - (1 * normalTransform.localScale.x), playerPos.y - (1 * normalTransform.localScale.y)));
+        if(_t != null && _t.StandingUnit)
+        {
+            results.Add(new Vector2(playerPos.x - (1 * normalTransform.localScale.x), playerPos.y - (1 * normalTransform.localScale.y)));
+        }
+
+        _t = GridManager.Instance.GetTileAtPosition(new Vector2(playerPos.x + (1 * normalTransform.localScale.x), playerPos.y - (1 * normalTransform.localScale.y)));
+        if(_t != null && _t.StandingUnit)
+        {
+            results.Add(new Vector2(playerPos.x + (1 * normalTransform.localScale.x), playerPos.y - (1 * normalTransform.localScale.y)));
+        }
+        
+        results.Add(new Vector2(playerPos.x, playerPos.y - (1 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y - (2 * normalTransform.localScale.y)));
         return results;
     }
 
     private List<Vector2> getPawnMoveableIsometricTiles(Vector2 playerPos)
     {
-        List<Vector2> results = new List<Vector2>();  
-        results.Add(new Vector2(playerPos.x+(0.5f*isometricTransform.localScale.x), playerPos.y-(0.75f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(1.5f*isometricTransform.localScale.x),playerPos.y-(0.25f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(1.5f*isometricTransform.localScale.x),playerPos.y+(0.25f*isometricTransform.localScale.y))); 
-        results.Add(new Vector2(playerPos.x+(0.5f*isometricTransform.localScale.x),playerPos.y+(0.75f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(0.5f*isometricTransform.localScale.x),playerPos.y+(0.75f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(1.5f*isometricTransform.localScale.x),playerPos.y+(0.25f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(1.5f*isometricTransform.localScale.x),playerPos.y-(0.25f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(0.5f*isometricTransform.localScale.x),playerPos.y-(0.75f*isometricTransform.localScale.y)));
+        List<Vector2> results = new List<Vector2>();
+        // TO DO
         return results;
     }
 
     private List<Vector2> getPawnMoveableTiles(bool isIsometric, Vector2 playerPos)
     {
-        if(isIsometric) return getKnightMoveableIsometricTiles(playerPos);
-        else return getKnightMoveableNormalTiles(playerPos);
+        if (isIsometric) return getPawnMoveableIsometricTiles(playerPos);
+        else return getPawnMoveableNormalTiles(playerPos);
     }
 
     private List<Vector2> getBishopMoveableNormalTiles(Vector2 playerPos)
     {
         List<Vector2> results = new List<Vector2>();
-        results.Add(new Vector2(playerPos.x+(1*normalTransform.localScale.x),playerPos.y+(1*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(2*normalTransform.localScale.x),playerPos.y+(2*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(3*normalTransform.localScale.x),playerPos.y+(3*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(4*normalTransform.localScale.x),playerPos.y+(4*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(5*normalTransform.localScale.x),playerPos.y+(5*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(6*normalTransform.localScale.x),playerPos.y+(6*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(7*normalTransform.localScale.x),playerPos.y+(7*normalTransform.localScale.y)));
-
-        results.Add(new Vector2(playerPos.x-(1*normalTransform.localScale.x),playerPos.y-(1*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(2*normalTransform.localScale.x),playerPos.y-(2*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(3*normalTransform.localScale.x),playerPos.y-(3*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(4*normalTransform.localScale.x),playerPos.y-(4*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(5*normalTransform.localScale.x),playerPos.y-(5*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(6*normalTransform.localScale.x),playerPos.y-(6*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(7*normalTransform.localScale.x),playerPos.y-(7*normalTransform.localScale.y)));
-
-        results.Add(new Vector2(playerPos.x-(1*normalTransform.localScale.x),playerPos.y+(1*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(2*normalTransform.localScale.x),playerPos.y+(2*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(3*normalTransform.localScale.x),playerPos.y+(3*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(4*normalTransform.localScale.x),playerPos.y+(4*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(5*normalTransform.localScale.x),playerPos.y+(5*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(6*normalTransform.localScale.x),playerPos.y+(6*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x-(7*normalTransform.localScale.x),playerPos.y+(7*normalTransform.localScale.y)));
-
-        results.Add(new Vector2(playerPos.x+(1*normalTransform.localScale.x),playerPos.y-(1*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(2*normalTransform.localScale.x),playerPos.y-(2*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(3*normalTransform.localScale.x),playerPos.y-(3*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(4*normalTransform.localScale.x),playerPos.y-(4*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(5*normalTransform.localScale.x),playerPos.y-(5*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(6*normalTransform.localScale.x),playerPos.y-(6*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x+(7*normalTransform.localScale.x),playerPos.y-(7*normalTransform.localScale.y)));
+        results.AddRange(getDiagonalCrossTiles(playerPos));
         return results;
     }
 
     private List<Vector2> getBishopMoveableIsometricTiles(Vector2 playerPos)
     {
         List<Vector2> results = new List<Vector2>();
-        results.Add(new Vector2(playerPos.x, playerPos.y+(0.5f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x, playerPos.y+(1.0f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x, playerPos.y+(1.5f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x, playerPos.y+(2.0f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x, playerPos.y+(2.5f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x, playerPos.y+(3.0f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x, playerPos.y+(3.5f*isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y + (0.5f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y + (1.0f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y + (1.5f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y + (2.0f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y + (2.5f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y + (3.0f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y + (3.5f * isometricTransform.localScale.y)));
 
-        results.Add(new Vector2(playerPos.x, playerPos.y-(0.5f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x, playerPos.y-(1.0f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x, playerPos.y-(1.5f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x, playerPos.y-(2.0f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x, playerPos.y-(2.5f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x, playerPos.y-(3.0f*isometricTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x, playerPos.y-(3.5f*isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y - (0.5f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y - (1.0f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y - (1.5f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y - (2.0f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y - (2.5f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y - (3.0f * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y - (3.5f * isometricTransform.localScale.y)));
 
-        results.Add(new Vector2(playerPos.x+(1.0f*isometricTransform.localScale.y), playerPos.y));
-        results.Add(new Vector2(playerPos.x+(2.0f*isometricTransform.localScale.y), playerPos.y));
-        results.Add(new Vector2(playerPos.x+(3.0f*isometricTransform.localScale.y), playerPos.y));
-        results.Add(new Vector2(playerPos.x+(4.0f*isometricTransform.localScale.y), playerPos.y));
-        results.Add(new Vector2(playerPos.x+(5.0f*isometricTransform.localScale.y), playerPos.y));
-        results.Add(new Vector2(playerPos.x+(6.0f*isometricTransform.localScale.y), playerPos.y));
-        results.Add(new Vector2(playerPos.x+(7.0f*isometricTransform.localScale.y), playerPos.y));
+        results.Add(new Vector2(playerPos.x + (1.0f * isometricTransform.localScale.y), playerPos.y));
+        results.Add(new Vector2(playerPos.x + (2.0f * isometricTransform.localScale.y), playerPos.y));
+        results.Add(new Vector2(playerPos.x + (3.0f * isometricTransform.localScale.y), playerPos.y));
+        results.Add(new Vector2(playerPos.x + (4.0f * isometricTransform.localScale.y), playerPos.y));
+        results.Add(new Vector2(playerPos.x + (5.0f * isometricTransform.localScale.y), playerPos.y));
+        results.Add(new Vector2(playerPos.x + (6.0f * isometricTransform.localScale.y), playerPos.y));
+        results.Add(new Vector2(playerPos.x + (7.0f * isometricTransform.localScale.y), playerPos.y));
 
-        results.Add(new Vector2(playerPos.x-(1.0f*isometricTransform.localScale.y), playerPos.y));
-        results.Add(new Vector2(playerPos.x-(2.0f*isometricTransform.localScale.y), playerPos.y));
-        results.Add(new Vector2(playerPos.x-(3.0f*isometricTransform.localScale.y), playerPos.y));
-        results.Add(new Vector2(playerPos.x-(4.0f*isometricTransform.localScale.y), playerPos.y));
-        results.Add(new Vector2(playerPos.x-(5.0f*isometricTransform.localScale.y), playerPos.y));
-        results.Add(new Vector2(playerPos.x-(6.0f*isometricTransform.localScale.y), playerPos.y));
-        results.Add(new Vector2(playerPos.x-(7.0f*isometricTransform.localScale.y), playerPos.y));
+        results.Add(new Vector2(playerPos.x - (1.0f * isometricTransform.localScale.y), playerPos.y));
+        results.Add(new Vector2(playerPos.x - (2.0f * isometricTransform.localScale.y), playerPos.y));
+        results.Add(new Vector2(playerPos.x - (3.0f * isometricTransform.localScale.y), playerPos.y));
+        results.Add(new Vector2(playerPos.x - (4.0f * isometricTransform.localScale.y), playerPos.y));
+        results.Add(new Vector2(playerPos.x - (5.0f * isometricTransform.localScale.y), playerPos.y));
+        results.Add(new Vector2(playerPos.x - (6.0f * isometricTransform.localScale.y), playerPos.y));
+        results.Add(new Vector2(playerPos.x - (7.0f * isometricTransform.localScale.y), playerPos.y));
         return results;
     }
 
     private List<Vector2> getBishopMoveableTiles(bool isIsometric, Vector2 playerPos)
     {
-        if(isIsometric) return getBishopMoveableIsometricTiles(playerPos);
+        if (isIsometric) return getBishopMoveableIsometricTiles(playerPos);
         else return getBishopMoveableNormalTiles(playerPos);
     }
 
-        private List<Vector2> getRookMoveableNormalTiles(Vector2 playerPos)
+    private List<Vector2> getRookMoveableNormalTiles(Vector2 playerPos)
     {
         List<Vector2> results = new List<Vector2>();
-        results.Add(new Vector2(playerPos.x,playerPos.y+(1*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x,playerPos.y+(2*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x,playerPos.y+(3*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x,playerPos.y+(4*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x,playerPos.y+(5*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x,playerPos.y+(6*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x,playerPos.y+(7*normalTransform.localScale.y)));
-
-        results.Add(new Vector2(playerPos.x,playerPos.y-(1*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x,playerPos.y-(2*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x,playerPos.y-(3*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x,playerPos.y-(4*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x,playerPos.y-(5*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x,playerPos.y-(6*normalTransform.localScale.y)));
-        results.Add(new Vector2(playerPos.x,playerPos.y-(7*normalTransform.localScale.y)));
-
-        results.Add(new Vector2(playerPos.x-(1*normalTransform.localScale.x),playerPos.y));
-        results.Add(new Vector2(playerPos.x-(2*normalTransform.localScale.x),playerPos.y));
-        results.Add(new Vector2(playerPos.x-(3*normalTransform.localScale.x),playerPos.y));
-        results.Add(new Vector2(playerPos.x-(4*normalTransform.localScale.x),playerPos.y));
-        results.Add(new Vector2(playerPos.x-(5*normalTransform.localScale.x),playerPos.y));
-        results.Add(new Vector2(playerPos.x-(6*normalTransform.localScale.x),playerPos.y));
-        results.Add(new Vector2(playerPos.x-(7*normalTransform.localScale.x),playerPos.y));
-
-        results.Add(new Vector2(playerPos.x+(1*normalTransform.localScale.x),playerPos.y));
-        results.Add(new Vector2(playerPos.x+(2*normalTransform.localScale.x),playerPos.y));
-        results.Add(new Vector2(playerPos.x+(3*normalTransform.localScale.x),playerPos.y));
-        results.Add(new Vector2(playerPos.x+(4*normalTransform.localScale.x),playerPos.y));
-        results.Add(new Vector2(playerPos.x+(5*normalTransform.localScale.x),playerPos.y));
-        results.Add(new Vector2(playerPos.x+(6*normalTransform.localScale.x),playerPos.y));
-        results.Add(new Vector2(playerPos.x+(7*normalTransform.localScale.x),playerPos.y));
+        results.AddRange(getStraightCrossTiles(playerPos));
         return results;
     }
 
@@ -447,48 +401,160 @@ public class GridManager : MonoBehaviour
 
     private List<Vector2> getRookMoveableTiles(bool isIsometric, Vector2 playerPos)
     {
-        if(isIsometric) return getRookMoveableIsometricTiles(playerPos);
+        if (isIsometric) return getRookMoveableIsometricTiles(playerPos);
         else return getRookMoveableNormalTiles(playerPos);
     }
 
-    private List<Vector2> getQueenMoveableTiles(bool isIsometric, Vector2 playerPos)
+    private List<Vector2> getQueenMoveableNormalTiles(Vector2 playerPos)
     {
-        if(isIsometric) return getKnightMoveableIsometricTiles(playerPos);
-        else return getKnightMoveableNormalTiles(playerPos);
+        List<Vector2> results = new List<Vector2>();
+        results.AddRange(getSquareTiles(playerPos));
+        results.AddRange(getStraightCrossTiles(playerPos));
+        results.AddRange(getDiagonalCrossTiles(playerPos));
+        return results;
     }
 
-     private List<Vector2> getKingMoveableTiles(bool isIsometric, Vector2 playerPos)
+    private List<Vector2> getQueenMoveableIsometricTiles(Vector2 playerPos)
     {
-        if(isIsometric) return getKnightMoveableIsometricTiles(playerPos);
+        List<Vector2> results = new List<Vector2>();
+        // TO DO
+        return results;
+    }
+
+
+    private List<Vector2> getQueenMoveableTiles(bool isIsometric, Vector2 playerPos)
+    {
+        if (isIsometric) return getQueenMoveableIsometricTiles(playerPos);
+        else return getQueenMoveableNormalTiles(playerPos);
+    }
+
+    private List<Vector2> getKingMoveableNormalTiles(Vector2 playerPos)
+    {
+        List<Vector2> results = new List<Vector2>();
+        results.AddRange(getSquareTiles(playerPos));
+        return results;
+    }
+
+    private List<Vector2> getKingMoveableTiles(bool isIsometric, Vector2 playerPos)
+    {
+        if (isIsometric) return getKnightMoveableIsometricTiles(playerPos);
         else return getKnightMoveableNormalTiles(playerPos);
     }
 
     public List<Vector2> GetPlayerMoveableTiles(bool isIsometric, Vector2 playerPos, MoveType moveType)
     {
-        List<Vector2> results = new List<Vector2>(); 
-        switch (moveType) {
-        case MoveType.Pawn:
-            results = getPawnMoveableTiles(isIsometric, playerPos);
-            break;
-        case MoveType.Knight:
-            results = getKnightMoveableTiles(isIsometric, playerPos);
-            break;
-        case MoveType.Bishop:
-            results = getBishopMoveableTiles(isIsometric, playerPos);
-            break;
-        case MoveType.Rook:
-             results = getRookMoveableTiles(isIsometric, playerPos);
-            break;
-        case MoveType.Queen:
-            results = getQueenMoveableTiles(isIsometric, playerPos);
-            break;
-        case MoveType.King:
-            results = getKingMoveableTiles(isIsometric, playerPos);
-            break;
-        default :
-            break;
-       }
-       return results;
+        List<Vector2> results = new List<Vector2>();
+        switch (moveType)
+        {
+            case MoveType.Pawn:
+                results = getPawnMoveableTiles(isIsometric, playerPos);
+                break;
+            case MoveType.Knight:
+                results = getKnightMoveableTiles(isIsometric, playerPos);
+                break;
+            case MoveType.Bishop:
+                results = getBishopMoveableTiles(isIsometric, playerPos);
+                break;
+            case MoveType.Rook:
+                results = getRookMoveableTiles(isIsometric, playerPos);
+                break;
+            case MoveType.Queen:
+                results = getQueenMoveableTiles(isIsometric, playerPos);
+                break;
+            case MoveType.King:
+                results = getKingMoveableTiles(isIsometric, playerPos);
+                break;
+            default:
+                break;
+        }
+        return results;
     }
 
+    private List<Vector2> getSquareTiles(Vector2 playerPos)
+    {
+        List<Vector2> results = new List<Vector2>();
+        results.Add(new Vector2(playerPos.x + (1 * normalTransform.localScale.x), playerPos.y));
+        results.Add(new Vector2(playerPos.x - (1 * normalTransform.localScale.x), playerPos.y));
+        results.Add(new Vector2(playerPos.x, playerPos.y + (1 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y - (1 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (1 * normalTransform.localScale.x), playerPos.y + (1 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (1 * normalTransform.localScale.x), playerPos.y + (1 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (1 * normalTransform.localScale.x), playerPos.y - (1 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (1 * normalTransform.localScale.x), playerPos.y - (1 * normalTransform.localScale.y)));
+        return results;
+    }
+
+    private List<Vector2> getStraightCrossTiles(Vector2 playerPos)
+    {
+        List<Vector2> results = new List<Vector2>();
+        results.Add(new Vector2(playerPos.x, playerPos.y + (1 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y + (2 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y + (3 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y + (4 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y + (5 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y + (6 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y + (7 * normalTransform.localScale.y)));
+
+        results.Add(new Vector2(playerPos.x, playerPos.y - (1 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y - (2 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y - (3 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y - (4 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y - (5 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y - (6 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y - (7 * normalTransform.localScale.y)));
+
+        results.Add(new Vector2(playerPos.x - (1 * normalTransform.localScale.x), playerPos.y));
+        results.Add(new Vector2(playerPos.x - (2 * normalTransform.localScale.x), playerPos.y));
+        results.Add(new Vector2(playerPos.x - (3 * normalTransform.localScale.x), playerPos.y));
+        results.Add(new Vector2(playerPos.x - (4 * normalTransform.localScale.x), playerPos.y));
+        results.Add(new Vector2(playerPos.x - (5 * normalTransform.localScale.x), playerPos.y));
+        results.Add(new Vector2(playerPos.x - (6 * normalTransform.localScale.x), playerPos.y));
+        results.Add(new Vector2(playerPos.x - (7 * normalTransform.localScale.x), playerPos.y));
+
+        results.Add(new Vector2(playerPos.x + (1 * normalTransform.localScale.x), playerPos.y));
+        results.Add(new Vector2(playerPos.x + (2 * normalTransform.localScale.x), playerPos.y));
+        results.Add(new Vector2(playerPos.x + (3 * normalTransform.localScale.x), playerPos.y));
+        results.Add(new Vector2(playerPos.x + (4 * normalTransform.localScale.x), playerPos.y));
+        results.Add(new Vector2(playerPos.x + (5 * normalTransform.localScale.x), playerPos.y));
+        results.Add(new Vector2(playerPos.x + (6 * normalTransform.localScale.x), playerPos.y));
+        results.Add(new Vector2(playerPos.x + (7 * normalTransform.localScale.x), playerPos.y));
+        return results;
+    }
+
+    private List<Vector2> getDiagonalCrossTiles(Vector2 playerPos)
+    {
+        List<Vector2> results = new List<Vector2>();
+        results.Add(new Vector2(playerPos.x + (1 * normalTransform.localScale.x), playerPos.y + (1 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (2 * normalTransform.localScale.x), playerPos.y + (2 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (3 * normalTransform.localScale.x), playerPos.y + (3 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (4 * normalTransform.localScale.x), playerPos.y + (4 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (5 * normalTransform.localScale.x), playerPos.y + (5 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (6 * normalTransform.localScale.x), playerPos.y + (6 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (7 * normalTransform.localScale.x), playerPos.y + (7 * normalTransform.localScale.y)));
+
+        results.Add(new Vector2(playerPos.x - (1 * normalTransform.localScale.x), playerPos.y - (1 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (2 * normalTransform.localScale.x), playerPos.y - (2 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (3 * normalTransform.localScale.x), playerPos.y - (3 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (4 * normalTransform.localScale.x), playerPos.y - (4 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (5 * normalTransform.localScale.x), playerPos.y - (5 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (6 * normalTransform.localScale.x), playerPos.y - (6 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (7 * normalTransform.localScale.x), playerPos.y - (7 * normalTransform.localScale.y)));
+
+        results.Add(new Vector2(playerPos.x - (1 * normalTransform.localScale.x), playerPos.y + (1 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (2 * normalTransform.localScale.x), playerPos.y + (2 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (3 * normalTransform.localScale.x), playerPos.y + (3 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (4 * normalTransform.localScale.x), playerPos.y + (4 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (5 * normalTransform.localScale.x), playerPos.y + (5 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (6 * normalTransform.localScale.x), playerPos.y + (6 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x - (7 * normalTransform.localScale.x), playerPos.y + (7 * normalTransform.localScale.y)));
+
+        results.Add(new Vector2(playerPos.x + (1 * normalTransform.localScale.x), playerPos.y - (1 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (2 * normalTransform.localScale.x), playerPos.y - (2 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (3 * normalTransform.localScale.x), playerPos.y - (3 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (4 * normalTransform.localScale.x), playerPos.y - (4 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (5 * normalTransform.localScale.x), playerPos.y - (5 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (6 * normalTransform.localScale.x), playerPos.y - (6 * normalTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x + (7 * normalTransform.localScale.x), playerPos.y - (7 * normalTransform.localScale.y)));
+        return results;
+    }
 }
