@@ -154,7 +154,7 @@ public class Player : MonoBehaviour
         checkFlipX(_hitTile.transform.position);
         checkIsMoving();
         checkKillStreak();
-        
+        resetMoveableHighlight();
         isAttacking = true;
         _currentFrame = 0;
     }

@@ -435,10 +435,17 @@ public class GridManager : MonoBehaviour
         return results;
     }
 
+    private List<Vector2> getKingMoveableIsometricTiles(Vector2 playerPos)
+    {
+        List<Vector2> results = new List<Vector2>();
+        
+        return results;
+    }
+
     private List<Vector2> getKingMoveableTiles(bool isIsometric, Vector2 playerPos)
     {
-        if (isIsometric) return getKnightMoveableIsometricTiles(playerPos);
-        else return getKnightMoveableNormalTiles(playerPos);
+        if (isIsometric) return getKingMoveableIsometricTiles(playerPos);
+        else return getKingMoveableNormalTiles(playerPos);
     }
 
     public List<Vector2> GetPlayerMoveableTiles(bool isIsometric, Vector2 playerPos, MoveType moveType)
