@@ -16,6 +16,14 @@ public enum EventID
     OnPlayerKill,
     OnScoreCount,
     OnKillStreak,
+    OnFirstBlood,
+    OnOneHundredPoint,
+    OnThreeHundredPoint,
+    OnFiveHundredPoint,
+    OnOneThousandPoint,
+    OnOneThousandFiveHundredPoint,
+    OnTwoThousandPoint,
+    OnThreeThousandPoint,
     Unkown = 404
 }
 
@@ -27,6 +35,25 @@ public enum MoveType
     Rook,
     Queen,
     King = 5
+}
+
+public enum ANNOUNCE
+{
+    FIRST_BLOOD,
+    DOUBLE_KILL,
+    TRIPLE_KILL,
+    ULTRA_KILL,
+    RAMPAGE,
+    KILLING_SPREE,
+    MEGA_KILL,
+    MONSTER_KILL,
+    DOMINATING,
+    UNSTOPPABLE,
+    WICKED_SICK,
+    GOD_LIKE,
+    HOLY_SHEET,
+    SHOW_ME_MORE,
+    NONE = 404
 }
 
 

@@ -33,17 +33,18 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 7cf291d023166254180180541c974578, type: 3}
-    - {fileID: 102900000, guid: ae70c5d833aa6d74e9429910c18b70c6, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: c9aec9b12df23a842b5f59f119a9294c, type: 3}
+  - {fileID: 21300000, guid: aff991a95cb92204fa62dffc7e7b6ead, type: 3}
   - {fileID: 21300000, guid: d0e2fc8b1e24914418b64aec85ddd076, type: 3}
   - {fileID: 21300000, guid: 1b0c096efdf02b24e9e0213dba991116, type: 3}
   m_PackedSpriteNamesToIndex:
   - spark
+  - CFX3_T_SmokePuff
   - Blood
   - X
   m_RenderDataMap: {}

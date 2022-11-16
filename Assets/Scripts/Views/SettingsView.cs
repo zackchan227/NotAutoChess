@@ -33,6 +33,8 @@ public class SettingsView : MonoBehaviour
         sliderFPS.minValue = 5;
         sliderFPS.maxValue = 120;
         sliderFPS.value = Application.targetFrameRate;
+        sliderMusic.value = PlayerPrefs.GetFloat("VolumeBGM",1);
+        sliderSound.value = PlayerPrefs.GetFloat("VolumeSFX",1);
     }
 
     // Update is called once per frame
@@ -142,11 +144,14 @@ public class SettingsView : MonoBehaviour
     private void OnMusicValueChange()
     {
         SoundsManager.Instance.AudioSource.volume = sliderMusic.value;
+        SoundsManager.Instance.currentVolume = sliderMusic.value;
+        PlayerPrefs.SetFloat("VolumeBGM", sliderMusic.value);
     }
 
     private void OnSoundValueChange()
     {
         Player.Instance.AudioSource.volume = sliderSound.value;
+        PlayerPrefs.SetFloat("VolumeSFX", sliderSound.value);
     }
 
     private void OnFPSValueChange()

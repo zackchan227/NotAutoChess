@@ -14,7 +14,6 @@ public class CameraController : MonoBehaviour//, IPointerDownHandler, IPointerUp
     void Start()
     {
         minZoom = 6.0f;
-        //maxZoom = GameManager.Instance._maxZoom;
         cam.orthographicSize = GameManager.Instance._maxZoom;
         sizeTemp = cam.orthographicSize;
     }

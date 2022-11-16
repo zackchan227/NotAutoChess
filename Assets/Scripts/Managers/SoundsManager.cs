@@ -1,19 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using TMPro;
 
 public class SoundsManager : MonoBehaviour
 {
     public static SoundsManager Instance;
-    public AudioSource AudioSource;
+    public AudioSource AudioSource {get; private set;}
     [SerializeField] private List<AudioClip> _musics;
     [SerializeField] private string _lyricsPath;
-    [SerializeField] private ParticleSystem _particleText;
     [SerializeField] private List<TextAsset> _textLyrics;
-    ParticleSystem _particleTextPrefab;
     string currentMusicName = "";
     const string FILE_EXTENSION = ".txt";
     float musicTime = 0;
@@ -22,6 +22,14 @@ public class SoundsManager : MonoBehaviour
     List<float> _timeLyrics;
     float time, pollingTime = 1.0f;
     WaitForSecondsRealtime wait;
+    private TMP_Text _tmpSongName;
+    public float currentVolume {get; set;}
+    private Canvas _canvas;
+    private TMP_Text _tmpLyrics;
+    private GameObject _lyricsPanel;
+    private Button _btNote;
+    private Button _btClose;
+    private Image _imgLyricsPanel;
 
     void Awake()
     {
@@ -29,14 +37,19 @@ public class SoundsManager : MonoBehaviour
         AudioSource = this.GetComponent<AudioSource>();
         _lyrics = new List<string>();
         _timeLyrics = new List<float>();
-        _particleTextPrefab = Instantiate(_particleText,this.transform);
         wait = new WaitForSecondsRealtime(10.0f);
+        _tmpSongName = GameObject.Find("tmpSongName").GetComponent<TMP_Text>();
+        _btNote = GameObject.Find("note").GetComponent<Button>();
+        _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        //_lyricsPanel = _canvas.gameObject.transform.Find("LyricsPanel(Clone)").gameObject;
     }
 
     // Start is called before the first frame update
     void Start()
     {
        randomBackgroundMusic();
+       _btNote.onClick.AddListener(OnClickButtonNote);
+       currentVolume = AudioSource.volume;
     }
 
     void Update()
@@ -60,6 +73,7 @@ public class SoundsManager : MonoBehaviour
         AudioSource.clip = _musics[Random.Range(0,_musics.Count)];
         //AudioSource.clip = _musics[3];
         currentMusicName = AudioSource.clip.name;
+        _tmpSongName.text = currentMusicName.Substring(0,1).ToUpper() + currentMusicName.Substring(1,currentMusicName.Length-1) + " - " + "Memento Mori";
         //addLyricsTimer();
         if(!AudioSource.isPlaying) 
         {
@@ -221,5 +235,114 @@ public class SoundsManager : MonoBehaviour
     //     Debug.Log(AS.time);
     // }
 
+    private void OnClickButtonNote()
+    {
+        showLyricsPanel();
+    }
 
+    public void OnClickButtonCloseNote()
+    {
+        closeLyricsPanel();
+    }
+
+    public void TurnDownVolume()
+    {
+        AudioSource.volume = Mathf.Lerp(AudioSource.volume, 0, 1.0f * Time.unscaledDeltaTime);
+    }
+
+    public void TurnUpVolume()
+    {
+        AudioSource.volume = Mathf.Lerp(AudioSource.volume, currentVolume, 1.0f * Time.unscaledDeltaTime);
+    }
+
+    private void showLyricsPanel()
+    {
+        if(_lyricsPanel == null)
+        {
+            StartCoroutine(LoadLyricsPanelAsync());
+        }
+        else
+        {
+            _btClose.onClick.AddListener(OnClickButtonCloseNote);
+            _tmpLyrics.text = GetCurrentSongLyricsText().text;
+        }
+        if(_lyricsPanel != null && !_lyricsPanel.activeSelf) 
+        {
+            // StopCoroutine(WaitLyricsPanelDisappear());
+            // StartCoroutine(WaitLyricsPanelAppear());
+            _lyricsPanel.gameObject.SetActive(true);
+        }
+    }
+
+    private void closeLyricsPanel()
+    {
+        _btClose.onClick.RemoveAllListeners();
+        // StopCoroutine(WaitLyricsPanelAppear());
+        // StartCoroutine(WaitLyricsPanelDisappear());
+        _lyricsPanel.gameObject.SetActive(false);
+    }
+
+    IEnumerator LoadLyricsPanelAsync()
+    {       
+        AsyncOperationHandle<GameObject> handle = Addressables.LoadAssetAsync<GameObject>("LyricsPanel");
+        yield return handle;
+        if (handle.Result != null)
+        {
+            _lyricsPanel = Instantiate(handle.Result, _canvas.transform);
+            _btClose = _lyricsPanel.transform.Find("close").GetComponent<Button>();
+            _tmpLyrics = GameObject.Find("tmpLyrics").GetComponent<TMP_Text>();
+            _btClose.onClick.AddListener(OnClickButtonCloseNote);
+            _tmpLyrics.text = "";
+            _tmpLyrics.text = GetCurrentSongLyricsText().text;
+            _imgLyricsPanel = _lyricsPanel.transform.Find("Panel").GetComponent<Image>();
+            _imgLyricsPanel.material.SetFloat("_Progress",0);
+            //StartCoroutine(WaitLyricsPanelAppear());
+            _lyricsPanel.gameObject.SetActive(true);
+        }           
+    }
+
+    private void Transparent(float time)
+    {
+        Color tempColor;
+        tempColor = _tmpLyrics.color;
+        tempColor.a = Mathf.Lerp(tempColor.a, 0, time);
+        _imgLyricsPanel.material.SetFloat("_Progress", Mathf.MoveTowards(_imgLyricsPanel.material.GetFloat("_Progress"), 0, time));
+        _tmpLyrics.color = tempColor;
+    }
+
+    private void Opaque(float time)
+    {
+        Color tempColor;
+        tempColor = _tmpLyrics.color;
+        tempColor.a = Mathf.Lerp(tempColor.a, 1, time);
+        //tempColor.a = 1;
+        _imgLyricsPanel.material.SetFloat("_Progress", Mathf.MoveTowards(_imgLyricsPanel.material.GetFloat("_Progress"), 1, time));
+        _tmpLyrics.color = tempColor;
+    }
+
+    IEnumerator WaitLyricsPanelDisappear()
+    {
+        float t = 0;
+        float duration = 2.0f;
+        while(t < duration)
+        {
+            t += (1 / duration) * Time.deltaTime;
+            Transparent(t);
+            yield return null;
+        }
+        _lyricsPanel.gameObject.SetActive(false);
+    }
+
+    IEnumerator WaitLyricsPanelAppear()
+    {
+        _lyricsPanel.gameObject.SetActive(true);
+        float t = 0;
+        float duration = 2.0f;
+        while(t < duration)
+        {
+            t += (1 / duration) * Time.deltaTime;
+            Opaque(t);
+            yield return null;
+        }
+    }
 }

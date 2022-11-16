@@ -21,7 +21,9 @@ public class AddressablesManager : MonoBehaviour
     [SerializeField] AssetReference toastDialog;
     [SerializeField] AssetReference background;
     [SerializeField] AssetReference soundsManager;
+    [SerializeField] AssetReference announcesManager;
     [SerializeField] AssetReference popup;
+    [SerializeField] AssetReference songArea;
     [SerializeField] Material defaultMaterial;
 
     Transform _canvas;
@@ -48,9 +50,19 @@ public class AddressablesManager : MonoBehaviour
             //go.Result.GetComponent<SpriteRenderer>().material = defaultMaterial;
         };
 
-        soundsManager.InstantiateAsync(_managers).Completed += (go) =>
+        songArea.InstantiateAsync(_canvas).Completed += (go) =>
         {
-            GameManager.Instance.SoundsCheck(GameManager.Instance.isSoundsOn);
+            soundsManager.InstantiateAsync(_managers).Completed += (go) =>
+            {
+                GameManager.Instance.SoundsCheck(GameManager.Instance.isSoundsOn);
+            };
+        };
+
+        
+
+        announcesManager.InstantiateAsync(_managers).Completed += (go) =>
+        {
+
         };
 
         toastDialog.InstantiateAsync(_canvas).Completed += (go) =>
@@ -64,7 +76,7 @@ public class AddressablesManager : MonoBehaviour
             // order sorting layer : make this object display in front of lower sorting layer
             go.Result.GetComponent<Canvas>().overrideSorting = true;
         };
-    }
+}
 
     private void OnLoadDone(AsyncOperationHandle<GameObject> obj)
     {

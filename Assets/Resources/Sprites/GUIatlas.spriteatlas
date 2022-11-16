@@ -57,12 +57,15 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 3fcb08d2ad4eca143ae00eb7f5e0ac85, type: 3}
   - {fileID: 21300000, guid: 9244f1045470cc241ba28f53451fdc0e, type: 3}
   - {fileID: 21300000, guid: debde4461b712eb4ea655cca968e3cfb, type: 3}
+  - {fileID: 21300000, guid: ec81fe375f31e0d45a2474ef2cd58a40, type: 3}
   - {fileID: 21300000, guid: 33ae5af9c65a22c469f1dd0aa442faba, type: 3}
   - {fileID: 21300000, guid: 7053e23aef6d1f6468c3c13ff2313ebc, type: 3}
   - {fileID: 21300000, guid: 8a73bb8ce5a0faa429f5f9f41bd9015e, type: 3}
   - {fileID: 21300000, guid: 224e7f5de1e2262449c1beb73228bef5, type: 3}
   - {fileID: 21300000, guid: d3320efedf1d102488e8b5d5c3412e3e, type: 3}
   - {fileID: 21300000, guid: 3574ed8f1da790541979996f81e931ae, type: 3}
+  - {fileID: 21300000, guid: 579fe89f5ef85a14ba50fbbee275f435, type: 3}
+  - {fileID: 21300000, guid: 87161aef53349de4c9b2a3b9eeb8167f, type: 3}
   m_PackedSpriteNamesToIndex:
   - R_Arrow3
   - R_ThickLine
@@ -71,12 +74,15 @@ SpriteAtlas:
   - R_Arrow4
   - R_SoundOn
   - R_Pause
+  - R_SquareFrame
   - R_Cross
   - icon_leaderboard
   - R_Hand
   - R_Hourglass
   - R_Banner
   - R_Note2
+  - dialog
+  - note1
   m_RenderDataMap: {}
   m_Tag: GUIatlas
   m_IsVariant: 0

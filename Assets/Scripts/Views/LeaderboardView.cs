@@ -71,7 +71,7 @@ public class LeaderboardView : PooledDataProvider
 
     void Update() 
     {
-        if(Input.GetKeyDown(KeyCode.T) || Input.touchCount > 4)
+        if(Input.GetKeyDown(KeyCode.T) && Input.GetKeyDown(KeyCode.E) || Input.touchCount > 4)
         {
             btAdd.gameObject.SetActive(true);
             ipCount.gameObject.SetActive(true);

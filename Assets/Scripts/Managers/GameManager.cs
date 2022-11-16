@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public Button btChangeSpeed;
     public Button btPause;
     public float gameSpeed = 1.0f;
-    public bool _isPlaying = false;
+    public bool _isPlaying {get; set ;}
     //[SerializeField] Transform backgroundTransform;
     [SerializeField] Toggle tgSwitchDimension;
     [SerializeField] TMP_Dropdown ddMusic;
@@ -35,30 +35,34 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameConfig gameConfig;
     [SerializeField] public GameObject containerDownload;
     [SerializeField] TMP_Text tmpMoveType;
-    public bool _isReadyToSwitchIsometric = false;
-    public MoveType _currentMoveType;
+    public bool _isReadyToSwitchIsometric {get; set ;}
+    public MoveType _currentMoveType {get; set ;}
 
     float[] gameSpeeds = { 1.0f, 1.5f, 2.0f, 3.0f, 5.0f };
     string[] gameSpeedsTxt = { "x1", "x1.5", "x2", "x3", "x5" };
-    public bool isPausing = false;
-    public bool isLost = false;
-    public float _maxZoom = 9.0f;
+    public bool isPausing {get; set ;}
+    public bool isLost {get; private set ;}
+    public float _maxZoom;
     float time;
     int frameCount;
     float pollingTime = 1.0f;
-    public byte _enemyCount = 0;
-    public ulong _moveCount, _killCount, _playCount;
-    public ulong _score = 0;
-    public bool isSoundsOn = true;
+    public byte _enemyCount {get; set ;}
+    public ulong _moveCount {get; set ;}
+    public ulong _killCount {get; set ;}
+    public ulong _playCount {get; set ;}
+    public ulong _score {get; set ;}
+    public bool isSoundsOn {get; set ;}
 
     void Awake()
     {
         Instance = this;
-        TMP_Text[] texts = FindObjectsOfType<TMP_Text>();
-        foreach(TMP_Text txt in texts)
-        {
-            txt.font = gameConfig.fontTMP;
-        }
+        // TMP_Text[] texts = FindObjectsOfType<TMP_Text>();
+        // foreach(TMP_Text txt in texts)
+        // {
+        //     txt.font = gameConfig.fontTMP;
+        // }
+        _maxZoom = 9.0f;
+        Application.targetFrameRate = 60;
     }
 
     private void OnEnable()
@@ -93,13 +97,15 @@ public class GameManager : MonoBehaviour
         // }
         // if (!hasInitGameSpeed) gameSpeed = 1.0f;
         StartCoroutine(ConnectLootLocker());
-        _maxZoom = 9.0f;
-        ChangeState(GameState.GenerateGrid);
+        isLost = false;
+        isPausing = false;
         _isReadyToSwitchIsometric = true;
+        _isPlaying = false;
+        ChangeState(GameState.GenerateGrid);
         ChangeState(GameState.SpawnAttacker);
         ChangeState(GameState.SpawnDefender);
         ChangeState(GameState.AttackerTurn);
-        Application.targetFrameRate = 30;
+        //Application.targetFrameRate = 30;
         int isOn = PlayerPrefs.GetInt("IsSoundsOn",1);
         if(isOn == 0) isSoundsOn = false;
         else isSoundsOn = true;
@@ -143,7 +149,6 @@ public class GameManager : MonoBehaviour
             isLost = true;
             StartCoroutine(SubmitScore());
             btRestart.gameObject.SetActive(true);
-            //btRestart.GetComponentInChildren<TMP_Text>().gameObject.SetActive(Time.unscaledTime % .5 < .2);
         }
     }
 
@@ -203,7 +208,7 @@ public class GameManager : MonoBehaviour
         {
             case GameState.GenerateGrid:
                 GridManager.Instance.GenerateNormalGrid();
-                //GridManager.Instance.GenerateIsometricBlockGrid();
+                //GridManager.Instance.GenerateIsometricGrid();
                 break;
             case GameState.SpawnAttacker:
                 UnitManager.Instance.SpawnAttackerRandomPos();
@@ -212,9 +217,7 @@ public class GameManager : MonoBehaviour
                 UnitManager.Instance.SpawnDefenderRandomPos();
                 break;
             case GameState.AttackerTurn:
-                MoveType randomMoveType = (MoveType)UnityEngine.Random.Range(0, Enum.GetNames(typeof(MoveType)).Length);
-                _currentMoveType = randomMoveType;
-                //_currentMoveType = MoveType.Pawn;
+                _currentMoveType = getRandomMoveType(gameConfig.gameLevel);
                 tmpMoveType.text = getMoveTypeName(_currentMoveType);
                 // Player.Instance.Move(0, GridManager.Instance.GetPlayerMoveableTiles(!_isReadyToSwitchIsometric, Player.Instance._parentTransform.position, randomMoveType));
                 Player.Instance.Move(0, GridManager.Instance.GetPlayerMoveableTiles(!_isReadyToSwitchIsometric, Player.Instance._parentTransform.position, _currentMoveType));
@@ -229,6 +232,8 @@ public class GameManager : MonoBehaviour
 
     private void switchDimension(bool value)
     {
+        string tmpText = "2D";
+        
         if (value)
         {
             StartCoroutine(GridManager.Instance.ConvertToIsometricTileWithDestroy());
@@ -236,6 +241,7 @@ public class GameManager : MonoBehaviour
             Camera.main.transform.position = new Vector3(0, 0.5f, -10);
             _isReadyToSwitchIsometric = false;
             _maxZoom = 16.0f;
+            tmpText = "Isometric";
         }
         else
         {
@@ -244,13 +250,13 @@ public class GameManager : MonoBehaviour
             Camera.main.transform.position = new Vector3(-0.5f, 0.5f, -10);
             _isReadyToSwitchIsometric = true;
             _maxZoom = 9.0f;
+            tmpText = "2D";
         }
+        tgSwitchDimension.GetComponentInChildren<TMP_Text>().text = tmpText;
     }
 
     private void OnValueChangedToggleSwitchDimension(bool value)
     {
-        string tmpText = value ? "Isometric" :  "2D";
-        tgSwitchDimension.GetComponentInChildren<TMP_Text>().text = tmpText;
         switchDimension(value);
     }
 
@@ -269,7 +275,11 @@ public class GameManager : MonoBehaviour
         string tmpText = value ? "ON" :  "OFF";
         tgSound.GetComponentInChildren<TMP_Text>().text = tmpText;
         Player.Instance.AudioSource.mute = !value;
+        Player.Instance.AudioSource.volume = PlayerPrefs.GetFloat("VolumeSFX",1.0f);
         SoundsManager.Instance.AudioSource.mute = !value;
+        SoundsManager.Instance.AudioSource.volume = PlayerPrefs.GetFloat("VolumeBGM",1.0f);
+        AnnounceManager.Instance.AudioSource.mute = !value;
+        AnnounceManager.Instance.AudioSource.volume = PlayerPrefs.GetFloat("VolumeSFX",1.0f);
         PlayerPrefs.SetInt("IsSoundsOn", value ? 1 : 0);
     }
 
@@ -358,6 +368,27 @@ public class GameManager : MonoBehaviour
                 result = "Queen";
                 break;
             default:
+                break;
+        }
+        return result;
+    }
+
+    private MoveType getRandomMoveType(byte level)
+    {
+        MoveType result = MoveType.Knight;
+        switch(level)
+        {
+            case 0:
+                result = gameConfig.chessPossibility.GetRandomItem().moveType;
+                break;
+            default:
+                result = (MoveType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(MoveType)).Length);
+
+
+
+
+
+                
                 break;
         }
         return result;

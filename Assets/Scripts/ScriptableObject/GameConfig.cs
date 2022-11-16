@@ -11,4 +11,6 @@ public class GameConfig : ScriptableObject
 	public float enemyAnimTime;
 	public Font fontTextLegacy;
 	public TMP_FontAsset fontTMP;
+	public byte gameLevel;
+	public LootTable chessPossibility;
 }

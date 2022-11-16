@@ -45,13 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ea7d0472e5aa394d9c8a4d5d306beaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioSource: {fileID: 0}
   _musics:
   - {fileID: 8300000, guid: 8d9e0c21663a483469ec781d1ebe0343, type: 3}
+  - {fileID: 8300000, guid: e2346edd81d1882448bc1c48a978d791, type: 3}
+  - {fileID: 8300000, guid: 08244fed1e45a1e48ba71debac231e29, type: 3}
+  - {fileID: 8300000, guid: f03e671ac3c1c0448a7075325ba61a18, type: 3}
+  - {fileID: 8300000, guid: 9e07116dd3f0401448d2488984fb40b1, type: 3}
   _lyricsPath: Assets/Resources/Soundtracks/Lyrics/
-  _particleText: {fileID: 9025660922098761659, guid: ad0d7ec649e03ea4d8c9a0531f7f2ac5, type: 3}
   _textLyrics:
   - {fileID: 4900000, guid: b2a4e5b72b662594daa775a5309fc4b4, type: 3}
+  - {fileID: 4900000, guid: 0f157ef1329469f42ba2fd17a1a5e6b0, type: 3}
+  - {fileID: 4900000, guid: 144eaba76ae3fb242a4741c23670d5a6, type: 3}
+  - {fileID: 4900000, guid: 3b51f91f86d3ae54f9c930c701a61edb, type: 3}
+  - {fileID: 4900000, guid: 5de72932347f3f449aec8acc38ccfcd9, type: 3}
 --- !u!82 &7558624634638963150
 AudioSource:
   m_ObjectHideFlags: 0

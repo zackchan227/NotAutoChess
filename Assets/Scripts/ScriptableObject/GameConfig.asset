@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyCount: 10
   globalAnimTime: 0
-  playerMoveSpeed: 5
+  playerMoveSpeed: 7
   playerAnimTime: 0.1
   enemyAnimTime: 0.33
-  fontTextLegacy: {fileID: 12800000, guid: f9f5c637f519ba442abf9e11d76a9db9, type: 3}
+  fontTextLegacy: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
   fontTMP: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  gameLevel: 0
+  chessPossibility: {fileID: 11400000, guid: 8e163b2d59811eb4e8d174b5d3a15405, type: 2}

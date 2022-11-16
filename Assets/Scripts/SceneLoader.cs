@@ -35,6 +35,7 @@ public class SceneLoader : MonoBehaviour
     IEnumerator DownloadScene()
     {
         var downloadScene = Addressables.LoadSceneAsync(_scene, LoadSceneMode.Additive);
+        tmpTotalDownloaded.text = "";
         downloadScene.Completed += SceneDownloadComplete;
         Debug.Log("Starting scene download");
 
@@ -57,6 +58,8 @@ public class SceneLoader : MonoBehaviour
 
     private void SceneDownloadComplete(AsyncOperationHandle<SceneInstance> _handle)
     {
+        downloadProgress.value = 100;
+        tmpProgress.text = downloadProgress.value.ToString() + "%";
         if(_handle.Status == AsyncOperationStatus.Succeeded)
         {
             Debug.Log(_handle.Result.Scene.name + " successfully loaded.");

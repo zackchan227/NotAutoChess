@@ -43,6 +43,8 @@ public class Player : MonoBehaviour
         set { audioSource = value; }
     }
 
+    bool hasFirstBlood = false;
+
     void Awake()
     {
         Instance = this;
@@ -52,6 +54,9 @@ public class Player : MonoBehaviour
         _canvas = GameObject.Find("Canvas").transform;
         _gameScreen = GameObject.Find("GameScreen").transform;
         _onClickEffect = Instantiate(_onClickEffectPrefab, _canvas);
+        _onClickEffect.gameObject.AddComponent<Canvas>();
+        _onClickEffect.GetComponent<Canvas>().overrideSorting = true;
+        _onClickEffect.GetComponent<Canvas>().sortingOrder = 2;
         _bloodSplashEffectPrefab.name = "BloodFX";
         _hitEffectPrefab.name = "HitFX";
         ParticleSystem.Instantiate(_bloodSplashEffectPrefab, _gameScreen);
@@ -64,6 +69,11 @@ public class Player : MonoBehaviour
     {
         //Invoke("randomMove", 1.0f);
     }
+
+    // void OnDisable()
+    // {
+    //     this.RemoveAllListener();
+    // }
 
     // Update is called once per frame
     void Update()
@@ -459,6 +469,12 @@ public class Player : MonoBehaviour
                 Destroy(_hitTile.StandingUnit);
                 this.PostEvent(EventID.OnPlayerKill);
                 this.PostEvent(EventID.OnScoreCount, _killStreak);
+                if(!hasFirstBlood) 
+                {
+                    hasFirstBlood = true;
+                    this.PostEvent(EventID.OnFirstBlood);
+                }
+                if(_killStreak > 1) this.PostEvent(EventID.OnKillStreak,_killStreak);
                 StartCoroutine(moveToTargetAndReplace());
             }
         }
