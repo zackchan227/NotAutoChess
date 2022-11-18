@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     private AudioClip _attackSound, _hitSound;
     private SpriteRenderer _currentSprite;
     private Tile currentStanding;
-    private bool isAuto = false;
+    //private bool isAuto = false;
     private bool isAttacking = false;
     private bool isMoving = false;
     private byte _currentFrame = 0;
@@ -135,6 +135,7 @@ public class Player : MonoBehaviour
         {
             //_parentTransform.position = Vector3.SmoothDamp(_parentTransform.position, _hitTile.transform.position, ref velocity, 0.1f);
             _parentTransform.position = Vector3.MoveTowards(_parentTransform.position, tempHitPosition, Time.deltaTime * _moveSpeed);
+            
             yield return null;
         }
         _parentTransform.position = new Vector3(tempHitPosition.x, tempHitPosition.y, tempHitPosition.y);
@@ -143,7 +144,7 @@ public class Player : MonoBehaviour
         _hitTile.SetUnit(this.gameObject);
         resetMoveableHighlight();
         GameManager.Instance.ChangeState(GameManager.GameState.AttackerTurn);
-        //Player.Instance.Move(0,GridManager.Instance.GetPlayerMoveableTiles(!GameManager.Instance._isReadyToSwitchIsometric, Player.Instance._parentTransform.position, GameManager.Instance._currentMoveType));
+        GameManager.Instance.ChangeState(GameManager.GameState.DefenderTurn);
     }
 
     IEnumerator moveToTarget(Vector3 target)
@@ -158,7 +159,6 @@ public class Player : MonoBehaviour
             _parentTransform.position = Vector3.MoveTowards(_parentTransform.position, target, Time.deltaTime * _moveSpeed);
             yield return null;
         }
-        
         _parentTransform.position = new Vector3(target.x, target.y, target.y - 0.01f);
         isMoving = false;
         checkFlipX(_hitTile.transform.position);
@@ -167,6 +167,7 @@ public class Player : MonoBehaviour
         resetMoveableHighlight();
         isAttacking = true;
         _currentFrame = 0;
+        GameManager.Instance.ChangeState(GameManager.GameState.DefenderTurn);
     }
 
     private void checkFlipX(Vector3 target)
@@ -466,7 +467,6 @@ public class Player : MonoBehaviour
             {
                 isAttacking = false;
                 UnitManager.Instance.RemoveEnemy(_hitTile.StandingUnit);
-                Destroy(_hitTile.StandingUnit);
                 this.PostEvent(EventID.OnPlayerKill);
                 this.PostEvent(EventID.OnScoreCount, _killStreak);
                 if(!hasFirstBlood) 

@@ -12,14 +12,16 @@ public class Popup : MonoBehaviour
         TRANSPARENT,
         GO_UP_THEN_DISAPPEAR,
         CHANGE_TEXT,
-        TEXT_WRITING
+        TEXT_WRITING,
+        WOBBLE
     }
     private static Popup popup;
     public static Popup Instance => popup;
 
     [SerializeField] private TMP_Text tmpMessage;
     [SerializeField] private Image imgBG;
-    bool runAnim = false, needEraseText = false;
+    bool runAnim = false;
+    //bool needEraseText = false;
     Color tempColor;
     float animTime, timer = 0f, countdown = 0f, timerEraseText = 0f, timeErase;
     ANIMATE currentAnim;
@@ -35,6 +37,7 @@ public class Popup : MonoBehaviour
 
     void Start()
     {
+        tmpMessage = GetComponentInChildren<TMP_Text>();
         originPos = gameObject.GetComponent<RectTransform>().localPosition;
         gameObject.SetActive(false);
     }
@@ -46,7 +49,7 @@ public class Popup : MonoBehaviour
             timer += Time.unscaledDeltaTime;
             if (timer < animTime)
             {
-                checkAndRunAnim();
+               checkAndRunAnim();
             }
             else resetAnim();
         }
@@ -192,19 +195,19 @@ public class Popup : MonoBehaviour
 		return stringBuilder.ToString();
 	}
 
-    private void ErasedText()
-    {
-        foreach (char c in tmpMessage.text)
-		{
-            if(c != ' ')
-            {
-                tmpMessage.text = Utils.ReplaceAtIndex(tmpMessage.text, tmpMessage.text.IndexOf(c), ' ');
-                break;
-            }
+    // private void ErasedText()
+    // {
+    //     foreach (char c in tmpMessage.text)
+	// 	{
+    //         if(c != ' ')
+    //         {
+    //             tmpMessage.text = Utils.ReplaceAtIndex(tmpMessage.text, tmpMessage.text.IndexOf(c), ' ');
+    //             break;
+    //         }
 
-            if(tmpMessage.text.IndexOf(c) == tmpMessage.text.Length - 1) needEraseText = false;
-		}
-    }
+    //         if(tmpMessage.text.IndexOf(c) == tmpMessage.text.Length - 1) needEraseText = false;
+	// 	}
+    // }
 
     public void ResetPosition()
     {
@@ -214,7 +217,7 @@ public class Popup : MonoBehaviour
     private void StopAnim()
     {
         timer = 0f;
-        //this.gameObject.SetActive(false);
+        close();
         tmpMessage.text = "";
         runAnim = false;
     }
@@ -235,12 +238,21 @@ public class Popup : MonoBehaviour
         tmpMessage.text = ((int)(countdown - timer)).ToString();
     }
 
+    private void runWobbleAnim()
+    {
+        //tmpMessage.gameObject.AddComponent<WordWobble>();
+        tmpMessage.GetComponent<WordWobble>().enabled = true;
+    }
+
     private void resetAnim()
     {
         Opaque();
         //ResetPosition();
+        tmpMessage.GetComponent<WordWobble>().enabled = false;
+        //tmpMessage.gameObject.SetActive(false);
         StopAnim();
     }
+
 
     private void checkAndRunAnim()
     {
@@ -254,6 +266,9 @@ public class Popup : MonoBehaviour
                 break;
             case ANIMATE.CHANGE_TEXT:
                 runChangeTextAnim();
+                break;
+            case ANIMATE.WOBBLE:
+                runWobbleAnim();
                 break;
             default:
                 runTransparentAnim();

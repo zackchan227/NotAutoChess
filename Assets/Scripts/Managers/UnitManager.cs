@@ -1,8 +1,9 @@
-
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Event;
+using UnityEngine.Pool;
+using System;
 
 public class UnitManager : MonoBehaviour
 {
@@ -10,18 +11,52 @@ public class UnitManager : MonoBehaviour
     public GameObject attackerPrefab;
     public GameObject defenderPrefab;
     public Transform unitParent;
-    [SerializeField] GameObject test;
 
+    private IObjectPool<Enemy> _enemyPool;
     private List<GameObject> _lstEnemies;
     private GameObject _player;
-    public Transform _playerTransform;
 
     void Awake()
     {
         Instance = this;
+        _enemyPool = new ObjectPool<Enemy>(CreateEnemy, OnGetEnemy, OnReleaseEnemy, OnDestroyEnemy, maxSize:(int)GameManager.Instance.gameConfig.enemyCount/2);
         _lstEnemies = new List<GameObject>();
-        //_units = Resources.LoadAll<ScriptableUnit>("Units").ToList();
-        //test.GetComponent<CinemachineVirtualCamera>()
+    }
+
+    private void OnGetEnemy(Enemy enemy)
+    {
+        Transform enemyTrans = enemy.transform.parent;
+        enemyTrans.position = GetRandomPos();
+        Tile randomSpawnTile = GridManager.Instance.GetTileAtPosition(enemyTrans.position);
+
+        randomSpawnTile.SetUnit(enemyTrans.gameObject);
+        
+        if (randomSpawnTile.transform.localScale.x > 1.0f)
+        {
+            enemyTrans.localScale = new Vector3(randomSpawnTile.transform.localScale.x - 0.5f, randomSpawnTile.transform.localScale.y - 0.5f, 0);
+        }
+        else enemyTrans.localScale = randomSpawnTile.transform.localScale;
+        enemyTrans.position = new Vector3(enemyTrans.position.x, enemyTrans.position.y, enemyTrans.position.y);
+        _lstEnemies.Add(enemyTrans.gameObject);
+        this.PostEvent(EventID.OnEnemyIncrease);
+        enemyTrans.gameObject.SetActive(true);
+    }
+
+    private void OnReleaseEnemy(Enemy enemy)
+    {
+        enemy.transform.parent.gameObject.SetActive(false);
+    }
+
+    private void OnDestroyEnemy(Enemy enemy)
+    {
+        Destroy(enemy.transform.parent.gameObject);
+    }
+
+    private Enemy CreateEnemy()
+    {
+        Enemy enemy = SpawnDefender();
+        enemy.SetPool(_enemyPool);
+        return enemy;
     }
 
     public void SpawnAttackerAtPos(Vector2 vt)
@@ -74,37 +109,57 @@ public class UnitManager : MonoBehaviour
 
     public void SpawnDefenderRandomPos()
     {
+        // GameObject spawnedDenfender = Instantiate(defenderPrefab, unitParent);
+        // List<Vector2> freeTilesPosition = GridManager.Instance.GetFreeTiles();
+
+        // spawnedDenfender.transform.position = freeTilesPosition[UnityEngine.Random.Range(0, freeTilesPosition.Count)];
+        // Tile randomSpawnTile = GridManager.Instance.GetTileAtPosition(spawnedDenfender.transform.position);
+
+        // randomSpawnTile.SetUnit(spawnedDenfender);
+        
+        // if (randomSpawnTile.transform.localScale.x > 1.0f)
+        // {
+        //     spawnedDenfender.transform.localScale = new Vector3(randomSpawnTile.transform.localScale.x - 0.5f, randomSpawnTile.transform.localScale.y - 0.5f, 0);
+        // }
+        // else spawnedDenfender.transform.localScale = randomSpawnTile.transform.localScale;
+        // spawnedDenfender.transform.position = new Vector3(spawnedDenfender.transform.position.x, spawnedDenfender.transform.position.y, 
+        //                                                   spawnedDenfender.transform.position.y);
+
+        // _lstEnemies.Add(spawnedDenfender);
+        // this.PostEvent(EventID.OnEnemyIncrease);
+        _enemyPool.Get();
+    }
+
+    private Enemy SpawnDefender()
+    {
         GameObject spawnedDenfender = Instantiate(defenderPrefab, unitParent);
+        return spawnedDenfender.GetComponentInChildren<Enemy>();
+    }
+
+    private Vector2 GetRandomPos()
+    {
         List<Vector2> freeTilesPosition = GridManager.Instance.GetFreeTiles();
 
-        spawnedDenfender.transform.position = freeTilesPosition[UnityEngine.Random.Range(0, freeTilesPosition.Count)];
-        Tile randomSpawnTile = GridManager.Instance.GetTileAtPosition(spawnedDenfender.transform.position);
+        return freeTilesPosition[UnityEngine.Random.Range(0, freeTilesPosition.Count)];
+        // Tile randomSpawnTile = GridManager.Instance.GetTileAtPosition(enemy.position);
 
-        randomSpawnTile.SetUnit(spawnedDenfender);
+        // randomSpawnTile.SetUnit(enemy.gameObject);
         
-        if (randomSpawnTile.transform.localScale.x > 1.0f)
-        {
-            spawnedDenfender.transform.localScale = new Vector3(randomSpawnTile.transform.localScale.x - 0.5f, randomSpawnTile.transform.localScale.y - 0.5f, 0);
-        }
-        else spawnedDenfender.transform.localScale = randomSpawnTile.transform.localScale;
-        spawnedDenfender.transform.position = new Vector3(spawnedDenfender.transform.position.x, spawnedDenfender.transform.position.y, 
-                                                          spawnedDenfender.transform.position.y);
+        // if (randomSpawnTile.transform.localScale.x > 1.0f)
+        // {
+        //     enemy.localScale = new Vector3(randomSpawnTile.transform.localScale.x - 0.5f, randomSpawnTile.transform.localScale.y - 0.5f, 0);
+        // }
+        // else enemy.localScale = randomSpawnTile.transform.localScale;
+        // enemy.position = new Vector3(enemy.position.x, enemy.position.y, 
+        //                                                   enemy.position.y);
 
-        _lstEnemies.Add(spawnedDenfender);
-        this.PostEvent(EventID.OnEnemyIncrease);
+        // _lstEnemies.Add(enemy.gameObject);
+        // this.PostEvent(EventID.OnEnemyIncrease);
+        //return enemy;
     }
 
     public void AdjustUnitsPosition(Dictionary<Vector2, Tile> current, Dictionary<Vector2, Tile> target)
     {
-        // if(current.ContainsKey((Vector2)_player.transform.position))
-        // {
-        //     current.
-        //     _player.transform.position = target.ElementAt(i).Key;
-        //     current.ElementAt(i).Value.StandingUnit = null;
-        //     target.ElementAt(i).Value.StandingUnit = _player;
-        //     _player.transform.localScale = target.ElementAt(i).Value.transform.localScale;
-        // }
-
         for (int i = 0; i < current.Keys.Count; i++)
         {
             if (current.ElementAt(i).Key == (Vector2)_player.transform.position)
@@ -145,6 +200,16 @@ public class UnitManager : MonoBehaviour
     public void RemoveEnemy(GameObject go)
     {
         _lstEnemies.Remove(go);
+        go.GetComponentInChildren<Enemy>().ReturnPool();
         this.PostEvent(EventID.OnEnemyDecrease);
+    }
+
+    public void AllDefendersFlipX()
+    {
+        if(_lstEnemies.Count == 0) return;
+        for(int i = 0; i < _lstEnemies.Count; i++)
+        {
+            _lstEnemies[i].GetComponentInChildren<Enemy>().FlipX();
+        }
     }
 }

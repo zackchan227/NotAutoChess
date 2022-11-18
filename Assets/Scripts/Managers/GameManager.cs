@@ -223,6 +223,7 @@ public class GameManager : MonoBehaviour
                 Player.Instance.Move(0, GridManager.Instance.GetPlayerMoveableTiles(!_isReadyToSwitchIsometric, Player.Instance._parentTransform.position, _currentMoveType));
                 break;
             case GameState.DefenderTurn:
+                UnitManager.Instance.AllDefendersFlipX();
                 break;
             default:
                 Debug.Log(nameof(newState));
@@ -276,10 +277,13 @@ public class GameManager : MonoBehaviour
         tgSound.GetComponentInChildren<TMP_Text>().text = tmpText;
         Player.Instance.AudioSource.mute = !value;
         Player.Instance.AudioSource.volume = PlayerPrefs.GetFloat("VolumeSFX",1.0f);
+        //Player.Instance.AudioSource.enabled = value;
         SoundsManager.Instance.AudioSource.mute = !value;
         SoundsManager.Instance.AudioSource.volume = PlayerPrefs.GetFloat("VolumeBGM",1.0f);
+        //SoundsManager.Instance.AudioSource.enabled = value;
         AnnounceManager.Instance.AudioSource.mute = !value;
         AnnounceManager.Instance.AudioSource.volume = PlayerPrefs.GetFloat("VolumeSFX",1.0f);
+        //AnnounceManager.Instance.AudioSource.enabled = value;
         PlayerPrefs.SetInt("IsSoundsOn", value ? 1 : 0);
     }
 

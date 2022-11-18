@@ -15,6 +15,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private Slider downloadProgress;
     [SerializeField] private TMPro.TMP_Text tmpProgress;
     [SerializeField] private TMPro.TMP_Text tmpTotalDownloaded;
+    [SerializeField] private GameObject goBlur;
     private AsyncOperationHandle<SceneInstance> handle;
     public GameObject _camera;
     //long DownloadSize = 0;
@@ -35,7 +36,6 @@ public class SceneLoader : MonoBehaviour
     IEnumerator DownloadScene()
     {
         var downloadScene = Addressables.LoadSceneAsync(_scene, LoadSceneMode.Additive);
-        tmpTotalDownloaded.text = "";
         downloadScene.Completed += SceneDownloadComplete;
         Debug.Log("Starting scene download");
 
@@ -48,6 +48,11 @@ public class SceneLoader : MonoBehaviour
             downloadProgress.value = (int)(progress * 100);
             tmpProgress.text = downloadProgress.value.ToString() + "%";
             tmpTotalDownloaded.text = downloadedMB + "MB/" + totalMB + "MB";
+            if(totalMB == 0) 
+            {
+                goBlur.SetActive(false);
+                //tmpTotalDownloaded.gameObject.SetActive(false);
+            }
             yield return null;
         }
 
@@ -60,31 +65,38 @@ public class SceneLoader : MonoBehaviour
     {
         downloadProgress.value = 100;
         tmpProgress.text = downloadProgress.value.ToString() + "%";
+        StartCoroutine(WaitSeconds(2.0f));
         if(_handle.Status == AsyncOperationStatus.Succeeded)
         {
             Debug.Log(_handle.Result.Scene.name + " successfully loaded.");
             _camera.SetActive(false);
             downloadProgress.gameObject.SetActive(false);
             handle = _handle;
-            //StartCoroutine(UnloadScene());
+            StartCoroutine(UnloadScene());
         }
+    }
+
+    IEnumerator WaitSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
     }
 
     IEnumerator UnloadScene()
     {
-        yield return new WaitForSeconds(10);
-        Addressables.UnloadSceneAsync(handle, true).Completed += op =>
-        {
-            if(op.Status == AsyncOperationStatus.Succeeded)
-            {
-                _camera.SetActive(true);
-                downloadProgress.gameObject.SetActive(true);
-                Debug.Log("Successfully unloaded the scene");
-            }
-        };
+        // yield return new WaitForSeconds(10);
+        // Addressables.UnloadSceneAsync(handle, true).Completed += op =>
+        // {
+        //     if(op.Status == AsyncOperationStatus.Succeeded)
+        //     {
+        //         _camera.SetActive(true);
+        //         downloadProgress.gameObject.SetActive(true);
+        //         Debug.Log("Successfully unloaded the scene");
+        //     }
+        // };
 
-        yield return new WaitForSeconds(5);
-        StartCoroutine(DownloadScene());
+        yield return new WaitForSeconds(1);
+        SceneManager.UnloadSceneAsync(0);
+        //StartCoroutine(DownloadScene());
     }
 
 }

@@ -20,7 +20,7 @@ public class SoundsManager : MonoBehaviour
     int i = 0;
     List<string> _lyrics;
     List<float> _timeLyrics;
-    float time, pollingTime = 1.0f;
+    //float time, pollingTime = 1.0f;
     WaitForSecondsRealtime wait;
     private TMP_Text _tmpSongName;
     public float currentVolume {get; set;}
@@ -30,6 +30,7 @@ public class SoundsManager : MonoBehaviour
     private Button _btNote;
     private Button _btClose;
     private Image _imgLyricsPanel;
+    private AudioClip currentClip;
 
     void Awake()
     {
@@ -42,6 +43,13 @@ public class SoundsManager : MonoBehaviour
         _btNote = GameObject.Find("note").GetComponent<Button>();
         _canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         //_lyricsPanel = _canvas.gameObject.transform.Find("LyricsPanel(Clone)").gameObject;
+        for(int i = 0; i < _musics.Count; i++)
+        {
+            if(!_musics[i].UnloadAudioData())
+            {
+                Debug.Log("Unload audio data " + _musics[i] + " failed");
+            }
+        }
     }
 
     // Start is called before the first frame update
@@ -70,12 +78,23 @@ public class SoundsManager : MonoBehaviour
     private void randomBackgroundMusic()
     {
         if(_musics.Count == 0) return;
-        AudioSource.clip = _musics[Random.Range(0,_musics.Count)];
+        currentClip = _musics[Random.Range(0,_musics.Count)];
+        currentClip.LoadAudioData();
+        StartCoroutine(ReadToPlay());
+    }
+
+    private IEnumerator ReadToPlay()
+    {
+        while(currentClip.loadState != AudioDataLoadState.Loaded)
+        {
+            yield return null;
+        }
+        AudioSource.clip = currentClip;
         //AudioSource.clip = _musics[3];
         currentMusicName = AudioSource.clip.name;
-        _tmpSongName.text = currentMusicName.Substring(0,1).ToUpper() + currentMusicName.Substring(1,currentMusicName.Length-1) + " - " + "Memento Mori";
+        _tmpSongName.text = currentMusicName.Substring(0, 1).ToUpper() + currentMusicName.Substring(1, currentMusicName.Length - 1) + " - " + "Memento Mori";
         //addLyricsTimer();
-        if(!AudioSource.isPlaying) 
+        if (!AudioSource.isPlaying)
         {
             StartCoroutine(PlayAndWait());
         }
@@ -88,8 +107,9 @@ public class SoundsManager : MonoBehaviour
         AudioSource.Play();
         //InvokeRepeating("displayLyrics",1.0f,1.0f);
         yield return new WaitForSecondsRealtime(AudioSource.clip.length);
+        currentClip.UnloadAudioData();
         AudioSource.Stop();
-        Popup.Instance.ResetPosition();
+        //Popup.Instance.ResetPosition();
         randomBackgroundMusic();
     }
 
@@ -268,18 +288,20 @@ public class SoundsManager : MonoBehaviour
         }
         if(_lyricsPanel != null && !_lyricsPanel.activeSelf) 
         {
-            // StopCoroutine(WaitLyricsPanelDisappear());
-            // StartCoroutine(WaitLyricsPanelAppear());
-            _lyricsPanel.gameObject.SetActive(true);
+            _imgLyricsPanel.material.SetFloat("_Progress",0);
+            StopCoroutine(WaitLyricsPanelDisappear());
+            StartCoroutine(WaitLyricsPanelAppear());
+            //_lyricsPanel.gameObject.SetActive(true);
         }
     }
 
     private void closeLyricsPanel()
     {
         _btClose.onClick.RemoveAllListeners();
-        // StopCoroutine(WaitLyricsPanelAppear());
-        // StartCoroutine(WaitLyricsPanelDisappear());
-        _lyricsPanel.gameObject.SetActive(false);
+        _imgLyricsPanel.material.SetFloat("_Progress",1);
+        StopCoroutine(WaitLyricsPanelAppear());
+        StartCoroutine(WaitLyricsPanelDisappear());
+        //_lyricsPanel.gameObject.SetActive(false);
     }
 
     IEnumerator LoadLyricsPanelAsync()
@@ -296,28 +318,33 @@ public class SoundsManager : MonoBehaviour
             _tmpLyrics.text = GetCurrentSongLyricsText().text;
             _imgLyricsPanel = _lyricsPanel.transform.Find("Panel").GetComponent<Image>();
             _imgLyricsPanel.material.SetFloat("_Progress",0);
-            //StartCoroutine(WaitLyricsPanelAppear());
-            _lyricsPanel.gameObject.SetActive(true);
+            StartCoroutine(WaitLyricsPanelAppear());
+            //_lyricsPanel.gameObject.SetActive(true);
         }           
     }
 
-    private void Transparent(float time)
+    private void Transparent(float time, float totalTime)
     {
         Color tempColor;
         tempColor = _tmpLyrics.color;
-        tempColor.a = Mathf.Lerp(tempColor.a, 0, time);
-        _imgLyricsPanel.material.SetFloat("_Progress", Mathf.MoveTowards(_imgLyricsPanel.material.GetFloat("_Progress"), 0, time));
+        tempColor.a = Mathf.Lerp(tempColor.a, 0, time/totalTime);
+        _imgLyricsPanel.material.SetFloat("_Progress", 1 - time/totalTime);
         _tmpLyrics.color = tempColor;
     }
 
-    private void Opaque(float time)
+    private void Opaque(float time,float totalTime)
     {
-        Color tempColor;
-        tempColor = _tmpLyrics.color;
-        tempColor.a = Mathf.Lerp(tempColor.a, 1, time);
+        if (time >= totalTime / 2)
+        {
+            Color tempColor;
+            tempColor = _tmpLyrics.color;
+            tempColor.a = Mathf.Lerp(tempColor.a, 1, time / totalTime / 2);
+            _tmpLyrics.color = tempColor;
+        }
         //tempColor.a = 1;
-        _imgLyricsPanel.material.SetFloat("_Progress", Mathf.MoveTowards(_imgLyricsPanel.material.GetFloat("_Progress"), 1, time));
-        _tmpLyrics.color = tempColor;
+        //_imgLyricsPanel.material.SetFloat("_Progress", Mathf.MoveTowards(_imgLyricsPanel.material.GetFloat("_Progress"), 1, time));
+        _imgLyricsPanel.material.SetFloat("_Progress", time/totalTime);
+        
     }
 
     IEnumerator WaitLyricsPanelDisappear()
@@ -326,8 +353,8 @@ public class SoundsManager : MonoBehaviour
         float duration = 2.0f;
         while(t < duration)
         {
-            t += (1 / duration) * Time.deltaTime;
-            Transparent(t);
+            Transparent(t, duration);
+            t += Time.deltaTime;
             yield return null;
         }
         _lyricsPanel.gameObject.SetActive(false);
@@ -340,8 +367,8 @@ public class SoundsManager : MonoBehaviour
         float duration = 2.0f;
         while(t < duration)
         {
-            t += (1 / duration) * Time.deltaTime;
-            Opaque(t);
+            Opaque(t, duration);
+            t += Time.deltaTime;
             yield return null;
         }
     }

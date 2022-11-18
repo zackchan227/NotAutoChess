@@ -48,9 +48,9 @@ MonoBehaviour:
   _musics:
   - {fileID: 8300000, guid: 8d9e0c21663a483469ec781d1ebe0343, type: 3}
   - {fileID: 8300000, guid: e2346edd81d1882448bc1c48a978d791, type: 3}
-  - {fileID: 8300000, guid: 08244fed1e45a1e48ba71debac231e29, type: 3}
   - {fileID: 8300000, guid: f03e671ac3c1c0448a7075325ba61a18, type: 3}
   - {fileID: 8300000, guid: 9e07116dd3f0401448d2488984fb40b1, type: 3}
+  - {fileID: 8300000, guid: 08244fed1e45a1e48ba71debac231e29, type: 3}
   _lyricsPath: Assets/Resources/Soundtracks/Lyrics/
   _textLyrics:
   - {fileID: 4900000, guid: b2a4e5b72b662594daa775a5309fc4b4, type: 3}
@@ -69,7 +69,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 1

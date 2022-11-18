@@ -85,7 +85,15 @@ public class SettingsView : MonoBehaviour
     {
         if(Utils.checkLengthString(1, 14, ipChangePlayerName.text))
         {
-            StartCoroutine(SetPlayerName());
+            if(!ipChangePlayerName.text.Contains(':'))
+            {
+                StartCoroutine(SetPlayerName());
+            }
+            else
+            {
+                Toast.Instance.showToast("Player name contains invalid character ':'", 5.0f, Toast.ANIMATE.GO_UP_THEN_DISAPPEAR);
+                ipChangePlayerName.text = "";
+            }
         }
         else
         {

@@ -7,10 +7,10 @@ public class SpriteScaler : MonoBehaviour
         scaleSprite();
     }
 
-    void LateUpdate()
-    {
-        scaleSprite();
-    }
+    // void LateUpdate()
+    // {
+    //     scaleSprite();
+    // }
 
     private void scaleSprite()
     {

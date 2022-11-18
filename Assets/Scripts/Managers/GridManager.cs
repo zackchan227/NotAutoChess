@@ -583,6 +583,7 @@ public class GridManager : MonoBehaviour
     private List<Vector2> getDiagonalCrossIsometricTiles(Vector2 playerPos)
     {
         List<Vector2> results = new List<Vector2>();
+        results.Add(new Vector2(playerPos.x, playerPos.y + (0.5f * isometricTransform.localScale.y)));
         results.Add(new Vector2(playerPos.x, playerPos.y + (1 * isometricTransform.localScale.y)));
         results.Add(new Vector2(playerPos.x, playerPos.y + (1.5f * isometricTransform.localScale.y)));
         results.Add(new Vector2(playerPos.x, playerPos.y + (2 * isometricTransform.localScale.y)));
@@ -593,6 +594,7 @@ public class GridManager : MonoBehaviour
         results.Add(new Vector2(playerPos.x, playerPos.y + (4.5f * isometricTransform.localScale.y)));
         results.Add(new Vector2(playerPos.x, playerPos.y + (5 * isometricTransform.localScale.y)));
 
+        results.Add(new Vector2(playerPos.x, playerPos.y - (0.5f * isometricTransform.localScale.y)));
         results.Add(new Vector2(playerPos.x, playerPos.y - (1 * isometricTransform.localScale.y)));
         results.Add(new Vector2(playerPos.x, playerPos.y - (1.5f * isometricTransform.localScale.y)));
         results.Add(new Vector2(playerPos.x, playerPos.y - (2 * isometricTransform.localScale.y)));
@@ -600,6 +602,7 @@ public class GridManager : MonoBehaviour
         results.Add(new Vector2(playerPos.x, playerPos.y - (3 * isometricTransform.localScale.y)));
         results.Add(new Vector2(playerPos.x, playerPos.y - (3.5f * isometricTransform.localScale.y)));
         results.Add(new Vector2(playerPos.x, playerPos.y - (4 * isometricTransform.localScale.y)));
+        results.Add(new Vector2(playerPos.x, playerPos.y - (4.5f * isometricTransform.localScale.y)));
         results.Add(new Vector2(playerPos.x, playerPos.y - (5 * isometricTransform.localScale.y)));
 
         results.Add(new Vector2(playerPos.x + (1 * isometricTransform.localScale.x), playerPos.y));

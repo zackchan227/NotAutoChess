@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Enemy : MonoBehaviour
 {
     private Transform _player;
     private Transform _trans;
     private SpriteRenderer _sprite;
+    private IObjectPool<Enemy> _pool;
 
     void Awake()
     {
@@ -23,14 +25,22 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void FlipX()
     {
-        if(GameManager.Instance.isPausing) return;
         if(_player.position.x > _trans.position.x)
         {
             _sprite.flipX = true;
         }
         else _sprite.flipX = false;
+    }
+
+    public void SetPool(IObjectPool<Enemy> pool)
+    {
+        _pool = pool;
+    }
+
+    public void ReturnPool()
+    {
+        _pool?.Release(this);
     }
 }

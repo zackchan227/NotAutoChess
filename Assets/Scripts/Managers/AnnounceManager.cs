@@ -10,12 +10,13 @@ public class AnnounceManager : MonoBehaviour
     [SerializeField] private AudioClip[] _announces;
     [SerializeField] private TMP_Text tmpAnnounceKillStreak;
     public AudioSource AudioSource {get; set;}
+    private byte currentKillStreak = 0;
 
     void Awake()
     {
         if(Instance == null) Instance = this;
         AudioSource = GetComponent<AudioSource>();
-        tmpAnnounceKillStreak = GameObject.Find("tmpAnnounceKillStreak").GetComponent<TMP_Text>();
+        //tmpAnnounceKillStreak = GameObject.Find("tmpAnnounceKillStreak").GetComponent<TMP_Text>();
     }
 
     // Start is called before the first frame update
@@ -36,7 +37,7 @@ public class AnnounceManager : MonoBehaviour
 
     void OnEnable()
     {
-        tmpAnnounceKillStreak.gameObject.SetActive(false);
+        //tmpAnnounceKillStreak.gameObject.SetActive(false);
     }
 
     void OnDisable()
@@ -46,17 +47,36 @@ public class AnnounceManager : MonoBehaviour
 
     private void showAnnounceKillStreak(string str)
     {
-        tmpAnnounceKillStreak.text = str;
-        tmpAnnounceKillStreak.gameObject.SetActive(true);
+        // tmpAnnounceKillStreak.text = str;
+        // tmpAnnounceKillStreak.gameObject.SetActive(true);
+        Popup.Instance.showPopup(str,5.0f,Popup.ANIMATE.WOBBLE);
     }
 
     private void playAnnounceKillStreak(byte an)
     {
+        // if(!compareCurrentKillStreak(an))
+        // {
+        //     Popup.Instance.ResetPosition();
+        // }
         if(an > 5)
         {
             PlayAnnounce(ANNOUNCE.RAMPAGE);
         }
         else PlayAnnounce((ANNOUNCE)an-1);
+    }
+
+    private bool compareCurrentKillStreak(byte an)
+    {
+        if(currentKillStreak < an) 
+        {
+            currentKillStreak = an;
+            return true;
+        }
+        else 
+        {
+            currentKillStreak = 0;
+            return false;
+        }
     }
 
     private void PlayAnnounce(ANNOUNCE an)
@@ -112,7 +132,7 @@ public class AnnounceManager : MonoBehaviour
                 //AudioSource.PlayOneShot(_announces[13]);
                 break;
         }
-        StartCoroutine(WaitToDisableAnnounceKillStreak());
+        //StartCoroutine(WaitToDisableAnnounceKillStreak());
     }
 
     IEnumerator WaitToDisableAnnounceKillStreak()
