@@ -128,6 +128,9 @@ public class AnnounceManager : MonoBehaviour
             case ANNOUNCE.HOLY_SHEET:
                 AudioSource.PlayOneShot(_announces[12]);
                 break;
+            case ANNOUNCE.SHOW_ME_MORE:
+                AudioSource.PlayOneShot(_announces[13]);
+                break;
             default:
                 //AudioSource.PlayOneShot(_announces[13]);
                 break;

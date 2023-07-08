@@ -12,7 +12,7 @@ public class SpriteScaler : MonoBehaviour
     //     scaleSprite();
     // }
 
-    private void scaleSprite()
+    public void scaleSprite()
     {
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
 

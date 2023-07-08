@@ -49,9 +49,10 @@ public class GameManager : MonoBehaviour
     public byte _enemyCount {get; set ;}
     public ulong _moveCount {get; set ;}
     public ulong _killCount {get; set ;}
-    public ulong _playCount {get; set ;}
+    private int _playCount = 0;
     public ulong _score {get; set ;}
     public bool isSoundsOn {get; set ;}
+    public string _playTime {get; set ;}
 
     void Awake()
     {
@@ -72,6 +73,10 @@ public class GameManager : MonoBehaviour
         btRestart.onClick.AddListener(OnClickButtonRestart);
         btSettings.onClick.AddListener(OnClickButtonSettings);
         //ddMusic.onValueChanged.AddListener(delegate {OnValueChangedDropdownMusic(ddMusic);});
+        _playCount = PlayerPrefs.GetInt("PlayCount");
+        _playCount++;
+        PlayerPrefs.SetInt("PlayCount", _playCount);
+        Debug.Log(_playCount);
     }
 
     private void OnDisable()
@@ -126,11 +131,14 @@ public class GameManager : MonoBehaviour
                 frameCount = 0;
             }
         }
-       
-        if (Input.GetKeyDown(KeyCode.Space))
+
+        if(isPausing) return;
+        
+        if(Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.Space))
         {
+            //Scene scene = SceneManager.GetActiveScene(); 
             SceneManager.LoadScene(0);
-        }
+         }
 
         if(isLost) return;
 
@@ -183,7 +191,12 @@ public class GameManager : MonoBehaviour
     {
         bool isDone = false;
         string playerName = PlayerPrefs.GetString("PlayerName");
-        string metaData = _moveCount.ToString() + "," + _killCount.ToString() + "," + _playCount + "," + DateTime.Now.ToString("dd MMMM yyyy HH:mm:ss");
+        string metaData = _moveCount.ToString() + "," 
+                        + _killCount.ToString() + "," 
+                        + _playCount + "," 
+                        + gameConfig.gameLevel + "," 
+                        + _playTime + "," 
+                        + DateTime.Now.ToString("dd MMMM yyyy HH:mm:ss");
         //NetworkManager.Instance.SaveScore(metaData);
         LootLockerSDKManager.SubmitScore(playerName, (int)_score, 7528, metaData, (response) =>
         {
@@ -289,17 +302,18 @@ public class GameManager : MonoBehaviour
 
     private void OnClickButtonRestart()
     {
-        SceneManager.LoadScene(0);      
+        SceneLoader.Instance.Restart(); 
     }
 
     IEnumerator WaitToRestart(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        SceneManager.LoadScene(0);
+        SceneLoader.Instance.Restart();
     }
 
     private void OnClickButtonSettings()
     {
+        //OnClickButtonPause();
         DialogManager.Instance.ShowDialog("DialogSettings");
     }
 
@@ -379,22 +393,15 @@ public class GameManager : MonoBehaviour
 
     private MoveType getRandomMoveType(byte level)
     {
-        MoveType result = MoveType.Knight;
-        switch(level)
+        MoveType result = MoveType.Pawn;
+        if(level == 0)
         {
-            case 0:
-                result = gameConfig.chessPossibility.GetRandomItem().moveType;
-                break;
-            default:
-                result = (MoveType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(MoveType)).Length);
-
-
-
-
-
-                
-                break;
+            result = gameConfig.chessPossibility.GetRandomItem().moveType;
+        }
+        else
+        {
+            result = (MoveType)Enum.GetValues(typeof(MoveType)).GetValue(level-1);
         }
         return result;
     }
-}
+}                               

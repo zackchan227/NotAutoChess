@@ -138,6 +138,23 @@ MonoBehaviour:
   - {fileID: -1602553648, guid: 91c20c4349fb113488a312211ba33d0d, type: 3}
   - {fileID: -622622719, guid: 91c20c4349fb113488a312211ba33d0d, type: 3}
   - {fileID: -1274566071, guid: 91c20c4349fb113488a312211ba33d0d, type: 3}
+  _idles1:
+  - {fileID: 250784896, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: -748464632, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: -458588667, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: 1205583583, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: -161634990, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: -1013116736, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: 710169736, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: 422173708, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: -974856970, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: 1638385507, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: -1829090086, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: 1892967698, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: -542811844, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: 1017804273, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: -500470476, guid: 46479a1692f105e40a503552b2219672, type: 3}
+  - {fileID: 767321121, guid: 46479a1692f105e40a503552b2219672, type: 3}
   _runs:
   - {fileID: 1309588301, guid: 88411c8c584b1eb449e24cab61c27157, type: 3}
   - {fileID: 2115703591, guid: 88411c8c584b1eb449e24cab61c27157, type: 3}
@@ -248,7 +265,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0

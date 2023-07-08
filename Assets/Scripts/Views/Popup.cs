@@ -23,7 +23,7 @@ public class Popup : MonoBehaviour
     bool runAnim = false;
     //bool needEraseText = false;
     Color tempColor;
-    float animTime, timer = 0f, countdown = 0f, timerEraseText = 0f, timeErase;
+    float animTime, timer = 0f, countdown = 0f; //timerEraseText = 0f, timeErase;
     ANIMATE currentAnim;
     Vector2 originPos;
 

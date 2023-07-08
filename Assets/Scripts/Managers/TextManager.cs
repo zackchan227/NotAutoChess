@@ -88,6 +88,7 @@ public class TextManager : MonoBehaviour
 	private void UpdateTimer()
 	{
 		tmpTimer.text = Utils.formatTimer(_currentTimeFromStart);
+        GameManager.Instance._playTime = Utils.formatTimer(_currentTimeFromStart);
 	}
 
 	private void UpdateEnemyIncrease()
@@ -107,13 +108,14 @@ public class TextManager : MonoBehaviour
 	private void UpdatePlayerMoveCount()
 	{
 		_moveCount++;
-         GameManager.Instance._moveCount = _moveCount;
+        GameManager.Instance._moveCount = _moveCount;
 		tmpMoveCount.text = MOVE_TEXT_PREFIX + _moveCount;
 	}
 
     private void UpdatePlayerKillCount()
 	{
 		_killCount++;
+        SwitchAnnounce(_killCount);
         GameManager.Instance._killCount = _killCount;
 		//tmpKillCount.text = MOVE_TEXT_PREFIX + _killCount;
 	}
@@ -144,6 +146,49 @@ public class TextManager : MonoBehaviour
     IEnumerator WaitUntilUnpause()
     {
         yield return new WaitUntil(() => Time.timeScale == 1.0f);
+    }
+
+    private void SwitchAnnounce(ulong kill)
+    {   
+        switch(kill)
+        {
+            case 10:
+                this.PostEvent(EventID.OnOneHundredPoint);
+                break;
+            case 30:
+                this.PostEvent(EventID.OnThreeHundredPoint);
+                break;
+            case 50:
+                this.PostEvent(EventID.OnFiveHundredPoint);
+                break;
+            case 100:
+                this.PostEvent(EventID.OnOneThousandPoint);
+                break;
+            case 200:
+                this.PostEvent(EventID.OnTwoThousandPoint);
+                break;
+            case 300:
+                this.PostEvent(EventID.OnThreeThousandPoint);
+                break;
+            case 350:
+            case 400:
+            case 450:
+            case 500:
+            case 550:
+            case 600:
+            case 650:
+            case 700:
+            case 750:
+            case 800:
+            case 850:
+            case 900:
+            case 950:
+            case 1000:
+                this.PostEvent(EventID.OnShowMeMore);
+                break;
+            default:
+                break;
+        }
     }
 
 	#endregion

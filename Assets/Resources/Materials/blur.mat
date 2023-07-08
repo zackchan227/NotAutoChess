@@ -118,7 +118,7 @@ Material:
     - _DirectLightingRamp: 1
     - _DissolveSmooth: 0.1
     - _Distort: 0.1
-    - _Distortion: 1
+    - _Distortion: 3
     - _DistortionBlend: 0.5
     - _DistortionEnabled: 0
     - _DistortionStrength: 1

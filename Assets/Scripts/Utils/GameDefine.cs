@@ -24,17 +24,18 @@ public enum EventID
     OnOneThousandFiveHundredPoint,
     OnTwoThousandPoint,
     OnThreeThousandPoint,
+    OnShowMeMore,
     Unkown = 404
 }
 
 public enum MoveType
 {
-    Pawn = 0,
+    Pawn = 1,
     Knight,
     Bishop,
     Rook,
     Queen,
-    King = 5
+    King = 6
 }
 
 public enum ANNOUNCE

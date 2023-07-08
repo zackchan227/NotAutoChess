@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b942677fd64c8284f9ad0e384262b1ba, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  enemyCount: 10
+  enemyCount: 8
   globalAnimTime: 0
   playerMoveSpeed: 7
   playerAnimTime: 0.1

@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 {
     public static Player Instance;
     [SerializeField] private Sprite[] _idles;
+    [SerializeField] private Sprite[] _idles1;
     [SerializeField] private Sprite[] _runs;
     [SerializeField] private Sprite[] _attacks1;
     [SerializeField] private Sprite[] _attacks2;
@@ -35,6 +36,8 @@ public class Player : MonoBehaviour
     private List<Sprite> _currentAnim = new List<Sprite>();
     ParticleSystem _onClickWrongParticleEffect, _onClickRightParticleEffect, _hitEffect;
     UIParticle _onClickEffect;
+    byte _countIdle = 0;
+    byte _countIdleTarget = 0;
 
     private Transform _canvas, _gameScreen;
     public AudioSource AudioSource
@@ -50,7 +53,8 @@ public class Player : MonoBehaviour
         Instance = this;
         _currentSprite = this.GetComponent<SpriteRenderer>();
         _parentTransform = this.transform.parent;
-        _currentAnim.AddRange(_idles);
+        _countIdleTarget = (byte)UnityEngine.Random.Range(5, 10);
+        checkIdle();
         _canvas = GameObject.Find("Canvas").transform;
         _gameScreen = GameObject.Find("GameScreen").transform;
         _onClickEffect = Instantiate(_onClickEffectPrefab, _canvas);
@@ -367,7 +371,7 @@ public class Player : MonoBehaviour
         else
         {
             _runEffect.Stop();
-            _currentAnim.AddRange(_idles);
+            checkIdle();
         }
     }
 
@@ -484,6 +488,10 @@ public class Player : MonoBehaviour
     {
         if (_currentFrame >= _currentAnim.Count - 1)
         {
+            if(!isMoving && !isAttacking)
+            {
+                checkIdle();
+            }
             _currentFrame = 0;
         }
         else
@@ -493,6 +501,23 @@ public class Player : MonoBehaviour
         if (_currentSprite != null)
         {
             _currentSprite.sprite = _currentAnim[_currentFrame];
+        }
+    }
+
+    private void checkIdle()
+    {
+        _countIdle++;
+        //Debug.Log(_countIdle);
+        _currentAnim.Clear();
+        if(_countIdle == _countIdleTarget)
+        {
+            _countIdle = 0;
+            _countIdleTarget = (byte)UnityEngine.Random.Range(5, 10);
+            _currentAnim.AddRange(_idles1);
+        }
+        else
+        {
+            _currentAnim.AddRange(_idles);
         }
     }
 

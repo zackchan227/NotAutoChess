@@ -84,8 +84,10 @@ public class CameraController : MonoBehaviour//, IPointerDownHandler, IPointerUp
             if (sizeTemp != cam.orthographicSize)
             {
                 cam.orthographicSize = sizeTemp;
+                this.GetComponentInChildren<SpriteScaler>().scaleSprite();
                 //cam.orthographicSize = Mathf.Clamp(sizeTemp,minZoom,GameManager.Instance._maxZoom);
             }
+            
             CenterCamera();
         }
     }

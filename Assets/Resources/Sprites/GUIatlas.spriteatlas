@@ -56,11 +56,16 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0f3b4de19de5ccb4886664b69f8d698d, type: 3}
   - {fileID: 21300000, guid: 3fcb08d2ad4eca143ae00eb7f5e0ac85, type: 3}
   - {fileID: 21300000, guid: 9244f1045470cc241ba28f53451fdc0e, type: 3}
+  - {fileID: 21300000, guid: 4c3d21348270b0e408789fe7cc847282, type: 3}
+  - {fileID: 21300000, guid: b55c9a54aa1d6dd44bdd5e3963b2e61e, type: 3}
   - {fileID: 21300000, guid: debde4461b712eb4ea655cca968e3cfb, type: 3}
   - {fileID: 21300000, guid: ec81fe375f31e0d45a2474ef2cd58a40, type: 3}
+  - {fileID: 21300000, guid: 0adab067fdf584848a417745b26ea1c9, type: 3}
+  - {fileID: 21300000, guid: 26062b9856d1c6348a49ad18df5fed79, type: 3}
   - {fileID: 21300000, guid: 33ae5af9c65a22c469f1dd0aa442faba, type: 3}
   - {fileID: 21300000, guid: 7053e23aef6d1f6468c3c13ff2313ebc, type: 3}
   - {fileID: 21300000, guid: 8a73bb8ce5a0faa429f5f9f41bd9015e, type: 3}
+  - {fileID: 21300000, guid: 59259f1d899e8b84ea1895f1accea6bf, type: 3}
   - {fileID: 21300000, guid: 224e7f5de1e2262449c1beb73228bef5, type: 3}
   - {fileID: 21300000, guid: d3320efedf1d102488e8b5d5c3412e3e, type: 3}
   - {fileID: 21300000, guid: 3574ed8f1da790541979996f81e931ae, type: 3}
@@ -73,11 +78,16 @@ SpriteAtlas:
   - R_Cog
   - R_Arrow4
   - R_SoundOn
+  - R_Rectangle
+  - R_Cylinder1
   - R_Pause
   - R_SquareFrame
+  - Overlay_Rectangle
+  - R_DiceButton
   - R_Cross
   - icon_leaderboard
   - R_Hand
+  - Overlay_Cylinder1
   - R_Hourglass
   - R_Banner
   - R_Note2

@@ -89,7 +89,7 @@ public class WordWobble : MonoBehaviour
 
     Vector2 Wobble(float time)
     {
-        return new Vector2(Mathf.Sin(time * 3.3f), Mathf.Cos(time * 2.5f));
+        return new Vector2(Mathf.Sin(time * 3.3f * 3.0f), Mathf.Cos(time * 2.5f * 3.0f));
         //return new Vector2(Mathf.Sin(time*10.3f), Mathf.Cos(time*10.5f));
     }
 }

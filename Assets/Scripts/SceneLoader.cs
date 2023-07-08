@@ -10,38 +10,53 @@ using System;
 
 public class SceneLoader : MonoBehaviour
 {
+    public static SceneLoader Instance;
     [SerializeField] private AssetReference _scene;
     [SerializeField] private List<AssetReference> _references = new List<AssetReference>();
     [SerializeField] private Slider downloadProgress;
     [SerializeField] private TMPro.TMP_Text tmpProgress;
     [SerializeField] private TMPro.TMP_Text tmpTotalDownloaded;
     [SerializeField] private GameObject goBlur;
-    private AsyncOperationHandle<SceneInstance> handle;
+    [SerializeField] private Button _btTapToStart;
+    private AsyncOperationHandle<SceneInstance> handle, downloadScene;
+    private AsyncOperationHandle download;
     public GameObject _camera;
     //long DownloadSize = 0;
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if(!Instance) Instance = this;
+        DontDestroyOnLoad(this);
         downloadProgress.minValue = 0;
         downloadProgress.maxValue = 100;
+        _btTapToStart.onClick.RemoveAllListeners();
+        _btTapToStart.onClick.AddListener(OnClickStart);
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        download = Addressables.DownloadDependenciesAsync(_scene);
+        download.Completed += DownloadComplete;
         StartCoroutine(DownloadScene());
     }
 
+    // void Update()
+    // {
+    //     if(_btTapToStart.gameObject.activeSelf) 
+    //     {
+    //         _startBanner.SetActive((Time.unscaledTime % 0.1f < .2));
+    //     }
+    // }
+
     IEnumerator DownloadScene()
     {
-        var downloadScene = Addressables.LoadSceneAsync(_scene, LoadSceneMode.Additive);
-        downloadScene.Completed += SceneDownloadComplete;
-        Debug.Log("Starting scene download");
+        
+        Debug.Log("Starting download asset");
 
-        while(!downloadScene.IsDone)
+        while(!download.IsDone)
         {
-            var status = downloadScene.GetDownloadStatus();
+            var status = download.GetDownloadStatus();
             float progress = status.Percent;
             double downloadedMB = Math.Round((float)status.DownloadedBytes/1024/1024, 2);
             double totalMB = Math.Round((float)status.TotalBytes/1024/1024,2);
@@ -59,27 +74,36 @@ public class SceneLoader : MonoBehaviour
         Debug.Log("Download Complete");
         downloadProgress.value = 100;
         tmpProgress.text = downloadProgress.value.ToString() + "%";
+
+        
     }
 
     private void SceneDownloadComplete(AsyncOperationHandle<SceneInstance> _handle)
     {
-        downloadProgress.value = 100;
-        tmpProgress.text = downloadProgress.value.ToString() + "%";
-        StartCoroutine(WaitSeconds(2.0f));
+        //_camera.SetActive(false);
+        //SceneManager.UnloadSceneAsync(0);
+    }
+
+    private void DownloadComplete(AsyncOperationHandle _handle)
+    {
         if(_handle.Status == AsyncOperationStatus.Succeeded)
         {
-            Debug.Log(_handle.Result.Scene.name + " successfully loaded.");
-            _camera.SetActive(false);
-            downloadProgress.gameObject.SetActive(false);
-            handle = _handle;
-            StartCoroutine(UnloadScene());
+            //Debug.Log(_handle.Result.ToString());
+            StartCoroutine(WaitSeconds(2f,_handle));
         }
     }
 
-    IEnumerator WaitSeconds(float seconds)
+    IEnumerator WaitSeconds(float seconds, AsyncOperationHandle _handle)
     {
         yield return new WaitForSeconds(seconds);
+        downloadProgress.gameObject.SetActive(false);
+        //StartCoroutine(UnloadScene());
+        _btTapToStart.gameObject.SetActive(true);
+        // downloadScene = Addressables.LoadSceneAsync(_scene, LoadSceneMode.Additive);
+        // downloadScene.Completed += SceneDownloadComplete;
     }
+
+
 
     IEnumerator UnloadScene()
     {
@@ -96,7 +120,18 @@ public class SceneLoader : MonoBehaviour
 
         yield return new WaitForSeconds(1);
         SceneManager.UnloadSceneAsync(0);
-        //StartCoroutine(DownloadScene());
+    }
+
+    public void OnClickStart()
+    {
+        _btTapToStart.gameObject.SetActive(false);
+        downloadScene = Addressables.LoadSceneAsync(_scene, LoadSceneMode.Single);
+        //downloadScene.Completed += SceneDownloadComplete;
+    }
+
+    public void Restart()
+    {
+        Addressables.LoadSceneAsync(_scene, LoadSceneMode.Single);
     }
 
 }

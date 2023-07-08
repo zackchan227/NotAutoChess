@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using LootLocker.Requests;
+using UnityEngine.SceneManagement;
 
 public class SettingsView : MonoBehaviour
 {
@@ -113,7 +114,7 @@ public class SettingsView : MonoBehaviour
         }
         else
         {
-            LootLockerSDKManager.SetPlayerName(playerName, (response) =>
+            LootLockerSDKManager.SetPlayerName(ipChangePlayerName.text, (response) =>
             {
                 if (response.success)
                 {
@@ -146,7 +147,11 @@ public class SettingsView : MonoBehaviour
 
     private void OnClickButtonSave()
     {
-       Toast.Instance.showToast(0, comingSoon, 2.0f, Toast.ANIMATE.GO_UP_THEN_DISAPPEAR);
+       //Toast.Instance.showToast(0, comingSoon, 2.0f, Toast.ANIMATE.GO_UP_THEN_DISAPPEAR);
+       //Scene scene = SceneManager.GetActiveScene(); 
+       //SceneManager.LoadScene(scene.name);
+       DialogManager.Instance.CloseDialog(this.gameObject);
+       SceneLoader.Instance.Restart();
     }
 
     private void OnMusicValueChange()
@@ -159,6 +164,7 @@ public class SettingsView : MonoBehaviour
     private void OnSoundValueChange()
     {
         Player.Instance.AudioSource.volume = sliderSound.value;
+        AnnounceManager.Instance.AudioSource.volume = sliderSound.value;
         PlayerPrefs.SetFloat("VolumeSFX", sliderSound.value);
     }
 
